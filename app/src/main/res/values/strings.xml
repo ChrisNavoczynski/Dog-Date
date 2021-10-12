@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Dog-Date</string>
-
     <string-array name="states">
         <item>Alabama</item>
         <item>Alaska</item>
@@ -53,4 +52,10 @@
         <item>Wisconsin</item>
         <item>Wyoming</item>
     </string-array>
+    <string name="welcome">Welcome To</string>
+    <string name="dog_date">DOG DATE!</string>
+    <string name="home_image">home_image</string>
+    <string name="right_icon">right_icon</string>
+    <string name="lets_begin_btn">Let\'s Begin!</string>
+    <string name="left_icon">left_icon</string>
 </resources>
