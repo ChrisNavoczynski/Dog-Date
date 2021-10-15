@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    android:background="@drawable/background">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="125dp">
+
+        <TextView
+            android:id="@+id/dog_name_id"
+            android:text="Your Dog's name: "
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <EditText
+            android:id="@+id/dog_name_text_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:hint="Enter your dog's name"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/dog_breed_id"
+            android:text="Your Dog Breed: "
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/dog_gender_id"
+            android:text="Gender of Dog:"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <CheckBox
+            android:id="@+id/dog_gender_male_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Male"
+            android:textSize="20dp"/>
+
+        <CheckBox
+            android:id="@+id/dog_gender_female_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Female"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/dog_age_id"
+            android:text="Your Dog's age:"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <EditText
+            android:id="@+id/dog_age_text_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:hint="Enter your dog's age"
+            android:inputType="number"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/dog_size_id"
+            android:text="Size of Dog:"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <CheckBox
+            android:id="@+id/dog_size_small_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Small"
+            android:textSize="18dp"/>
+
+        <CheckBox
+            android:id="@+id/dog_size_medium_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Medium"
+            android:textSize="18dp"/>
+
+        <CheckBox
+            android:id="@+id/dog_size_large_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Large"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/nextButton"
+        android:text="next"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="145dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
