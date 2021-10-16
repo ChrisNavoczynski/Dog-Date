@@ -16,12 +16,13 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="125dp">
+        android:layout_marginTop="50dp">
 
         <TextView
             android:id="@+id/dog_name_id"
-            android:text="Your Dog's name: "
-            android:textSize="20dp"
+            android:text="@string/dog_name_text_view"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
@@ -29,8 +30,10 @@
             android:id="@+id/dog_name_text_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:hint="Enter your dog's name"
+            android:layout_marginStart="10dp"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:hint="@string/dog_name_edit_text"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
@@ -42,8 +45,9 @@
 
         <TextView
             android:id="@+id/dog_breed_id"
-            android:text="Your Dog Breed: "
-            android:textSize="20dp"
+            android:text="@string/dog_breed_text_view"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
@@ -52,6 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,27 +71,32 @@
 
         <TextView
             android:id="@+id/dog_gender_id"
-            android:text="Gender of Dog:"
-            android:textSize="20dp"
+            android:text="@string/dog_gender_text_view"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
-        <CheckBox
-            android:id="@+id/dog_gender_male_id"
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Male"
-            android:textSize="20dp"/>
+            android:id="@+id/genderGroup">
+            <RadioButton
+                android:id="@+id/dog_gender_male_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/male"
+                android:textSize="20sp"/>
 
-        <CheckBox
-            android:id="@+id/dog_gender_female_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Female"
-            android:textSize="20dp"/>
-
+            <RadioButton
+                android:id="@+id/dog_gender_female_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/female"
+                android:textSize="20sp"/>
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
@@ -96,8 +107,9 @@
 
         <TextView
             android:id="@+id/dog_age_id"
-            android:text="Your Dog's age:"
-            android:textSize="20dp"
+            android:text="@string/dog_age_text_view"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
@@ -105,8 +117,10 @@
             android:id="@+id/dog_age_text_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:hint="Enter your dog's age"
+            android:layout_marginStart="30dp"
+            android:hint="@string/dog_age_edit_text"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:inputType="number"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
@@ -118,42 +132,47 @@
         android:layout_marginTop="20dp">
         <TextView
             android:id="@+id/dog_size_id"
-            android:text="Size of Dog:"
-            android:textSize="20dp"
+            android:text="@string/dog_size_text_view"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
-        <CheckBox
-            android:id="@+id/dog_size_small_id"
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Small"
-            android:textSize="18dp"/>
+            android:id="@+id/sizeGroup">
+            <RadioButton
+                android:id="@+id/dog_size_small_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/small"
+                android:textSize="18sp"/>
 
-        <CheckBox
-            android:id="@+id/dog_size_medium_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Medium"
-            android:textSize="18dp"/>
+            <RadioButton
+                android:id="@+id/dog_size_medium_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/medium"
+                android:textSize="18sp"/>
 
-        <CheckBox
-            android:id="@+id/dog_size_large_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Large"
-            android:textSize="18dp"/>
-
+            <RadioButton
+                android:id="@+id/dog_size_large_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/large"
+                android:textSize="18sp"/>
+        </RadioGroup>
     </LinearLayout>
 
     <Button
         android:id="@+id/nextButton"
-        android:text="next"
-        android:layout_marginTop="150dp"
-        android:layout_marginLeft="145dp"
+        android:text="@string/next_button_text"
+        android:layout_marginTop="125dp"
+        android:layout_marginStart="145dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
