@@ -15,15 +15,20 @@
         android:theme="@style/Theme.DogDate">
         <activity android:name=".Preference">
         </activity>
-        <activity android:name=".dogProfile">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".DoggyProfile">
         </activity>
+
+        <activity android:name=".dogProfile">
+        </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
