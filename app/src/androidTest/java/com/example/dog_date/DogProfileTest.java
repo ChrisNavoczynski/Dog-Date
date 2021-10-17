@@ -1,10 +1,8 @@
 package com.example.dog_date;
 
-import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +19,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class DogProfileTest {
 
     @Rule
-    public ActivityScenarioRule<MainActivity> activityTestRule
-            = new ActivityScenarioRule<>(MainActivity.class);
+    public ActivityScenarioRule<DogProfile> activityTestRule
+            = new ActivityScenarioRule<>(DogProfile.class);
 
     @Test
     public void hasTextOnScreen() {
@@ -31,7 +29,7 @@ public class DogProfileTest {
     }
 
     @Test
-    public void fillForm() throws InterruptedException {
+    public void fillForm() {
         onView(withId(R.id.dog_name_text_id)).perform(typeText("Jasper Doggo"));
         onView(withId(R.id.autoCompleteTextView)).perform(typeText("Pembroke Welsh Corgi"), (scrollTo()), (click()));
         onView(withId(R.id.dog_gender_male_id)).perform(scrollTo(), click());
