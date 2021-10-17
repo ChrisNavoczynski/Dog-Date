@@ -33,6 +33,6 @@ public class MainActivityTest {
 
     @Test
     public void buttonPress() {
-        onView(withId(R.id.beginButton)).perform(scrollTo(), click());
+        onView(withId(R.id.beginButton)).perform(click());
     }
 }
