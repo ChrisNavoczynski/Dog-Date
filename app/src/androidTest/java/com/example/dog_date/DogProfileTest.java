@@ -33,7 +33,7 @@ public class DogProfileTest {
     public void fillForm() {
         onView(withId(R.id.dog_name_text_id)).perform(typeText("Jasper Doggo"));
         closeSoftKeyboard();
-        onView(withId(R.id.autoCompleteTextView)).perform(typeText("Pembroke Welsh Corgi"), (scrollTo()), (click()));
+        onView(withId(R.id.autoCompleteTextView)).perform(typeText("Pembroke Welsh Corgi"));
         closeSoftKeyboard();
         onView(withId(R.id.dog_gender_male_id)).perform(scrollTo(), click());
         onView(withId(R.id.dog_age_text_id)).perform(typeText("8"));

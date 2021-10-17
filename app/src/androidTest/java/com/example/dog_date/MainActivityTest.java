@@ -1,5 +1,6 @@
 package com.example.dog_date;
 
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -35,6 +36,6 @@ public class MainActivityTest {
     @Test
     public void buttonPress() {
         closeSoftKeyboard();
-        onView(withId(R.id.beginButton)).perform(scrollTo(), click());
+        onView(withId(R.id.beginButton)).check(matches(ViewMatchers.withText(R.string.lets_begin_btn)));
     }
 }
