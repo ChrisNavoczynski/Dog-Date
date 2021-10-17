@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
@@ -33,6 +34,7 @@ public class MainActivityTest {
 
     @Test
     public void buttonPress() {
-        onView(withId(R.id.beginButton)).perform(click());
+        closeSoftKeyboard();
+        onView(withId(R.id.beginButton)).perform(scrollTo(), click());
     }
 }

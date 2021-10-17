@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
@@ -19,22 +20,26 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class DogProfileTest {
 
     @Rule
-    public ActivityScenarioRule<DogProfile> activityTestRule
-            = new ActivityScenarioRule<>(DogProfile.class);
+    public ActivityScenarioRule<DoggyProfile> activityTestRule
+            = new ActivityScenarioRule<>(DoggyProfile.class);
 
     @Test
     public void hasTextOnScreen() {
         onView(withId(R.id.dog_profile_title))
-                .check(matches(withText(R.string.create_your_dogs_profile)));
+                .check(matches(withText("Create your dog's profile")));
     }
 
     @Test
     public void fillForm() {
         onView(withId(R.id.dog_name_text_id)).perform(typeText("Jasper Doggo"));
+        closeSoftKeyboard();
         onView(withId(R.id.autoCompleteTextView)).perform(typeText("Pembroke Welsh Corgi"), (scrollTo()), (click()));
+        closeSoftKeyboard();
         onView(withId(R.id.dog_gender_male_id)).perform(scrollTo(), click());
         onView(withId(R.id.dog_age_text_id)).perform(typeText("8"));
+        closeSoftKeyboard();
         onView(withId(R.id.dog_size_medium_id)).perform(scrollTo(), click());
+        closeSoftKeyboard();
         onView(withId(R.id.nextButton)).perform(scrollTo(), click());
     }
 
