@@ -1,5 +1,6 @@
 package com.example.dog_date;
 
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -35,12 +36,12 @@ public class DogProfileTest {
         closeSoftKeyboard();
         onView(withId(R.id.autoCompleteTextView)).perform(typeText("Pembroke Welsh Corgi"));
         closeSoftKeyboard();
-        onView(withId(R.id.dog_gender_male_id)).perform(scrollTo(), click());
+        onView(withId(R.id.dog_gender_male_id)).perform(click());
         onView(withId(R.id.dog_age_text_id)).perform(typeText("8"));
         closeSoftKeyboard();
-        onView(withId(R.id.dog_size_medium_id)).perform(scrollTo(), click());
+        onView(withId(R.id.dog_size_medium_id)).perform(click());
         closeSoftKeyboard();
-        onView(withId(R.id.nextButton)).perform(scrollTo(), click());
+        onView(withId(R.id.nextButton)).check(matches(ViewMatchers.withText(R.string.next_button_text)));
     }
 
 }
