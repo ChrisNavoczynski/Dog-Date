@@ -28,6 +28,7 @@ public class SignUpTest {
     public void usernameFieldRequired(){
         onView(withId(R.id.username)).perform(typeText(""));
         onView(withId(R.id.password)).perform(scrollTo(), typeText("somePassword"));
+        onView(withId(R.id.email)).perform(scrollTo(), typeText("email@gmail.com"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.b_signUp)).perform(scrollTo(), click());
         onView(allOf(withId(R.id.username), hasErrorText("Please Enter Username")));
@@ -37,15 +38,27 @@ public class SignUpTest {
     public void passwordFieldRequired(){
         onView(withId(R.id.username)).perform(typeText("someUser"));
         onView(withId(R.id.password)).perform(scrollTo(), typeText(""));
+        onView(withId(R.id.email)).perform(scrollTo(), typeText("email@gmail.com"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.b_signUp)).perform(scrollTo(), click());
         onView(allOf(withId(R.id.password), hasErrorText("Please Enter Password")));
     }
 
     @Test
+    public void emailValidRequired(){
+        onView(withId(R.id.username)).perform(typeText("someUser"));
+        onView(withId(R.id.password)).perform(scrollTo(), typeText(""));
+        onView(withId(R.id.email)).perform(scrollTo(), typeText("email"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.b_signUp)).perform(scrollTo(), click());
+        onView(allOf(withId(R.id.password), hasErrorText("Please Enter Valid Email")));
+    }
+
+    @Test
     public void SignUpForm(){
         onView(withId(R.id.username)).perform(typeText("someUser"));
         onView(withId(R.id.password)).perform(scrollTo(), typeText("somePassword"));
+        onView(withId(R.id.email)).perform(scrollTo(), typeText("email@gmail.com"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.b_signUp)).perform(scrollTo(), click());
     }
