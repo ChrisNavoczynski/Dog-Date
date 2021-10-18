@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn = (Button)findViewById(R.id.beginButton);
+        Button btn = findViewById(R.id.beginButton);
 
-        btn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DoggyProfile.class)));
+        btn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SignUp.class)));
     }
 }
