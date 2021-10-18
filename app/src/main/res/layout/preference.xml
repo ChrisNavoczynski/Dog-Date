@@ -15,8 +15,11 @@
             android:layout_height="wrap_content"
             android:text="Choose Your Preference"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="30dp"
-            android:textSize="30dp"/>
+            android:layout_marginLeft="20dp"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/coiny"
+            android:textColor="@color/bronze"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -147,14 +150,12 @@
 
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:layout_height="wrap_content"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="gotoP2"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="140dp"
             android:text="NEXT"
             android:textSize="20dp"/>

@@ -3,7 +3,6 @@ package com.example.dog_date;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,17 +11,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class dogProfile extends AppCompatActivity{
+public class DogProfile extends AppCompatActivity{
 
     private Uri imageUri;
 
@@ -50,26 +47,18 @@ public class dogProfile extends AppCompatActivity{
         storageReference = FirebaseStorage.getInstance().getReference("DisplayPics");
 
         // upload button is not for upload but is select picture from the phone
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mGetContent.launch("image/*");
-            }
-        });
+        uploadButton.setOnClickListener(v -> mGetContent.launch("image/*"));
 
-        // save button gonna go to next activity and upload info to FireStore
-        // TODO finish the upload function
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadPic();
-            }
-        });
+        /*
+         save button gonna go to next activity and upload info to FireStore
+         TODO finish the upload function
+        */
+        saveButton.setOnClickListener(v -> uploadPic());
 
-        // sprinner for the states input
+        // spinner for the states input
         Spinner mySpinner = findViewById(R.id.spinner1);
 
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(dogProfile.this,
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(DogProfile.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.states));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
@@ -157,7 +146,7 @@ public class dogProfile extends AppCompatActivity{
             return;
         }
 
-        Intent intent = new Intent(com.example.dog_date.dogProfile.this,Preference.class);
+        Intent intent = new Intent(com.example.dog_date.DogProfile.this,Preference.class);
         ownername = ownerName.getText().toString();
         ownerage = ownerAge.getText().toString();
         intent.putExtra(Constants.KEY_OWNER_NAME, ownername);

@@ -26,7 +26,7 @@
         <activity android:name=".DoggyProfile">
         </activity>
 
-        <activity android:name=".dogProfile">
+        <activity android:name=".DogProfile">
         </activity>
 
     </application>

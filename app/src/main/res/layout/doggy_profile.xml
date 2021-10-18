@@ -12,11 +12,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/dog_profile_title"
+        android:text="@string/create_your_dogs_profile"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/coiny"
+        android:textColor="@color/bronze"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="40dp">
 
         <TextView
             android:id="@+id/dog_name_id"
@@ -171,7 +181,7 @@
     <Button
         android:id="@+id/nextButton"
         android:text="@string/next_button_text"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="145dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
