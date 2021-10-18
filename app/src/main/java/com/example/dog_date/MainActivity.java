@@ -18,4 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
         btn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SignUp.class)));
     }
+
+
 }

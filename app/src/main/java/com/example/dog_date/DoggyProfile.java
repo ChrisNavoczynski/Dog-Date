@@ -480,6 +480,6 @@ public class DoggyProfile extends AppCompatActivity {
 
         Button btn = (Button)findViewById(R.id.nextButton);
 
-        btn.setOnClickListener(v -> startActivity(new Intent(DoggyProfile.this, dogProfile.class)));
+        btn.setOnClickListener(v -> startActivity(new Intent(DoggyProfile.this, DogProfile.class)));
     }
 }
