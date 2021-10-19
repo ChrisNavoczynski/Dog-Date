@@ -19,10 +19,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 
-public class SignUpTest {
+public class SignUpActivityTest {
     @Rule
-    public ActivityScenarioRule<SignUp> activityScenarioRule
-            = new ActivityScenarioRule<>(SignUp.class);
+    public ActivityScenarioRule<SignUpActivity> activityScenarioRule
+            = new ActivityScenarioRule<>(SignUpActivity.class);
 
     @Test
     public void usernameFieldRequired(){
