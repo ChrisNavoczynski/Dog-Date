@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose Your Preference"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="30dp"
             android:textSize="30dp"/>
 
@@ -26,40 +26,47 @@
             android:layout_marginLeft="10dp"
             android:textSize="30dp"/>
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender of Owner"
-            android:layout_marginTop="20dp"
-            android:textSize="20dp"/>
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/OwnerGenderText"
+                android:text="preference gender:"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
 
-            <CheckBox
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Male"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:id="@+id/genderGroup">
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Female"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"/>
+                <RadioButton
+                    android:id="@+id/Male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Male"
+                    android:onClick="checkButton"
+                    android:textSize="18dp"/>
+
+                <RadioButton
+                    android:id="@+id/Female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Female"
+                    android:onClick="checkButton"
+                    android:textSize="18dp"/>
+            </RadioGroup>
 
         </LinearLayout>
 
-        <CheckBox
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Age of Owner"
+            android:text="Age of Owner:"
             android:layout_marginTop="20dp"
             android:textSize="20dp"/>
 
@@ -102,10 +109,10 @@
 
         </LinearLayout>
 
-        <CheckBox
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="States"
+            android:text="States:"
             android:layout_marginTop="20dp"
             android:textSize="20dp"/>
 

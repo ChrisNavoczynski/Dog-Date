@@ -52,6 +52,8 @@
         <item>Wisconsin</item>
         <item>Wyoming</item>
     </string-array>
+    <string name="Male">Male</string>
+    <string name="Female">Female</string>
     <string name="welcome">Welcome To</string>
     <string name="dog_date">DOG DATE!</string>
     <string name="home_image">home_image</string>
@@ -61,12 +63,14 @@
     <string name="dog_name_text_view">Your Dog\'s name:</string>
     <string name="dog_name_edit_text">Enter your dog\'s name</string>
     <string name="dog_breed_text_view">Your Dog Breed:</string>
+    <string name="preference_breed_text_view">Preference Dog Breed:</string>
     <string name="dog_gender_text_view">Gender of Dog:</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="dog_age_text_view">Your Dog\'s age:</string>
     <string name="dog_age_edit_text">Enter your dog\'s age</string>
     <string name="dog_size_text_view">Size of Dog:</string>
+    <string name="preference_dog_size_text_view">preference Size:</string>
     <string name="small">Small</string>
     <string name="medium">Medium</string>
     <string name="large">Large</string>
