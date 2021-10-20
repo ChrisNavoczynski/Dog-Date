@@ -70,7 +70,6 @@ public class DogProfile extends AppCompatActivity{
 
         /*
          save button gonna go to next activity and upload info to FireStore
-         TODO finish the upload function
         */
         saveButton.setOnClickListener(v -> uploadPic());
 
