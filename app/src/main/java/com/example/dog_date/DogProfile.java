@@ -1,23 +1,37 @@
 package com.example.dog_date;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 public class DogProfile extends AppCompatActivity{
 
@@ -25,11 +39,15 @@ public class DogProfile extends AppCompatActivity{
 
     ImageView uploadImage;
     EditText ownerName, ownerAge;
-    CheckBox ownerMale,ownerFemale;
     Button uploadButton,saveButton;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
-    String ownername, ownerage, ownergender;
+    String ownername, ownerage, ownergender,ownerStates;
     private StorageReference storageReference;
+    private DatabaseReference databaseReference;
+    private StorageTask uploadTask;
+    int radioId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +58,12 @@ public class DogProfile extends AppCompatActivity{
         uploadButton = findViewById(R.id.uploadImage);
         saveButton = findViewById(R.id.saveButton);
         ownerAge = findViewById(R.id.ownerAge);
-        ownerMale = findViewById(R.id.ownerMale);
-        ownerFemale = findViewById(R.id.ownerFemale);
+        radioGroup = findViewById(R.id.genderGroup);
         ownerName = findViewById(R.id.ownerName);
 
-        storageReference = FirebaseStorage.getInstance().getReference("DisplayPics");
+        databaseReference = FirebaseDatabase.getInstance().getReference("profile");
+        storageReference = FirebaseStorage.getInstance().getReference("profile");
+
 
         // upload button is not for upload but is select picture from the phone
         uploadButton.setOnClickListener(v -> mGetContent.launch("image/*"));
@@ -63,6 +82,7 @@ public class DogProfile extends AppCompatActivity{
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
 
+        ownerStates = mySpinner.getSelectedItem().toString();
     }
 
     // save input if user rotate the phone
@@ -126,23 +146,58 @@ public class DogProfile extends AppCompatActivity{
                 public void onActivityResult(Uri result) {
                     if (result !=null){
                         uploadImage.setImageURI(result);
+                        imageUri = result;
                     }
                 }
             });
 
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mine = MimeTypeMap.getSingleton();
+        return mine.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    public void checkButton(View v){
+        radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        ownergender = radioButton.getText().toString();
+    }
+
     // upload function, check all the input and go to next activity
     private void uploadPic(){
-        if (ownerMale.isChecked()){
-            ownergender = ownerMale.getText().toString();
-        }
-        if (ownerFemale.isChecked()){
-            ownergender = ownerFemale.getText().toString();
-        }
+        if(imageUri != null){
+            StorageReference fileReference = storageReference.child("ProfilePic"
+            + "." + getFileExtension(imageUri));
 
+            uploadTask = fileReference.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageReference.child("ProfilePic"
+                                    + "." + getFileExtension(imageUri)).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    Uri downloadUri = task.getResult();
+                                    Upload upload = new Upload(ownerName.getText().toString().trim(),
+                                            ownerAge.getText().toString().trim(), ownergender.trim(), downloadUri.toString(), ownerStates.trim());
+                                    String uploadId = databaseReference.push().getKey();
+                                    databaseReference.child(uploadId).setValue(upload);
+                                    Toast.makeText(DogProfile.this, "Upload successful", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(DogProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
         boolean isAgeValid = validAge();
         boolean isNameValid = validOwnerName();
-
-        if (!isAgeValid | !isNameValid | ownergender ==null | uploadImage == null){
+        if (!isAgeValid | !isNameValid | ownergender == null | uploadImage == null){
             return;
         }
 
@@ -151,7 +206,7 @@ public class DogProfile extends AppCompatActivity{
         ownerage = ownerAge.getText().toString();
         intent.putExtra(Constants.KEY_OWNER_NAME, ownername);
         intent.putExtra(Constants.KEY_OWNER_AGE, ownerage);
-        intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
+        //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
     }
 }
