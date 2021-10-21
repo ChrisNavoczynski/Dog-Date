@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -34,7 +33,7 @@ public class DogProfileTest {
     public void fillForm() {
         onView(withId(R.id.dog_name_text_id)).perform(typeText("Jasper Doggo"));
         closeSoftKeyboard();
-        onView(withId(R.id.autoCompleteTextView)).perform(typeText("Pembroke Welsh Corgi"));
+        onView(withId(R.id.dog_breed_text_id)).perform(typeText("Pembroke Welsh Corgi"));
         closeSoftKeyboard();
         onView(withId(R.id.dog_gender_male_id)).perform(click());
         onView(withId(R.id.dog_age_text_id)).perform(typeText("8"));
