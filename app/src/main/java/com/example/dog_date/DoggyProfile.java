@@ -63,6 +63,6 @@ public class DoggyProfile extends AppCompatActivity {
             toast.show();
             return;
         }
-        startActivity(new Intent(this, DogProfile.class));
+        startActivity(new Intent(this, OwnerProfile.class));
     }
 }

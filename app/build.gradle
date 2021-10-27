@@ -59,4 +59,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
+    implementation 'com.lorentzos.swipecards:library:1.0.9@aar'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

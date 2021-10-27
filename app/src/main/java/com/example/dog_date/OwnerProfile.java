@@ -1,14 +1,16 @@
 package com.example.dog_date;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -26,14 +28,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-public class DogProfile extends AppCompatActivity{
+public class OwnerProfile extends AppCompatActivity{
 
     private Uri imageUri;
 
@@ -43,9 +45,10 @@ public class DogProfile extends AppCompatActivity{
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    String ownername, ownerage, ownergender,ownerStates;
+    String ownername, ownerage, ownergender, ownerStates;
+    Spinner mySpinner;
     private StorageReference storageReference;
-    private DatabaseReference databaseReference;
+    private FirebaseFirestore db;
     private StorageTask uploadTask;
     int radioId;
 
@@ -61,7 +64,7 @@ public class DogProfile extends AppCompatActivity{
         radioGroup = findViewById(R.id.genderGroup);
         ownerName = findViewById(R.id.ownerName);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("profile");
+        db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("profile");
 
 
@@ -74,14 +77,12 @@ public class DogProfile extends AppCompatActivity{
         saveButton.setOnClickListener(v -> uploadPic());
 
         // spinner for the states input
-        Spinner mySpinner = findViewById(R.id.spinner1);
+        mySpinner = findViewById(R.id.spinner1);
 
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(DogProfile.this,
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(OwnerProfile.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.states));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
-
-        ownerStates = mySpinner.getSelectedItem().toString();
     }
 
     // save input if user rotate the phone
@@ -165,24 +166,39 @@ public class DogProfile extends AppCompatActivity{
 
     // upload function, check all the input and go to next activity
     private void uploadPic(){
+
+        ownerStates = mySpinner.getSelectedItem().toString();
+
         if(imageUri != null){
-            StorageReference fileReference = storageReference.child("ProfilePic"
+            StorageReference fileReference = storageReference.child(ownerName.getText().toString() + "ProfilePic1"
             + "." + getFileExtension(imageUri));
 
             uploadTask = fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            storageReference.child("ProfilePic"
+                            storageReference.child(ownerName.getText().toString() + "ProfilePic1"
                                     + "." + getFileExtension(imageUri)).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Uri downloadUri = task.getResult();
                                     Upload upload = new Upload(ownerName.getText().toString().trim(),
-                                            ownerAge.getText().toString().trim(), ownergender.trim(), downloadUri.toString(), ownerStates.trim());
-                                    String uploadId = databaseReference.push().getKey();
-                                    databaseReference.child(uploadId).setValue(upload);
-                                    Toast.makeText(DogProfile.this, "Upload successful", Toast.LENGTH_LONG).show();
+                                            ownergender.trim(), ownerAge.getText().toString().trim(), downloadUri.toString(), ownerStates.trim());
+                                    db.collection("Profiles").document("location").collection(ownerStates.trim()).document(ownerName.getText().toString().trim())
+                                            .set(upload)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d(TAG, "nice ");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error adding document", e);
+                                                }
+                                            });
+                                    Toast.makeText(OwnerProfile.this, "Upload successful", Toast.LENGTH_LONG).show();
                                 }
                             });
                         }
@@ -190,7 +206,7 @@ public class DogProfile extends AppCompatActivity{
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(DogProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OwnerProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -200,7 +216,7 @@ public class DogProfile extends AppCompatActivity{
             return;
         }
 
-        Intent intent = new Intent(com.example.dog_date.DogProfile.this,Preference.class);
+        Intent intent = new Intent(OwnerProfile.this,Preference.class);
         ownername = ownerName.getText().toString();
         ownerage = ownerAge.getText().toString();
         intent.putExtra(Constants.KEY_OWNER_NAME, ownername);
