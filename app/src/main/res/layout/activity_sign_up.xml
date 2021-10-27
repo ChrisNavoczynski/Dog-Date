@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/dd_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    tools:context=".SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical">
+
+        <include
+            layout="@layout/main_toolbar"/>
 
         <TextView
             android:id="@+id/appTitle"
@@ -24,14 +31,14 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/home_image"
             android:layout_width="wrap_content"
-            android:layout_height="344dp"
+            android:layout_height="247dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:contentDescription="@string/home_image"
             android:gravity="center"
-            android:src="@drawable/dd_home1"
-            app:shapeAppearanceOverlay="@style/Rounded"/>
+            android:src="@drawable/home_img"
+            app:shapeAppearanceOverlay="@style/Rounded" />
 
         <Space
             android:layout_width="match_parent"
@@ -83,4 +90,15 @@
 
     </LinearLayout>
 
-</ScrollView>
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white">
+
+        <include
+            layout="@layout/main_nav_drawer"/>
+
+    </RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

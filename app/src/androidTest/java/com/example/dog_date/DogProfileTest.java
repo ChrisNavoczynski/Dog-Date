@@ -20,8 +20,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class DogProfileTest {
 
     @Rule
-    public ActivityScenarioRule<DoggyProfile> activityTestRule
-            = new ActivityScenarioRule<>(DoggyProfile.class);
+    public ActivityScenarioRule<DogProfile> activityTestRule
+            = new ActivityScenarioRule<>(DogProfile.class);
 
     @Test
     public void hasTextOnScreen() {
