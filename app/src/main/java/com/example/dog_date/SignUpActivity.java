@@ -8,19 +8,24 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
     private EditText email;
-    private View view;
+
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTitle(R.string.bar_Login_Signup);
         setContentView(R.layout.activity_sign_up);
 
+
+        drawerLayout = findViewById(R.id.drawer_layout);
         username = (findViewById(R.id.username));
         password = (findViewById(R.id.password));
         email = (findViewById(R.id.email));
@@ -33,7 +38,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     //checks form for empty fields
     public void SignUp(View view){
-        this.view = view;
         if(username.getText().toString().isEmpty()){
             username.setError("Please Enter Username");
             return;
@@ -47,8 +51,37 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent(this, DoggyProfile.class);
+        Intent intent = new Intent(this, DogProfile.class);
 
         startActivity(intent);
+    }
+    public void ClickMenu(View view) {
+        MainActivity.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo(View view) {
+        MainActivity.closeDrawer(drawerLayout);
+    }
+
+    public void ClickHome(View view) {
+        recreate();
+    }
+
+    public void ClickDogProfile (View view) {
+        MainActivity.redirectActivity(this, DogProfile.class);
+    }
+
+    public void ClickOwnerProfile (View view) {
+        MainActivity.redirectActivity(this,OwnerProfile.class);
+    }
+
+    public void ClickLogout (View view) {
+        MainActivity.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainActivity.closeDrawer(drawerLayout);
     }
 }
