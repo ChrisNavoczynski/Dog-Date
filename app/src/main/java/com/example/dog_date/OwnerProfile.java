@@ -1,9 +1,12 @@
 package com.example.dog_date;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
@@ -20,14 +23,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -42,21 +44,19 @@ public class OwnerProfile extends AppCompatActivity{
     Button uploadButton,saveButton;
     RadioGroup radioGroup;
     RadioButton radioButton;
-    DrawerLayout drawerLayout;
 
-    String ownername, ownerage, ownergender,ownerStates;
+    String ownername, ownerage, ownergender, ownerStates;
+    Spinner mySpinner;
     private StorageReference storageReference;
-    private DatabaseReference databaseReference;
+    private FirebaseFirestore db;
     private StorageTask uploadTask;
     int radioId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(R.string.bar_OwnerProfile);
         setContentView(R.layout.owner_profile);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
         uploadImage = findViewById(R.id.imageToUpload);
         uploadButton = findViewById(R.id.uploadImage);
         saveButton = findViewById(R.id.saveButton);
@@ -64,7 +64,7 @@ public class OwnerProfile extends AppCompatActivity{
         radioGroup = findViewById(R.id.genderGroup);
         ownerName = findViewById(R.id.ownerName);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("profile");
+        db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("profile");
 
 
@@ -77,14 +77,12 @@ public class OwnerProfile extends AppCompatActivity{
         saveButton.setOnClickListener(v -> uploadPic());
 
         // spinner for the states input
-        Spinner mySpinner = findViewById(R.id.spinner1);
+        mySpinner = findViewById(R.id.spinner1);
 
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(OwnerProfile.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.states));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
-
-        ownerStates = mySpinner.getSelectedItem().toString();
     }
 
     // save input if user rotate the phone
@@ -168,23 +166,38 @@ public class OwnerProfile extends AppCompatActivity{
 
     // upload function, check all the input and go to next activity
     private void uploadPic(){
+
+        ownerStates = mySpinner.getSelectedItem().toString();
+
         if(imageUri != null){
-            StorageReference fileReference = storageReference.child("ProfilePic"
-            + "." + getFileExtension(imageUri));
+            StorageReference fileReference = storageReference.child(ownerName.getText().toString() + "ProfilePic1"
+                    + "." + getFileExtension(imageUri));
 
             uploadTask = fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            storageReference.child("ProfilePic"
+                            storageReference.child(ownerName.getText().toString() + "ProfilePic1"
                                     + "." + getFileExtension(imageUri)).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Uri downloadUri = task.getResult();
                                     Upload upload = new Upload(ownerName.getText().toString().trim(),
-                                            ownerAge.getText().toString().trim(), ownergender.trim(), downloadUri.toString(), ownerStates.trim());
-                                    String uploadId = databaseReference.push().getKey();
-                                    databaseReference.child(uploadId).setValue(upload);
+                                            ownergender.trim(), ownerAge.getText().toString().trim(), downloadUri.toString(), ownerStates.trim());
+                                    db.collection("Profiles").document("location").collection(ownerStates.trim()).document(ownerName.getText().toString().trim())
+                                            .set(upload)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d(TAG, "nice ");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error adding document", e);
+                                                }
+                                            });
                                     Toast.makeText(OwnerProfile.this, "Upload successful", Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -210,35 +223,5 @@ public class OwnerProfile extends AppCompatActivity{
         intent.putExtra(Constants.KEY_OWNER_AGE, ownerage);
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
-    }
-
-    public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
-    }
-
-    public void ClickLogo(View view) {
-        MainActivity.closeDrawer(drawerLayout);
-    }
-
-    public void ClickHome(View view) {
-        MainActivity.redirectActivity(this, SignUpActivity.class);
-    }
-
-    public void ClickDogProfile (View view) {
-        MainActivity.redirectActivity(this, DogProfile.class);
-    }
-
-    public void ClickOwnerProfile (View view) {
-        recreate();
-    }
-
-    public void ClickLogout (View view) {
-        MainActivity.logout(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MainActivity.closeDrawer(drawerLayout);
     }
 }
