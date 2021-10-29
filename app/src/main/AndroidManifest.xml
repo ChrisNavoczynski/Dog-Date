@@ -17,14 +17,14 @@
         </activity>
         <activity android:name=".Preference">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".DogProfile">
         </activity>
         <activity android:name=".SignUpActivity">
         </activity>
         <activity android:name=".DoggyProfile">
         </activity>
 
-        <activity android:name=".DogProfile">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
