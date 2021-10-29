@@ -76,4 +76,15 @@
     <string name="large">Large</string>
     <string name="next_button_text">next</string>
     <string name="create_your_dogs_profile">Create your dog\'s profile</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_dog_profile">Dog Profile</string>
+    <string name="menu_owner_profile">Owner Profile</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_logout">Logout</string>
+    <string name="nav_header_title">Dog Date</string>
+    <string name="nav_header_desc">Dog Date Logo</string>
+    <string name="bar_Welcome">Welcome</string>
+    <string name="bar_Login_Signup">Login or Signup</string>
+    <string name="bar_DogProfile">Dog Profile</string>
+    <string name="bar_OwnerProfile">Owner Profile</string>
 </resources>

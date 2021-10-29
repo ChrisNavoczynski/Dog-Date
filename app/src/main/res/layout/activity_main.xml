@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
     android:orientation="vertical"
     android:background="@drawable/dd_background"
-    android:layout_centerHorizontal="true"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <include
+            layout="@layout/main_toolbar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -63,14 +73,14 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/home_image"
         android:layout_width="wrap_content"
-        android:layout_height="344dp"
+        android:layout_height="251dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:contentDescription="@string/home_image"
         android:gravity="center"
-        android:src="@drawable/dd_home1"
-        app:shapeAppearanceOverlay="@style/Rounded"/>
+        android:src="@drawable/home_img"
+        app:shapeAppearanceOverlay="@style/Rounded" />
 
     <Button
         android:id="@+id/beginButton"
@@ -82,4 +92,17 @@
         android:textSize="20sp"
         android:layout_marginTop="30dp"/>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white">
+
+        <include
+            layout="@layout/main_nav_drawer"/>
+
+    </RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
