@@ -16,6 +16,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.contrib.DrawerMatchers.isClosed;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -53,6 +54,7 @@ public class MainActivityTest {
                 .perform(DrawerActions.open());
 
         onView(withId(R.id.click_home))
+                .check(matches(isDisplayed()))
                 .perform(click());
     }
 

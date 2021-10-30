@@ -87,4 +87,6 @@
     <string name="bar_Login_Signup">Login or Signup</string>
     <string name="bar_DogProfile">Dog Profile</string>
     <string name="bar_OwnerProfile">Owner Profile</string>
+    <string name="todays_matches">Today\'s Matches!</string>
+    <string name="today_s_matches">Today\'s Matches!</string>
 </resources>
