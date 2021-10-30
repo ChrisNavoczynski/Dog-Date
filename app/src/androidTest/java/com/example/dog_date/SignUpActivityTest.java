@@ -1,5 +1,6 @@
 package com.example.dog_date;
 
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
@@ -27,40 +28,50 @@ public class SignUpActivityTest {
     @Test
     public void usernameFieldRequired(){
         onView(withId(R.id.username)).perform(typeText(""));
-        onView(withId(R.id.password)).perform(scrollTo(), typeText("somePassword"));
-        onView(withId(R.id.email)).perform(scrollTo(), typeText("email@gmail.com"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText("somePassword"));
+        closeSoftKeyboard();
+        onView(withId(R.id.email)).perform(typeText("email@gmail.com"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.b_signUp)).perform(scrollTo(), click());
+        closeSoftKeyboard();
+        onView(withId(R.id.b_signUp)).perform(click());
         onView(allOf(withId(R.id.username), hasErrorText("Please Enter Username")));
     }
 
     @Test
     public void passwordFieldRequired(){
         onView(withId(R.id.username)).perform(typeText("someUser"));
-        onView(withId(R.id.password)).perform(scrollTo(), typeText(""));
-        onView(withId(R.id.email)).perform(scrollTo(), typeText("email@gmail.com"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText(""));
+        closeSoftKeyboard();
+        onView(withId(R.id.email)).perform(typeText("email@gmail.com"));
+        closeSoftKeyboard();
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.b_signUp)).perform(scrollTo(), click());
+        onView(withId(R.id.b_signUp)).perform(click());
         onView(allOf(withId(R.id.password), hasErrorText("Please Enter Password")));
     }
 
     @Test
     public void emailValidRequired(){
         onView(withId(R.id.username)).perform(typeText("someUser"));
-        onView(withId(R.id.password)).perform(scrollTo(), typeText(""));
-        onView(withId(R.id.email)).perform(scrollTo(), typeText("email"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText(""));
+        closeSoftKeyboard();
+        onView(withId(R.id.email)).perform(typeText("email"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.b_signUp)).perform(scrollTo(), click());
+        onView(withId(R.id.b_signUp)).perform(click());
         onView(allOf(withId(R.id.password), hasErrorText("Please Enter Valid Email")));
     }
 
     @Test
     public void SignUpForm(){
         onView(withId(R.id.username)).perform(typeText("someUser"));
-        onView(withId(R.id.password)).perform(scrollTo(), typeText("somePassword"));
-        onView(withId(R.id.email)).perform(scrollTo(), typeText("email@gmail.com"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText("somePassword"));
+        closeSoftKeyboard();
+        onView(withId(R.id.email)).perform(typeText("email@gmail.com"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.b_signUp)).perform(scrollTo(), click());
+        onView(withId(R.id.b_signUp)).perform(click());
     }
 
 }
