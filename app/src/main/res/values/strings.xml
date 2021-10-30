@@ -87,4 +87,12 @@
     <string name="bar_Login_Signup">Login or Signup</string>
     <string name="bar_DogProfile">Dog Profile</string>
     <string name="bar_OwnerProfile">Owner Profile</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="user_name">User Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

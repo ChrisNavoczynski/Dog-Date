@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn = (Button)findViewById(R.id.beginButton);
 
         btn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,
-                SignUpActivity.class)));
+                Login_SignupActivity.class)));
     }
 
     public void ClickMenu(View view) {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    tools:context=".SignUpActivity">
+    tools:context=".LogInActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,40 +50,32 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ems="10"
-            android:textSize="@dimen/sp_20"
+            android:textSize="20sp"
             android:hint="@string/user_name"
             android:inputType="textPersonName"/>
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:hint="@string/email_address"
-            android:textSize="@dimen/sp_20"
-            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="@dimen/sp_20"
             android:ems="10"
+            android:textSize="@dimen/sp_20"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:onClick="SignUp"/>
+            android:onClick="LogIn"/>
 
         <Button
-            android:id="@+id/b_signUp"
+            android:id="@+id/b_logIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ems="10"
             android:textSize="@dimen/sp_20"
-            android:text="@string/sign_up"
-            android:onClick="SignUp"/>
+            android:text="Log In"
+            android:onClick="LogIn"/>
+
 
     </LinearLayout>
 
