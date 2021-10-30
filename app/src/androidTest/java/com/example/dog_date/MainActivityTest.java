@@ -1,5 +1,8 @@
 package com.example.dog_date;
 
+import androidx.test.espresso.ViewAction;
+import androidx.test.espresso.action.ScrollToAction;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -54,8 +57,7 @@ public class MainActivityTest {
                 .perform(DrawerActions.open());
 
         onView(withId(R.id.click_home))
-                .check(matches(isDisplayed()))
-                .perform(click());
+                .perform((ViewAction) isClickable(), click());
     }
 
 }
