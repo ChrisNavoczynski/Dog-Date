@@ -4,6 +4,7 @@ import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.ScrollToAction;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -54,7 +55,7 @@ public class MainActivityTest {
                 .check(matches(isClosed(Gravity.LEFT)))
                 .perform(DrawerActions.open());
 
-        onView((withContentDescription(R.string.nav_home)))
-                .perform(click());
+        onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.click_home));
     }
 }
