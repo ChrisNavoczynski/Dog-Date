@@ -18,6 +18,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.contrib.DrawerMatchers.isClosed;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -48,13 +49,12 @@ public class MainActivityTest {
     }
 
     @Test
-    public void clickHomeDrawer() {
+    public void openDrawer() {
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT)))
                 .perform(DrawerActions.open());
 
-        onView(withId(R.id.click_home))
-                .perform(scrollTo(), click());
+        onView((withContentDescription(R.string.nav_home)))
+                .perform(click());
     }
-
 }
