@@ -14,7 +14,6 @@ import static org.hamcrest.Matchers.allOf;
 
 import android.view.Gravity;
 
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -49,6 +48,15 @@ public class LogInActivityTest {
         closeSoftKeyboard();
         onView(withId(R.id.b_logIn)).perform(click());
         onView(allOf(withId(R.id.password), hasErrorText("Please Enter Password")));
+    }
+
+    @Test
+    public void SignUpForm(){
+        onView(withId(R.id.username)).perform(typeText("someUser"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText("somePassword"));
+        closeSoftKeyboard();
+        onView(withId(R.id.b_logIn)).perform(click());
     }
 
     @Test

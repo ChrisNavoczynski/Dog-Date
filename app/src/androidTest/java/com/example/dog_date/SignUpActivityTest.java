@@ -43,19 +43,6 @@ public class SignUpActivityTest {
     }
 
     @Test
-    public void passwordFieldRequired(){
-        onView(withId(R.id.username)).perform(typeText("someUser"));
-        closeSoftKeyboard();
-        onView(withId(R.id.password)).perform(typeText(""));
-        closeSoftKeyboard();
-        onView(withId(R.id.email)).perform(typeText("email@gmail.com"));
-        closeSoftKeyboard();
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.b_signUp)).perform(click());
-        onView(allOf(withId(R.id.password), hasErrorText("Please Enter Password")));
-    }
-
-    @Test
     public void emailValidRequired(){
         onView(withId(R.id.username)).perform(typeText("someUser"));
         closeSoftKeyboard();
