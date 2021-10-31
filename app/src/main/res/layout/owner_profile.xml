@@ -23,6 +23,16 @@
             <include
                 layout="@layout/main_toolbar"/>
 
+            <TextView
+                android:id="@+id/profileOwner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Your Profile"
+                android:textSize="30dp"
+                android:textColor="@color/bronze"
+                android:fontFamily="@font/coiny"
+                android:textAlignment="center"/>
+
             <ImageView
                 android:id="@+id/imageToUpload"
                 android:layout_gravity="center_horizontal"

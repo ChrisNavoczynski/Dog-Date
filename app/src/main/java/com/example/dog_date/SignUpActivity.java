@@ -106,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void ClickHome(View view) {
-        recreate();
+        MainActivity.redirectActivity(this, SwipeActivity.class);
     }
 
     public void ClickDogProfile (View view) {

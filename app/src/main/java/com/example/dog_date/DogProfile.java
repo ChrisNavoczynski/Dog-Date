@@ -80,7 +80,7 @@ public class DogProfile extends AppCompatActivity {
     }
 
     public void ClickHome(View view) {
-        MainActivity.redirectActivity(this, SignUpActivity.class);
+        MainActivity.redirectActivity(this, SwipeActivity.class);
     }
 
     public void ClickDogProfile (View view) {

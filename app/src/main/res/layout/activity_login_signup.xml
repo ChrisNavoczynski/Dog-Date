@@ -52,7 +52,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:textSize="@dimen/sp_20"
-            android:text="Log In" />
+            android:text="@string/log_in" />
         <Button
             android:id="@+id/b_signUp"
             android:layout_width="wrap_content"
