@@ -14,7 +14,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.regex.Pattern;
+
 public class LogInActivity extends AppCompatActivity {
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +
+                    "(?=.*[a-z])" +
+                    "(?=.*[A-Z])" +
+                    "(?=.*[@#$%^&+=])" +
+                    ".{8,}" +
+                    "$");
 
     private EditText username;
     private EditText password;
