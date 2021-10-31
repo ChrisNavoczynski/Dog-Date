@@ -95,5 +95,6 @@
     <string name="user_name">User Name</string>
     <string name="email_address">Email Address</string>
     <string name="password">Password</string>
->>>>>>> 7b7f3158dc9d2c608bfb3b336db69d4dc1464229
+    <string name="log_in">Log In</string>
+    >>>>>>> 7b7f3158dc9d2c608bfb3b336db69d4dc1464229
 </resources>
