@@ -14,15 +14,21 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class SwipeActivityTest {
+public class OwnerProfileTest {
     @Rule
-    public ActivityScenarioRule<SwipeActivity> activityTestRule
-            = new ActivityScenarioRule<>(SwipeActivity.class);
+    public ActivityScenarioRule<OwnerProfile> activityTestRule
+            = new ActivityScenarioRule<>(OwnerProfile.class);
 
     @Test
     public void hasTextOnScreen() {
+        onView(withId(R.id.dog_profile_title))
+                .check(matches(withText("Your Profile")));
+    }
 
-        onView(withId(R.id.appMatch))
-                .check(matches(withText(R.string.today_s_matches)));
+    @Test
+    public void openDrawer() {
+        onView(withId(R.id.drawer_layout))
+                .check(matches(isClosed(Gravity.LEFT)))
+                .perform(DrawerActions.open());
     }
 }
