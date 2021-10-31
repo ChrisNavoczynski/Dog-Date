@@ -4,17 +4,12 @@ import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.contrib.DrawerMatchers.isClosed;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.hamcrest.Matchers.allOf;
 
-import android.view.Gravity;
-
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -55,7 +50,7 @@ public class SignUpActivityTest {
     }
 
     @Test
-    public void SignUpForm(){
+    public void SignUpForm() {
         onView(withId(R.id.username)).perform(typeText("someUser"));
         closeSoftKeyboard();
         onView(withId(R.id.password)).perform(typeText("somePassword"));
@@ -64,12 +59,4 @@ public class SignUpActivityTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.b_signUp)).perform(click());
     }
-
-    @Test
-    public void openDrawer() {
-        onView(withId(R.id.drawer_layout))
-                .check(matches(isClosed(Gravity.LEFT)))
-                .perform(DrawerActions.open());
-    }
-
 }
