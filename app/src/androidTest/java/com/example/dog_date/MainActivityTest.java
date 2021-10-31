@@ -44,16 +44,6 @@ public class MainActivityTest {
     }
 
     @Test
-    public void openHomeDrawer() {
-        onView(withId(R.id.drawer_layout))
-                .check(matches(isClosed(Gravity.LEFT)))
-                .perform(DrawerActions.open());
-
-        onView(withText("Home")).perform(click());
-        onView(withId(R.id.appMatch)).check(matches(withText("Today's Matches!")));
-    }
-
-    @Test
     public void openDogProfileDrawer() {
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT)))
