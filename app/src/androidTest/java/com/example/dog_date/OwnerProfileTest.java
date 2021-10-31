@@ -25,7 +25,7 @@ public class OwnerProfileTest {
 
     @Test
     public void hasTextOnScreen() {
-        onView(withId(R.id.dog_profile_title))
+        onView(withId(R.id.profileOwner))
                 .check(matches(withText("Your Profile")));
     }
 
