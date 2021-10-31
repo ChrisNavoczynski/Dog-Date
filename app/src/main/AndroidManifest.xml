@@ -30,10 +30,11 @@
         <activity android:name=".Preference_owner"/>
         <activity android:name=".Preference"/>
         <activity android:name=".SwipeActivity"/>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".LogInActivity"/>
         <activity android:name=".OwnerProfile"
-            android:title="@string/bar_OwnerProfile">
-        </activity>
-        <activity android:name=".SignUpActivity"
+            android:title="@string/bar_OwnerProfile"/>
+        <activity android:name=".Login_SignupActivity"
             android:title="@string/bar_Login_Signup"/>
         <activity android:name=".DogProfile"
             android:title="@string/bar_DogProfile"/>
