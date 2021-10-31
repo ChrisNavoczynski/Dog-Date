@@ -2,10 +2,12 @@ package com.example.dog_date;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ public class DogProfile extends AppCompatActivity {
     String dogName;
     String dogBreed;
     String dogAge;
+    String dogGender;
+    String dogSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,17 @@ public class DogProfile extends AppCompatActivity {
         dogAge = dogAgeEditText.getText().toString();
 
         genderGroup = (RadioGroup) findViewById(R.id.gender_group);
+        // get selected radio button from gender radio group
+        int selectedGenderId = genderGroup.getCheckedRadioButtonId();
+        // find the radiobutton by returned id
+        RadioButton selectedGender = (RadioButton)findViewById(selectedGenderId);
+        dogGender = selectedGender.getText().toString();
+
         sizeGroup = (RadioGroup) findViewById(R.id.size_group);
+        int selectedSizeId = sizeGroup.getCheckedRadioButtonId();
+        RadioButton selectedSize = (RadioButton)findViewById(selectedSizeId);
+        dogSize = selectedSize.getText().toString();
+
 
         if(
                 (dogName != null && dogName.trim().isEmpty()) ||
@@ -68,7 +82,27 @@ public class DogProfile extends AppCompatActivity {
             toast.show();
             return;
         }
-        startActivity(new Intent(this, OwnerProfile.class));
+
+        Intent intent = new Intent(this, ProfilePage.class);
+        intent.putExtra("dogName", dogName);
+        intent.putExtra("dogBreed", dogBreed);
+        intent.putExtra("dogAge", dogAge);
+        intent.putExtra("dogGender", dogGender);
+        intent.putExtra("dogSize", dogSize);
+        startActivity(intent);
+
+        startActivity(intent);
+    }
+
+    // Clears the form fields when returning to the MainActivity screen
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dogNameEditText = (EditText) findViewById(R.id.dog_name_text_id);
+        dogNameEditText.setText("");
+        dogBreedTextView = (AutoCompleteTextView) findViewById(R.id.dog_breed_text_id);
+        dogBreedTextView.setText("");
+        dogAgeEditText = (EditText) findViewById(R.id.dog_age_text_id);
     }
 
     public void ClickMenu(View view) {

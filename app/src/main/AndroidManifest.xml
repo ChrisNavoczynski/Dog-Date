@@ -18,12 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DogDate">
 
-        <activity
-            android:name=".MainActivity"
-            android:title="@string/bar_Welcome">
 
-        </activity>
-        <activity android:name=".SwipeActivity">
+        <activity android:name=".MainActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
@@ -39,6 +35,8 @@
             android:title="@string/bar_Login_Signup"/>
         <activity android:name=".DogProfile"
             android:title="@string/bar_DogProfile"/>
+        <activity android:name=".ProfilePage"
+            android:title="@string/bar_ProfilePage"/>
 
     </application>
 </manifest>
