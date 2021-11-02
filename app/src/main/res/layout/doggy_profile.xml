@@ -78,6 +78,7 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/dog_breed_text_id"
+                    android:hint="@string/dog_breed_hint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -137,7 +138,7 @@
                     android:id="@+id/dog_age_id"
                     android:text="@string/dog_age_text_view"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/margin_start"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
@@ -199,11 +200,40 @@
                 </RadioGroup>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/dog_bio_text_view_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dog_bio"
+                    android:textSize="20sp"
+                    android:layout_marginStart="@dimen/margin_start">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dog_bio_edit_text_id"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|start"
+                    android:lines="5"
+                    android:maxLines="5"
+                    android:hint="@string/dog_bio_edit_text"
+                    android:imeOptions="actionDone"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/nextButton"
                 android:text="@string/next_button_text"
                 android:layout_marginTop="30dp"
-                android:layout_marginStart="145dp"
+                android:layout_marginStart="165dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="nextButtonHandler"/>

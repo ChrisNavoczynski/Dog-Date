@@ -35,7 +35,7 @@
             android:title="@string/bar_Login_Signup"/>
         <activity android:name=".DogProfile"
             android:title="@string/bar_DogProfile"/>
-        <activity android:name=".ProfilePage"
+        <activity android:name=".DogProfilePage"
             android:title="@string/bar_ProfilePage"/>
 
     </application>

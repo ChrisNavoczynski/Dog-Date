@@ -88,4 +88,7 @@
     <string name="bar_DogProfile">Dog Profile</string>
     <string name="bar_OwnerProfile">Owner Profile</string>
     <string name="bar_ProfilePage">Profile Page</string>
+    <string name="dog_bio">Dog Bio:</string>
+    <string name="dog_bio_edit_text">Give a bio for your dog!</string>
+    <string name="dog_breed_hint">Start typing your dog\'s breed!</string>
 </resources>

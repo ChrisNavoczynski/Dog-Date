@@ -2,7 +2,6 @@ package com.example.dog_date;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,6 +20,7 @@ public class DogProfile extends AppCompatActivity {
     EditText dogNameEditText;
     AutoCompleteTextView dogBreedTextView;
     EditText dogAgeEditText;
+    EditText dogBioEditText;
     RadioGroup genderGroup;
     RadioGroup sizeGroup;
 
@@ -31,6 +31,7 @@ public class DogProfile extends AppCompatActivity {
     String dogAge;
     String dogGender;
     String dogSize;
+    String dogBio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,9 @@ public class DogProfile extends AppCompatActivity {
         dogAgeEditText = (EditText) findViewById(R.id.dog_age_text_id);
         dogAge = dogAgeEditText.getText().toString();
 
+        dogBioEditText = (EditText) findViewById(R.id.dog_bio_edit_text_id);
+        dogBio = dogBioEditText.getText().toString();
+
         genderGroup = (RadioGroup) findViewById(R.id.gender_group);
         // get selected radio button from gender radio group
         int selectedGenderId = genderGroup.getCheckedRadioButtonId();
@@ -75,7 +79,8 @@ public class DogProfile extends AppCompatActivity {
         if(
                 (dogName != null && dogName.trim().isEmpty()) ||
                         (dogBreed != null && dogBreed.trim().isEmpty()) ||
-                        (dogAge != null && dogBreed.trim().isEmpty()) ||
+                        (dogAge != null && dogAge.trim().isEmpty()) ||
+                        (dogBio != null && dogBio.trim().isEmpty()) ||
                         (genderGroup.getCheckedRadioButtonId() == -1) ||
                         (sizeGroup.getCheckedRadioButtonId() == -1)) {
             Toast toast = Toast.makeText(getApplicationContext(), "Please fill out and check all forms", Toast.LENGTH_LONG);
@@ -83,10 +88,11 @@ public class DogProfile extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent(this, ProfilePage.class);
+        Intent intent = new Intent(this, DogProfilePage.class);
         intent.putExtra("dogName", dogName);
         intent.putExtra("dogBreed", dogBreed);
         intent.putExtra("dogAge", dogAge);
+        intent.putExtra("dogBio", dogBio);
         intent.putExtra("dogGender", dogGender);
         intent.putExtra("dogSize", dogSize);
         startActivity(intent);
@@ -103,6 +109,9 @@ public class DogProfile extends AppCompatActivity {
         dogBreedTextView = (AutoCompleteTextView) findViewById(R.id.dog_breed_text_id);
         dogBreedTextView.setText("");
         dogAgeEditText = (EditText) findViewById(R.id.dog_age_text_id);
+        dogAgeEditText.setText("");
+        dogBioEditText = (EditText) findViewById(R.id.dog_bio_edit_text_id);
+        dogBioEditText.setText("");
     }
 
     public void ClickMenu(View view) {
