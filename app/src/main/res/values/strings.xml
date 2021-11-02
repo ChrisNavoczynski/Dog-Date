@@ -91,4 +91,13 @@
     <string name="dog_bio">Dog Bio:</string>
     <string name="dog_bio_edit_text">Give a bio for your dog!</string>
     <string name="dog_breed_hint">Start typing your dog\'s breed!</string>
+    <string name="todays_matches">Today\'s Matches!</string>
+    <string name="today_s_matches">Today\'s Matches!</string>
+    <string name="nav_home">Home</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="user_name">User Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    >>>>>>> 7b7f3158dc9d2c608bfb3b336db69d4dc1464229
 </resources>

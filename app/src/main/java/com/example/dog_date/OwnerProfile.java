@@ -23,6 +23,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +45,7 @@ public class OwnerProfile extends AppCompatActivity{
     Button uploadButton,saveButton;
     RadioGroup radioGroup;
     RadioButton radioButton;
+    DrawerLayout drawerLayout;
 
     String ownername, ownerage, ownergender, ownerStates;
     Spinner mySpinner;
@@ -63,6 +65,7 @@ public class OwnerProfile extends AppCompatActivity{
         ownerAge = findViewById(R.id.ownerAge);
         radioGroup = findViewById(R.id.genderGroup);
         ownerName = findViewById(R.id.ownerName);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("profile");
@@ -130,7 +133,7 @@ public class OwnerProfile extends AppCompatActivity{
             ownerAge.setError("you are under 18, so you can't sign up");
             return  false;
         } else if (check.isEmpty()) {
-            ownerAge.setError("enter your brithday");
+            ownerAge.setError("enter your birthday");
             return  false;
         } else {
             ownerAge.setError(null);
@@ -223,5 +226,34 @@ public class OwnerProfile extends AppCompatActivity{
         intent.putExtra(Constants.KEY_OWNER_AGE, ownerage);
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
+    }
+    public void ClickMenu(View view) {
+        MainActivity.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo(View view) {
+        MainActivity.closeDrawer(drawerLayout);
+    }
+
+    public void ClickHome(View view) {
+        MainActivity.redirectActivity(this, SwipeActivity.class);
+    }
+
+    public void ClickDogProfile (View view) {
+        MainActivity.redirectActivity(this, DogProfile.class);
+    }
+
+    public void ClickOwnerProfile (View view) {
+        recreate();
+    }
+
+    public void ClickLogout (View view) {
+        MainActivity.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainActivity.closeDrawer(drawerLayout);
     }
 }

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn = (Button)findViewById(R.id.beginButton);
 
         btn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,
-                SignUpActivity.class)));
+                Login_SignupActivity.class)));
     }
 
     public void ClickMenu(View view) {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ClickHome (View view) {
-        redirectActivity(this,SignUpActivity.class);
+        redirectActivity(this,SwipeActivity.class);
     }
 
     public void ClickDogProfile (View view) {
@@ -86,6 +86,4 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
-
-
 }

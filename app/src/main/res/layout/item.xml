@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:cardCornerRadius="2dp"
@@ -21,6 +21,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/side_nav_bar"
                 android:id="@+id/profileImage"/>
 
 
@@ -32,8 +33,9 @@
             android:layout_marginTop="550dp"
             android:textColor="@android:color/black"
             tools:text="Hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"/>
 
     </androidx.cardview.widget.CardView>
 

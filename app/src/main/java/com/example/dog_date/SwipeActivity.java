@@ -2,12 +2,14 @@ package com.example.dog_date;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,6 +30,7 @@ public class SwipeActivity extends AppCompatActivity {
     private Upload users_data[];
     private arrayAdapter arrayAdapter;
     private int i;
+    DrawerLayout drawerLayout;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -40,6 +43,8 @@ public class SwipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swipe_activity);
 
+
+        drawerLayout = findViewById(R.id.drawer_layout);
         rowItem = new ArrayList<Upload>();
 
         getMatch();
@@ -119,5 +124,34 @@ public class SwipeActivity extends AppCompatActivity {
                         Toast.makeText(SwipeActivity.this, "error",Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+    public void ClickMenu(View view) {
+        MainActivity.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo(View view) {
+        MainActivity.closeDrawer(drawerLayout);
+    }
+
+    public void ClickHome(View view) {
+        recreate();
+    }
+
+    public void ClickDogProfile (View view) {
+        MainActivity.redirectActivity(this, DogProfile.class);
+    }
+
+    public void ClickOwnerProfile (View view) {
+        MainActivity.redirectActivity(this,OwnerProfile.class);
+    }
+
+    public void ClickLogout (View view) {
+        MainActivity.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainActivity.closeDrawer(drawerLayout);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.dog_date;
 
+import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -13,8 +14,11 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.DrawerMatchers.isClosed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import android.view.Gravity;
 
 @RunWith(AndroidJUnit4.class)
 public class DogProfileTest {
@@ -41,6 +45,13 @@ public class DogProfileTest {
         onView(withId(R.id.dog_size_medium_id)).perform(click());
         closeSoftKeyboard();
         onView(withId(R.id.nextButton)).check(matches(ViewMatchers.withText(R.string.next_button_text)));
+    }
+
+    @Test
+    public void openDrawer() {
+        onView(withId(R.id.drawer_layout))
+                .check(matches(isClosed(Gravity.LEFT)))
+                .perform(DrawerActions.open());
     }
 
 }
