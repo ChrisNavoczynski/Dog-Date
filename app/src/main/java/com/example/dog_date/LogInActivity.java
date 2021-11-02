@@ -2,8 +2,6 @@ package com.example.dog_date;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,7 +17,6 @@ public class LogInActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
-    private EditText email;
 
     DrawerLayout drawerLayout;
 
@@ -32,16 +29,12 @@ public class LogInActivity extends AppCompatActivity {
 
         username = (findViewById(R.id.username));
         password = (findViewById(R.id.password));
-        email = (findViewById(R.id.email));
 
         fb = FirebaseFirestore.getInstance();
         drawerLayout = findViewById(R.id.drawer_layout);
 
     }
 
-    public static boolean IsEmailValid(CharSequence c){
-        return !TextUtils.isEmpty(c) && Patterns.EMAIL_ADDRESS.matcher(c).matches();
-    }
 
     public void LogIn (View view){
         if(username.getText().toString().isEmpty()){
