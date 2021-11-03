@@ -21,8 +21,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +
+                    "(?=.*[a-z])" +
+                    "(?=.*[A-Z])" +
+                    "(?=.*[@#$%^&+=])" +
+                    ".{8,}" +
+                    "$");
 
     private EditText username;
     private EditText password;
@@ -59,8 +69,8 @@ public class SignUpActivity extends AppCompatActivity {
         }else if(!IsEmailValid(email.getText().toString())){
             email.setError("Please Enter Valid Email");
             return;
-        }else if(password.getText().toString().equals("")){
-            password.setError("Please Enter Password");
+        }else if(!PASSWORD_PATTERN.matcher(password.getText().toString()).matches()){
+            password.setError("Password must contain: At least 8 characters, 1 number, 1 special character, 1 Upper and lower case letters");
             return;
         }else{
             dRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
