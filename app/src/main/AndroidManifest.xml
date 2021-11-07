@@ -38,6 +38,7 @@
             android:title="@string/bar_Login_Signup"/>
         <activity android:name=".DogProfile"
             android:title="@string/bar_DogProfile"/>
+        <activity android:name=".DogProfilePage"/>
 
     </application>
 </manifest>

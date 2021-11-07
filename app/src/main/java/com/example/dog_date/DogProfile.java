@@ -40,6 +40,7 @@ public class DogProfile extends AppCompatActivity {
         setContentView(R.layout.doggy_profile);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this,android.R.layout.select_dialog_item,breeds);
         //Gets the instance of AutoCompleteTextView
@@ -88,7 +89,7 @@ public class DogProfile extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent(this, DogProfilePage.class);
+        Intent intent = new Intent(this, OwnerProfile.class);
         intent.putExtra("dogName", dogName);
         intent.putExtra("dogBreed", dogBreed);
         intent.putExtra("dogAge", dogAge);
@@ -126,9 +127,7 @@ public class DogProfile extends AppCompatActivity {
         MainActivity.redirectActivity(this, SwipeActivity.class);
     }
 
-    public void ClickDogProfile (View view) {
-        recreate();
-    }
+    public void ClickDogProfile (View view) { MainActivity.redirectActivity(this, DogProfilePage.class); }
 
     public void ClickOwnerProfile (View view) {
         MainActivity.redirectActivity(this,OwnerProfile.class);
