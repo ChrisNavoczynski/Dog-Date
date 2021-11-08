@@ -18,15 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DogDate">
         <activity
-        android:name=".MainActivity"
-        android:title="@string/bar_Welcome">
+        android:name=".chat.MessageActivity"
+        android:title="@string/bar_Welcome"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".chat.MessageActivity">
+        <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".Preference_owner"/>
         <activity android:name=".Preference"/>

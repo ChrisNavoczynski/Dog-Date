@@ -1,47 +1,35 @@
 package com.example.dog_date.chat;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dog_date.R;
-import com.example.dog_date.SwipeActivity;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MessageActivity extends AppCompatActivity {
+
     private RecyclerView mRecyclerView;
+    private EditText messageBox;
+    private Button sendButton;
+
+
     private RecyclerView.Adapter mChatAdapter;
     private RecyclerView.LayoutManager mChatLayoutManager;
-
-    private EditText mSendEditText;
-
-    private Button mSendButton;
-
     private String currentUser, userName, currentUserState, chatId, key;
 
     CollectionReference mDatabaseChat;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,36 +54,29 @@ public class MessageActivity extends AppCompatActivity {
         mChatAdapter = new ChatAdapter(getDataSetChat(), MessageActivity.this);
         mRecyclerView.setAdapter(mChatAdapter);
 
-        mSendEditText = findViewById(R.id.message);
-        mSendButton = findViewById(R.id.send);
+        messageBox = findViewById(R.id.message);
+        sendButton = findViewById(R.id.send);
 
-        mSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMessage();
-            }
-        });
+        sendButton.setOnClickListener(view -> sendMessage());
     }
 
     private void sendMessage() {
-        String sendMessageText = mSendEditText.getText().toString();
+        String sendMessageText = messageBox.getText().toString();
 
         if(!sendMessageText.isEmpty()){
             DocumentReference newMessageDb = mDatabaseChat.document(key);
 
-            Map newMessage = new HashMap();
+            HashMap newMessage = new HashMap();
             newMessage.put("createdByUser", currentUser);
             newMessage.put("text", sendMessageText);
-
             newMessageDb.collection("communication").add(newMessage);
         }
-        mSendEditText.setText(null);
+        messageBox.setText(null);
     }
 
     private void getChatID() {
     }
 
-    private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetChat() {
         return resultsChat;
     }
