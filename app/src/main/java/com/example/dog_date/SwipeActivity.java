@@ -1,5 +1,7 @@
 package com.example.dog_date;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +25,10 @@ import com.google.firebase.storage.StorageReference;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class SwipeActivity extends AppCompatActivity {
 
@@ -34,7 +39,7 @@ public class SwipeActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    String ownername, ownerage, ownergender, ownerStates;
+    String ownername, ownerage, ownergender, ownerStates, currentUser, currentUserState;
     ListView listView;
     List<Upload> rowItem;
 
@@ -46,6 +51,8 @@ public class SwipeActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         rowItem = new ArrayList<Upload>();
+        currentUser = "they";
+        currentUserState = "Oregon";
 
         getMatch();
 
@@ -67,15 +74,27 @@ public class SwipeActivity extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
-                Toast.makeText(SwipeActivity.this, "Left!",Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                Toast.makeText(SwipeActivity.this, "Right!",Toast.LENGTH_SHORT).show();
+                Upload user = (Upload) dataObject;
+                String ownername = user.getOwnerName();
+                String ownerStates = user.getOwnerStates();
+                String uniqueID = UUID.randomUUID().toString();
+                Map<String, Object> chatID = new HashMap<>();
+                chatID.put("chatID", uniqueID);
+                DocumentReference userDb = db.collection("Profiles").document("location").collection(ownerStates.trim()).document(ownername.trim());
+                userDb.collection("Friends").document(currentUser)
+                        .set(chatID)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                isFriend(ownername, uniqueID);
+                                Toast.makeText(SwipeActivity.this, "add friends",Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
 
             @Override
@@ -125,6 +144,27 @@ public class SwipeActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void isFriend(String ownername, String uniqueID){
+        Map<String, Object> chatID = new HashMap<>();
+        chatID.put("chatID", uniqueID);
+        DocumentReference currentUserDb = db.collection("Profiles").document("location").collection(currentUserState.trim()).document(currentUser.trim());
+        currentUserDb.collection("Friend").document(ownername)
+                .set(chatID)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+    }
+
     public void ClickMenu(View view) {
         MainActivity.openDrawer(drawerLayout);
     }
