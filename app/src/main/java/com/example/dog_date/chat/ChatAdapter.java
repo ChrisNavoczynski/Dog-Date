@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dog_date.R;
@@ -23,27 +24,27 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders> {
     }
 
     @Override
-    public ChatViewHolders onCreateViewHolder(ViewGroup parent, int viewType){
+    public ChatViewHolders onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
 
-        View layoutViwe = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item, null, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item, null, false);
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutViwe.setLayoutParams(layoutParams);
-        ChatViewHolders rvc = new ChatViewHolders(layoutViwe);
+        layoutView.setLayoutParams(layoutParams);
+        ChatViewHolders rvc = new ChatViewHolders(layoutView);
 
         return rvc;
     }
 
     @Override
-    public void onBindViewHolder(ChatViewHolders holder, int position){
+    public void onBindViewHolder(@NonNull ChatViewHolders holder, int position){
         holder.mMessage.setText(chatList.get(position).getMessage());
         if(chatList.get(position).getCurrentUser()){
             holder.mMessage.setGravity(Gravity.END);
-            holder.mMessage.setTextColor(Color.parseColor("#404040"));
-            holder.mContainer.setBackgroundColor(Color.parseColor("#F4F4F4"));
+            holder.mMessage.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.mContainer.setBackgroundColor(Color.parseColor("#E56717"));
         }else{
             holder.mMessage.setGravity(Gravity.START);
-            holder.mMessage.setTextColor(Color.parseColor("#FFFFFF"));
-            holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8"));
+            holder.mMessage.setTextColor(Color.parseColor("#FF000000"));
+            holder.mContainer.setBackgroundColor(Color.parseColor("#FCC404"));
         }
     }
 
