@@ -1,16 +1,38 @@
 package com.example.dog_date;
 
-import android.content.Intent;
+import static android.content.ContentValues.TAG;
+
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.List;
+import java.util.Map;
 
 public class DogProfilePage extends AppCompatActivity {
     ImageView profilePictureImageView;
@@ -25,10 +47,56 @@ public class DogProfilePage extends AppCompatActivity {
     String dogAge;
     String dogBio;
 
+    private String imageUri;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dog_profile_page);
+
+//        final FirebaseFirestore database = FirebaseFirestore.getInstance();
+//        DocumentReference docRef = database.collection("Profiles/location/Oregon").document("TestNov8");
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                if (documentSnapshot.exists()) {
+//                    Upload p = documentSnapshot.toObject(Upload.class);
+//                    imageUri = p.getmImageUrl();
+//                    dogName = p.getDogName();
+//                    dogBreed = p.getDogBreed();
+//                    dogAge = p.getDogAge();
+//                    dogBio = p.getDogBio();
+//                }
+//            }
+//        });
+
+//        final FirebaseFirestore database = FirebaseFirestore.getInstance();
+//        database.collection("Profiles/location/Oregon")
+//                .whereEqualTo("TestNov8", true)
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        if (!queryDocumentSnapshots.isEmpty()) {
+//                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+//                            for (DocumentSnapshot d : list) {
+//                                Upload p = d.toObject(Upload.class);
+//                                imageUri = p.getmImageUrl();
+//                                dogName = p.getDogName();
+//                                dogBreed = p.getDogBreed();
+//                                dogAge = p.getDogAge();
+//                                dogBio = p.getDogBio();
+//                            }
+//                        } else {
+//                            Toast.makeText(DogProfilePage.this, "No data is found in the database.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(DogProfilePage.this, "Failed to get the data.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 //        Intent intent = getIntent();
 //        Bundle b = intent.getExtras();
@@ -49,6 +117,7 @@ public class DogProfilePage extends AppCompatActivity {
 
         String dogNameAndAge = dogName + ", " + dogAge;
 
+//        profilePictureImageView.setImageURI(Uri.parse(imageUri));
         profilePictureImageView.setImageResource(R.drawable.default_pfp);
         dogNameAgeTextView.setText(dogNameAndAge);
         dogBreedTextView.setText(dogBreed);
