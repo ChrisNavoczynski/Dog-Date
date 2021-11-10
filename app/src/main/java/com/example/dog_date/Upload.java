@@ -1,6 +1,7 @@
 package com.example.dog_date;
 
 public class Upload {
+    private String UserID;
     private String ownerName;
     private String ownerGender;
     private String ownerAge;
@@ -16,7 +17,8 @@ public class Upload {
         // empty constructor needed
     }
 
-    public Upload(String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String dogName, String dogBreed, String dogAge, String dogBio){
+    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String dogName, String dogBreed, String dogAge, String dogBio){
+        this.UserID = UserID;
         this.ownerName = ownerName;
         this.mImageUrl = mImageUrl;
         this.ownerAge = ownerAge;
@@ -27,6 +29,14 @@ public class Upload {
         this.dogBreed = dogBreed;
         this.dogAge = dogAge;
         this.dogBio = dogBio;
+    }
+
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String userID) {
+        UserID = userID;
     }
 
     public String getOwnerName() {

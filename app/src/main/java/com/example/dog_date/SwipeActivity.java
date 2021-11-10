@@ -2,6 +2,7 @@ package com.example.dog_date;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,12 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.dog_date.Match.MatchActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
@@ -37,6 +43,8 @@ public class SwipeActivity extends AppCompatActivity {
     private int i;
     DrawerLayout drawerLayout;
 
+    private FirebaseAuth mAuth;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String ownername, ownerage, ownergender, ownerStates, currentUser, currentUserState;
@@ -51,8 +59,8 @@ public class SwipeActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         rowItem = new ArrayList<Upload>();
-        currentUser = "they";
-        currentUserState = "Oregon";
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser().getUid();
 
         getMatch();
 
@@ -80,21 +88,22 @@ public class SwipeActivity extends AppCompatActivity {
             @Override
             public void onRightCardExit(Object dataObject) {
                 Upload user = (Upload) dataObject;
-                String ownername = user.getOwnerName();
-                String ownerStates = user.getOwnerStates();
-                String uniqueID = UUID.randomUUID().toString();
-                Map<String, Object> chatID = new HashMap<>();
-                chatID.put("chatID", uniqueID);
-                DocumentReference userDb = db.collection("Profiles").document("location").collection(ownerStates.trim()).document(ownername.trim());
-                userDb.collection("Friends").document(currentUser)
-                        .set(chatID)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                String userID = user.getUserID();
+                //String uniqueID = UUID.randomUUID().toString();chatID.put("chatID", uniqueID);
+                Map<String, Object> likeIt = new HashMap<>();
+                likeIt.put("userID", currentUser);
+
+                DocumentReference userDb = db.collection("Users").document(userID);
+                userDb.collection("Yeah")
+                        .add(likeIt)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void unused) {
-                                isFriend(ownername, uniqueID);
-                                Toast.makeText(SwipeActivity.this, "add friends",Toast.LENGTH_SHORT).show();
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(SwipeActivity.this, "you like this person",Toast.LENGTH_SHORT).show();
                             }
                         });
+
+                isMatch(userID);
             }
 
             @Override
@@ -124,45 +133,58 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     private void getMatch() {
-        DocumentReference docRef = db.collection("Profiles").document("location");
-        docRef.collection("Oregon").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+        DocumentReference currentUserDB = db.collection("Users").document(currentUser);
+        currentUserDB.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                ownerStates = documentSnapshot.getString("ownerStates");
+
+                CollectionReference  collectionReference = db.collection("Users");
+
+                Query userQuery = collectionReference.whereEqualTo("ownerStates", ownerStates);
+
+                userQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                             Upload user = documentSnapshot.toObject(Upload.class);
 
-                            rowItem.add(user);
-                            arrayAdapter.notifyDataSetChanged();
+                            String userID = user.getUserID();
+                            if (!userID.equals(currentUser)) {
+                                rowItem.add(user);
+                                arrayAdapter.notifyDataSetChanged();
+                            }
                         }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SwipeActivity.this, "error",Toast.LENGTH_SHORT).show();
-                    }
                 });
+            }
+        });
     }
 
-    private void isFriend(String ownername, String uniqueID){
-        Map<String, Object> chatID = new HashMap<>();
-        chatID.put("chatID", uniqueID);
-        DocumentReference currentUserDb = db.collection("Profiles").document("location").collection(currentUserState.trim()).document(currentUser.trim());
-        currentUserDb.collection("Friend").document(ownername)
-                .set(chatID)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                    }
-                });
+    private void isMatch(String userID){
+        CollectionReference  collectionReference = db.collection("Users").document(currentUser).collection("Yeah");
+        Query likeQuery = collectionReference.whereEqualTo("userID", userID);
+
+        likeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    Log.i(TAG, "New Match!!!");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "no one likes you man T.T");
+            }
+        });
+    }
+
+    public void goToMatch(View view) {
+        Intent intent = new Intent(SwipeActivity.this, MatchActivity.class);
+        startActivity(intent);
+        return;
     }
 
     public void ClickMenu(View view) {
@@ -182,7 +204,7 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     public void ClickOwnerProfile (View view) {
-        MainActivity.redirectActivity(this,OwnerProfile.class);
+        MainActivity.redirectActivity(this,MatchActivity.class);
     }
 
     public void ClickLogout (View view) {
