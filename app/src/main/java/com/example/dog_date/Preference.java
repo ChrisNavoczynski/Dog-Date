@@ -54,7 +54,8 @@ public class Preference extends AppCompatActivity {
     }
 
     public void gotoP2(View v){
-        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.Preference_owner.class);
+//        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.Preference_owner.class);
+        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.DogProfilePage.class);
         startActivity(intent2);
     }
 }

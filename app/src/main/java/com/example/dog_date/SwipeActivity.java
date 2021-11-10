@@ -178,7 +178,7 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     public void ClickDogProfile (View view) {
-        MainActivity.redirectActivity(this, DogProfile.class);
+        MainActivity.redirectActivity(this, DogProfilePage.class);
     }
 
     public void ClickOwnerProfile (View view) {

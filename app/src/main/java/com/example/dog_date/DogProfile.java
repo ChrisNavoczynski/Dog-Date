@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ public class DogProfile extends AppCompatActivity {
     EditText dogNameEditText;
     AutoCompleteTextView dogBreedTextView;
     EditText dogAgeEditText;
+    EditText dogBioEditText;
     RadioGroup genderGroup;
     RadioGroup sizeGroup;
 
@@ -27,6 +29,9 @@ public class DogProfile extends AppCompatActivity {
     String dogName;
     String dogBreed;
     String dogAge;
+    String dogGender;
+    String dogSize;
+    String dogBio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class DogProfile extends AppCompatActivity {
         setContentView(R.layout.doggy_profile);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this,android.R.layout.select_dialog_item,breeds);
         //Gets the instance of AutoCompleteTextView
@@ -55,20 +61,58 @@ public class DogProfile extends AppCompatActivity {
         dogAgeEditText = (EditText) findViewById(R.id.dog_age_text_id);
         dogAge = dogAgeEditText.getText().toString();
 
+        dogBioEditText = (EditText) findViewById(R.id.dog_bio_edit_text_id);
+        dogBio = dogBioEditText.getText().toString();
+
         genderGroup = (RadioGroup) findViewById(R.id.gender_group);
+        // get selected radio button from gender radio group
+        int selectedGenderId = genderGroup.getCheckedRadioButtonId();
+        // find the radiobutton by returned id
+        RadioButton selectedGender = (RadioButton)findViewById(selectedGenderId);
+        dogGender = selectedGender.getText().toString();
+
         sizeGroup = (RadioGroup) findViewById(R.id.size_group);
+        int selectedSizeId = sizeGroup.getCheckedRadioButtonId();
+        RadioButton selectedSize = (RadioButton)findViewById(selectedSizeId);
+        dogSize = selectedSize.getText().toString();
+
 
         if(
                 (dogName != null && dogName.trim().isEmpty()) ||
                         (dogBreed != null && dogBreed.trim().isEmpty()) ||
-                        (dogAge != null && dogBreed.trim().isEmpty()) ||
+                        (dogAge != null && dogAge.trim().isEmpty()) ||
+                        (dogBio != null && dogBio.trim().isEmpty()) ||
                         (genderGroup.getCheckedRadioButtonId() == -1) ||
                         (sizeGroup.getCheckedRadioButtonId() == -1)) {
             Toast toast = Toast.makeText(getApplicationContext(), "Please fill out and check all forms", Toast.LENGTH_LONG);
             toast.show();
             return;
         }
-        startActivity(new Intent(this, OwnerProfile.class));
+
+        Intent intent = new Intent(this, OwnerProfile.class);
+        intent.putExtra("dogName", dogName);
+        intent.putExtra("dogBreed", dogBreed);
+        intent.putExtra("dogAge", dogAge);
+        intent.putExtra("dogBio", dogBio);
+        intent.putExtra("dogGender", dogGender);
+        intent.putExtra("dogSize", dogSize);
+        startActivity(intent);
+
+        startActivity(intent);
+    }
+
+    // Clears the form fields when returning to the MainActivity screen
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dogNameEditText = (EditText) findViewById(R.id.dog_name_text_id);
+        dogNameEditText.setText("");
+        dogBreedTextView = (AutoCompleteTextView) findViewById(R.id.dog_breed_text_id);
+        dogBreedTextView.setText("");
+        dogAgeEditText = (EditText) findViewById(R.id.dog_age_text_id);
+        dogAgeEditText.setText("");
+        dogBioEditText = (EditText) findViewById(R.id.dog_bio_edit_text_id);
+        dogBioEditText.setText("");
     }
 
     public void ClickMenu(View view) {
@@ -83,9 +127,7 @@ public class DogProfile extends AppCompatActivity {
         MainActivity.redirectActivity(this, SwipeActivity.class);
     }
 
-    public void ClickDogProfile (View view) {
-        recreate();
-    }
+    public void ClickDogProfile (View view) { MainActivity.redirectActivity(this, DogProfilePage.class); }
 
     public void ClickOwnerProfile (View view) {
         MainActivity.redirectActivity(this,OwnerProfile.class);

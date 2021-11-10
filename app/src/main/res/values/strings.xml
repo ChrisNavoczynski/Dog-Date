@@ -87,6 +87,10 @@
     <string name="bar_Login_Signup">Login or Signup</string>
     <string name="bar_DogProfile">Dog Profile</string>
     <string name="bar_OwnerProfile">Owner Profile</string>
+    <string name="bar_ProfilePage">Profile Page</string>
+    <string name="dog_bio">Dog Bio:</string>
+    <string name="dog_bio_edit_text">Give a bio for your dog!</string>
+    <string name="dog_breed_hint">Start typing your dog\'s breed!</string>
     <string name="todays_matches">Today\'s Matches!</string>
     <string name="today_s_matches">Today\'s Matches!</string>
     <string name="nav_home">Home</string>
@@ -96,5 +100,6 @@
     <string name="email_address">Email Address</string>
     <string name="password">Password</string>
     <string name="log_in_email">Email</string>
+    <string name="profile_picture">Profile Picture</string>
     >>>>>>> 7b7f3158dc9d2c608bfb3b336db69d4dc1464229
 </resources>

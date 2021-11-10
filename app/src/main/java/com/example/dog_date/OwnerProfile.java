@@ -47,6 +47,11 @@ public class OwnerProfile extends AppCompatActivity{
     RadioButton radioButton;
     DrawerLayout drawerLayout;
 
+    String dogName;
+    String dogBreed;
+    String dogAge;
+    String dogBio;
+
     String ownername, ownerage, ownergender, ownerStates;
     Spinner mySpinner;
     private StorageReference storageReference;
@@ -66,6 +71,16 @@ public class OwnerProfile extends AppCompatActivity{
         radioGroup = findViewById(R.id.genderGroup);
         ownerName = findViewById(R.id.ownerName);
         drawerLayout = findViewById(R.id.drawer_layout);
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+
+        if (b.containsKey("dogName") && b.containsKey("dogBreed") && b.containsKey("dogAge") && b.containsKey("dogBio")) {
+            dogName = b.getString("dogName");
+            dogBreed = b.getString("dogBreed");
+            dogAge = b.getString("dogAge");
+            dogBio = b.getString("dogBio");
+        }
 
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("profile");
@@ -185,8 +200,18 @@ public class OwnerProfile extends AppCompatActivity{
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Uri downloadUri = task.getResult();
-                                    Upload upload = new Upload(ownerName.getText().toString().trim(),
-                                            ownergender.trim(), ownerAge.getText().toString().trim(), downloadUri.toString(), ownerStates.trim());
+                                    Upload upload =
+                                            new Upload(
+                                                    ownerName.getText().toString().trim(),
+                                                    ownergender.trim(),
+                                                    ownerAge.getText().toString().trim(),
+                                                    downloadUri.toString(),
+                                                    ownerStates.trim(),
+                                                    dogName,
+                                                    dogBreed,
+                                                    dogAge,
+                                                    dogBio
+                                            );
                                     db.collection("Profiles").document("location").collection(ownerStates.trim()).document(ownerName.getText().toString().trim())
                                             .set(upload)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -240,7 +265,7 @@ public class OwnerProfile extends AppCompatActivity{
     }
 
     public void ClickDogProfile (View view) {
-        MainActivity.redirectActivity(this, DogProfile.class);
+        MainActivity.redirectActivity(this, DogProfilePage.class);
     }
 
     public void ClickOwnerProfile (View view) {
