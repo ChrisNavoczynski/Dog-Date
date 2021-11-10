@@ -1,6 +1,7 @@
 package com.example.dog_date.Match;
 
 public class MatchObject {
+
     private String userId;
     private String name;
     private String ImageUrl;
