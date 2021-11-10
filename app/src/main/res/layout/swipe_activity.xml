@@ -18,16 +18,18 @@
     <include
         layout="@layout/main_toolbar"/>
 
-        <TextView
+        <Button
             android:id="@+id/appMatch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/coiny"
             android:text="@string/today_s_matches"
+            android:onClick="goToMatch"
             android:textColor="@color/bronze"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold"/>
+
 
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         android:id="@+id/frame"
@@ -35,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:rotation_degrees="15.5" />
+
 
     </LinearLayout>
 

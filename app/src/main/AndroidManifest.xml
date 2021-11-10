@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DogDate">
         <activity
-        android:name=".chat.MessageActivity"
+        android:name=".MainActivity"
         android:title="@string/bar_Welcome"
             android:exported="true">
             <intent-filter>
@@ -27,9 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".chat.MessageActivity">
         </activity>
         <activity android:name=".Preference_owner"/>
+        <activity android:name=".Match.MatchActivity">
+        </activity>
         <activity android:name=".Preference"/>
         <activity android:name=".SwipeActivity">
         </activity>

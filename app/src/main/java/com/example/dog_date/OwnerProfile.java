@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -52,10 +53,11 @@ public class OwnerProfile extends AppCompatActivity{
     String dogAge;
     String dogBio;
 
-    String ownername, ownerage, ownergender, ownerStates;
+    String ownername, ownerage, ownergender, ownerStates, userId;
     Spinner mySpinner;
     private StorageReference storageReference;
     private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
     private StorageTask uploadTask;
     int radioId;
 
@@ -82,6 +84,8 @@ public class OwnerProfile extends AppCompatActivity{
             dogBio = b.getString("dogBio");
         }
 
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("profile");
 
@@ -202,6 +206,7 @@ public class OwnerProfile extends AppCompatActivity{
                                     Uri downloadUri = task.getResult();
                                     Upload upload =
                                             new Upload(
+                                                    userId.trim(),
                                                     ownerName.getText().toString().trim(),
                                                     ownergender.trim(),
                                                     ownerAge.getText().toString().trim(),
@@ -212,7 +217,7 @@ public class OwnerProfile extends AppCompatActivity{
                                                     dogAge,
                                                     dogBio
                                             );
-                                    db.collection("Profiles").document("location").collection(ownerStates.trim()).document(ownerName.getText().toString().trim())
+                                    db.collection("Users").document(userId)
                                             .set(upload)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
@@ -244,11 +249,7 @@ public class OwnerProfile extends AppCompatActivity{
             return;
         }
 
-        Intent intent = new Intent(OwnerProfile.this,Preference.class);
-        ownername = ownerName.getText().toString();
-        ownerage = ownerAge.getText().toString();
-        intent.putExtra(Constants.KEY_OWNER_NAME, ownername);
-        intent.putExtra(Constants.KEY_OWNER_AGE, ownerage);
+        Intent intent = new Intent(OwnerProfile.this,SwipeActivity.class);
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
     }
