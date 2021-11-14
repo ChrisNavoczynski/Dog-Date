@@ -249,7 +249,7 @@ public class OwnerProfile extends AppCompatActivity{
             return;
         }
 
-        Intent intent = new Intent(OwnerProfile.this,SwipeActivity.class);
+        Intent intent = new Intent(OwnerProfile.this,DogProfilePage.class);
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
     }

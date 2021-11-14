@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.dog_date.ViewModels.DogProfileViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +48,8 @@ public class DogProfilePage extends AppCompatActivity {
     String dogBreed;
     String dogAge;
     String dogBio;
+
+    private DogProfileViewModel viewModel;
 
     private String imageUri;
 
@@ -108,7 +112,16 @@ public class DogProfilePage extends AppCompatActivity {
 //            dogBio = b.getString("dogBio");
 //        }
 
+        viewModel = new DogProfileViewModel();
 
+        viewModel.getProfileInfo(
+                (Map<String, String> profileInfo) -> {
+                    dogAge = profileInfo.get("dogAge");
+                    dogBio = profileInfo.get("dogBio");
+                    dogBreed = profileInfo.get("dogBreed");
+                    dogName = profileInfo.get("dogName");
+                }
+        );
 
         profilePictureImageView = findViewById(R.id.profile_picture);
         dogNameAgeTextView = findViewById(R.id.dog_name_and_age_profile);
