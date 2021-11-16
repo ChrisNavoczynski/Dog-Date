@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.models.PreferencesItems;
 import com.example.dog_date.viewmodels.FirebasePreferenceViewModel;
@@ -33,6 +34,7 @@ public class Preference extends AppCompatActivity {
     RadioButton genderButton, sizeButton;
     int genderRadioId, sizeRadioId;
     Button nextBut;
+    DrawerLayout drawerLayout;
 
 
 
@@ -52,6 +54,8 @@ public class Preference extends AppCompatActivity {
         dogMaxAgeP = findViewById(R.id.dogMaxAge);
 
         nextBut = findViewById(R.id.nextButton);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         UserId = mAuth.getCurrentUser().getUid();
@@ -108,5 +112,35 @@ public class Preference extends AppCompatActivity {
 
         Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.DogProfilePage.class);
         startActivity(intent2);
+    }
+
+    public void ClickMenu(View view) {
+        MainActivity.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo(View view) {
+        MainActivity.closeDrawer(drawerLayout);
+    }
+
+    public void ClickHome(View view) {
+        MainActivity.redirectActivity(this, SwipeActivity.class);
+    }
+
+    public void ClickDogProfile(View view) {
+        MainActivity.redirectActivity(this, DogProfile.class);
+    }
+
+    public void ClickOwnerProfile(View view) {
+        MainActivity.redirectActivity(this, OwnerProfile.class);
+    }
+
+    public void ClickLogout(View view) {
+        MainActivity.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainActivity.closeDrawer(drawerLayout);
     }
 }
