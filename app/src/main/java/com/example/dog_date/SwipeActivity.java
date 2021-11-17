@@ -88,7 +88,7 @@ public class SwipeActivity extends AppCompatActivity {
                 Map<String, Object> likeIt = new HashMap<>();
                 likeIt.put("userID", currentUser);
 
-                DocumentReference userDb = db.collection("users").document(userID);
+                DocumentReference userDb = db.collection("Users").document(userID);
                 userDb.collection("Yeah")
                         .add(likeIt)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -129,13 +129,13 @@ public class SwipeActivity extends AppCompatActivity {
 
     private void getMatch() {
 
-        DocumentReference currentUserDB = db.collection("users").document(currentUser);
+        DocumentReference currentUserDB = db.collection("Users").document(currentUser);
         currentUserDB.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ownerStates = documentSnapshot.getString("ownerStates");
 
-                CollectionReference  collectionReference = db.collection("users");
+                CollectionReference  collectionReference = db.collection("Users");
 
                 Query userQuery = collectionReference.whereEqualTo("ownerStates", ownerStates);
 
@@ -158,7 +158,7 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     private void isMatch(String userID){
-        CollectionReference  collectionReference = db.collection("users").document(currentUser).collection("Yeah");
+        CollectionReference  collectionReference = db.collection("Users").document(currentUser).collection("Yeah");
         Query likeQuery = collectionReference.whereEqualTo("userID", userID);
 
         likeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
