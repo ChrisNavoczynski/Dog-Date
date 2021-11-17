@@ -114,33 +114,4 @@ public class Preference extends AppCompatActivity {
         startActivity(intent2);
     }
 
-    public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
-    }
-
-    public void ClickLogo(View view) {
-        MainActivity.closeDrawer(drawerLayout);
-    }
-
-    public void ClickHome(View view) {
-        MainActivity.redirectActivity(this, SwipeActivity.class);
-    }
-
-    public void ClickDogProfile(View view) {
-        MainActivity.redirectActivity(this, DogProfile.class);
-    }
-
-    public void ClickOwnerProfile(View view) {
-        MainActivity.redirectActivity(this, OwnerProfile.class);
-    }
-
-    public void ClickLogout(View view) {
-        MainActivity.logout(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MainActivity.closeDrawer(drawerLayout);
-    }
 }
