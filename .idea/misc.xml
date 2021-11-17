@@ -3,21 +3,44 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/background_chat_input.xml" value="0.1859375" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/background_content_bottom.xml" value="0.34791666666666665" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/background_content_top.xml" value="0.1859375" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/background_icon.xml" value="0.37083333333333335" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/background_receive_message.xml" value="0.337037037037037" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/background_sent_message.xml" value="0.22395833333333334" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/custom_button.xml" value="0.34791666666666665" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/dog_date.xml" value="0.27037037037037037" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/ic_chat.xml" value="0.17135416666666667" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/ic_dog_profile.xml" value="0.30648148148148147" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/ic_favorite.xml" value="0.30648148148148147" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/ic_home.xml" value="0.30648148148148147" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/ic_logout.xml" value="0.30648148148148147" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/ic_menu.xml" value="0.20092592592592592" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/ic_owner_profile.xml" value="0.27037037037037037" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/my_msg.xml" value="0.34791666666666665" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/drawable/side_nav_bar.xml" value="0.22870370370370371" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_chat.xml" value="0.3546875" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_log_in.xml" value="0.22" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_login_signup.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_sign_up.xml" value="0.2871376811594203" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_match.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_message.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_signup.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/activity_users.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/chat_item.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/doggy_profile.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/item.xml" value="0.21041666666666667" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/item_container_received_message.xml" value="0.2078125" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/item_container_sent_message.xml" value="0.2078125" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/item_container_user.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/main_nav_drawer.xml" value="0.33" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/main_toolbar.xml" value="0.15806159420289856" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/match_item.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/nav_header.xml" value="0.2871376811594203" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/owner_profile.xml" value="0.25679347826086957" />
+        <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/layout/swipe_activity.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/Chris Navoczynski/Dog-Date/app/src/main/res/menu/navigation_menu.xml" value="0.3494791666666667" />
         <entry key="..\:/Users/freed/Desktop/MobileClass/Dog-Date/app/src/main/res/layout/activity_main.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/freed/Desktop/MobileClass/Dog-Date/app/src/main/res/layout/activity_sign_up.xml" value="0.346875" />
@@ -28,17 +51,10 @@
         <entry key="..\:/Users/jiajh/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/select_dialog_item.xml" value="0.4401041666666667" />
         <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5277777777777778" />
         <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/activity_main.xml" value="0.5" />
-        <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/activity_match.xml" value="0.4015625" />
-        <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/activity_message.xml" value="0.5484375" />
-        <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/activity_sign_up.xml" value="0.5484375" />
-        <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/chat_item.xml" value="0.5484375" />
         <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/doggy_profile.xml" value="0.5484375" />
-        <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/item.xml" value="0.25407608695652173" />
-        <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/match_item.xml" value="0.4078125" />
         <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/preference.xml" value="0.33" />
         <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/preference_owner.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/profile_dog.xml" value="0.33" />
-        <entry key="..\:/Users/jiajh/Documents/GitHub/Dog-Date/app/src/main/res/layout/swipe_activity.xml" value="0.33" />
         <entry key="..\:/Users/krazy/AndroidStudioProjects/Dog-Date/app/src/main/res/layout/activity_main.xml" value="0.3016304347826087" />
         <entry key="..\:/Users/krazy/AndroidStudioProjects/Dog-Date/app/src/main/res/layout/doggy_profile.xml" value="0.264" />
         <entry key="..\:/Users/krazy/AndroidStudioProjects/Dog-Date/app/src/main/res/layout/fragment_dogprofile.xml" value="0.264" />

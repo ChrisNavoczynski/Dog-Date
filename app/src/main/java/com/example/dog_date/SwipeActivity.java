@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,10 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.Match.MatchActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -27,14 +24,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.StorageReference;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class SwipeActivity extends AppCompatActivity {
 
@@ -93,7 +88,7 @@ public class SwipeActivity extends AppCompatActivity {
                 Map<String, Object> likeIt = new HashMap<>();
                 likeIt.put("userID", currentUser);
 
-                DocumentReference userDb = db.collection("Users").document(userID);
+                DocumentReference userDb = db.collection("users").document(userID);
                 userDb.collection("Yeah")
                         .add(likeIt)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -134,13 +129,13 @@ public class SwipeActivity extends AppCompatActivity {
 
     private void getMatch() {
 
-        DocumentReference currentUserDB = db.collection("Users").document(currentUser);
+        DocumentReference currentUserDB = db.collection("users").document(currentUser);
         currentUserDB.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ownerStates = documentSnapshot.getString("ownerStates");
 
-                CollectionReference  collectionReference = db.collection("Users");
+                CollectionReference  collectionReference = db.collection("users");
 
                 Query userQuery = collectionReference.whereEqualTo("ownerStates", ownerStates);
 
@@ -163,7 +158,7 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     private void isMatch(String userID){
-        CollectionReference  collectionReference = db.collection("Users").document(currentUser).collection("Yeah");
+        CollectionReference  collectionReference = db.collection("users").document(currentUser).collection("Yeah");
         Query likeQuery = collectionReference.whereEqualTo("userID", userID);
 
         likeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -205,6 +200,10 @@ public class SwipeActivity extends AppCompatActivity {
 
     public void ClickOwnerProfile (View view) {
         MainActivity.redirectActivity(this,MatchActivity.class);
+    }
+
+    public void ClickChatMessaging (View view) {
+        MainActivity.redirectActivity(this, CurrentUserActivity.class);
     }
 
     public void ClickLogout (View view) {

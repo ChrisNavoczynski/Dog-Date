@@ -57,7 +57,7 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     private void getUserMatchId(){
-        CollectionReference collectionReference = db.collection("Users").document(cusrrentUserID).collection("Yeah");
+        CollectionReference collectionReference = db.collection("users").document(cusrrentUserID).collection("Yeah");
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -77,7 +77,7 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     private void getuserData(String userID){
-        DocumentReference userDB = db.collection("Users").document(userID);
+        DocumentReference userDB = db.collection("users").document(userID);
         userDB.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
