@@ -117,6 +117,11 @@ public class DogProfilePage extends AppCompatActivity {
         viewModel.getProfileInfo(
                 (Map<String, String> profileInfo) -> {
                     dogAge = profileInfo.get("dogAge");
+                    if(dogAge != null) {
+                        Log.i("dogAge", dogAge);
+                    } else {
+                        Log.i("dogAge", "null");
+                    }
                     dogBio = profileInfo.get("dogBio");
                     dogBreed = profileInfo.get("dogBreed");
                     dogName = profileInfo.get("dogName");

@@ -28,10 +28,12 @@ public class DogProfileModel {
         fb = FirebaseFirestore.getInstance();
         listeners = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() != null) {
-            userID = mAuth.getCurrentUser().getUid();
-            Log.i("userID", userID);
-        }
+        userID = mAuth.getCurrentUser().getUid();
+//        if (mAuth.getCurrentUser() != null) {
+//            userID = mAuth.getCurrentUser().getUid();
+//            Log.i("userID", userID);
+//        }
+//        Log.i("userID", "no UserID");
     }
 
     public void getProfileInformation(Consumer<DocumentSnapshot> dataChangedCallBack, Consumer<FirebaseFirestoreException> dataErrorCallback) {

@@ -1,5 +1,7 @@
 package com.example.dog_date.ViewModels;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.example.dog_date.DataModels.DogProfileModel;
@@ -35,6 +37,11 @@ public class DogProfileViewModel {
                         profileInfo.put("dogBreed", queryDocumentSnapshot.getString("dogBreed"));
                         profileInfo.put("dogName", queryDocumentSnapshot.getString("dogName"));
                         responseCallback.accept(profileInfo);
+                        if(profileInfo.get("dogAge") != null) {
+                            Log.i("Profile DogAge:", profileInfo.get("dogAge"));
+                        } else {
+                            Log.i("Profile DogAge:", null);
+                        }
                     }
                 },
                 (databaseError -> System.out.println("Error reading profile information: " + databaseError))
