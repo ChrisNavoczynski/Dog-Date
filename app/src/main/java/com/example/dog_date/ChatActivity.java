@@ -1,6 +1,7 @@
 package com.example.dog_date;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,6 +77,7 @@ public class ChatActivity extends AppCompatActivity {
                 .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
                 .addSnapshotListener(eventListener);
     }
+
 
     private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
         if (error != null) {
