@@ -93,6 +93,25 @@ public class LogInActivity extends AppCompatActivity {
         } else {
             binding.progressBar.setVisibility(View.INVISIBLE);
             binding.bLogIn.setVisibility(View.INVISIBLE);
+
+            mAuth.signInWithEmailAndPassword(mEmail, mPassword)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(LogInActivity.this, "Log In Failed: Email or Password is incorrect",
+                                        Toast.LENGTH_SHORT).show();
+                                return;
+                            } else {
+                                Toast.makeText(LogInActivity.this, "Logged In!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LogInActivity.this, Preference.class);
+                               // Intent intent = new Intent(LogInActivity.this, SwipeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    });
+
         }
     }
 

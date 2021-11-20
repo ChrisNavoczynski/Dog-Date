@@ -37,6 +37,7 @@ public class SwipeActivity extends AppCompatActivity {
     private arrayAdapter arrayAdapter;
     private int i;
     DrawerLayout drawerLayout;
+    boolean nope = false;
 
     private FirebaseAuth mAuth;
 
@@ -77,18 +78,32 @@ public class SwipeActivity extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
+                Upload user = (Upload) dataObject;
+                String userID = user.getUserID();
 
+                Map<String, Object> disLikeIt = new HashMap<>();
+                disLikeIt.put("userID", userID);
+
+                DocumentReference userDb = db.collection("Users").document(currentUser);
+                userDb.collection("Nope")
+                        .add(disLikeIt)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(SwipeActivity.this, "Nope",Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
                 Upload user = (Upload) dataObject;
                 String userID = user.getUserID();
-                //String uniqueID = UUID.randomUUID().toString();chatID.put("chatID", uniqueID);
-                Map<String, Object> likeIt = new HashMap<>();
-                likeIt.put("userID", currentUser);
 
-                DocumentReference userDb = db.collection("Users").document(userID);
+                Map<String, Object> likeIt = new HashMap<>();
+                likeIt.put("userID", userID);
+
+                DocumentReference userDb = db.collection("Users").document(currentUser);
                 userDb.collection("Yeah")
                         .add(likeIt)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -97,7 +112,6 @@ public class SwipeActivity extends AppCompatActivity {
                                 Toast.makeText(SwipeActivity.this, "you like this person",Toast.LENGTH_SHORT).show();
                             }
                         });
-
                 isMatch(userID);
             }
 
@@ -146,7 +160,10 @@ public class SwipeActivity extends AppCompatActivity {
                             Upload user = documentSnapshot.toObject(Upload.class);
 
                             String userID = user.getUserID();
-                            if (!userID.equals(currentUser)) {
+
+                            Log.i(TAG, "nope in here what is that now " + nope);
+
+                            if (!userID.equals(currentUser) && !checkNope(userID)) {
                                 rowItem.add(user);
                                 arrayAdapter.notifyDataSetChanged();
                             }
@@ -158,13 +175,15 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     private void isMatch(String userID){
-        CollectionReference  collectionReference = db.collection("Users").document(currentUser).collection("Yeah");
-        Query likeQuery = collectionReference.whereEqualTo("userID", userID);
+        CollectionReference  collectionReference = db.collection("Users").document(userID).collection("Yeah");
+        Query likeQuery = collectionReference.whereEqualTo("userID", currentUser);
 
         likeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    String uID = documentSnapshot.getId();
+                    addToMatch(uID, userID);
                     Log.i(TAG, "New Match!!!");
                 }
             }
@@ -176,11 +195,78 @@ public class SwipeActivity extends AppCompatActivity {
         });
     }
 
+    private void addToMatch(String key, String userID){
+        Map<String, Object> chatID = new HashMap<>();
+        chatID.put("chatWithUser", userID);
+        chatID.put("key", key);
+        DocumentReference currentUserDB = db.collection("Users").document(currentUser);
+        currentUserDB.collection("Chat")
+                .add(chatID)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.i(TAG, "add to chat");
+                    }
+                });
+        Map<String, Object> chat2ID = new HashMap<>();
+        DocumentReference userDB = db.collection("Users").document(userID);
+        chat2ID.put("chatWithUser", currentUser);
+        chat2ID.put("key", key);
+        userDB.collection("Chat")
+                .add(chat2ID)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.i(TAG, "add to chat 2");
+                    }
+                });
+    }
+
+    private boolean checkNope(String userID){
+
+        CollectionReference currentUserDb = db.collection("Users").document(currentUser).collection("Nope");
+        Query disLikeQuery = currentUserDb.whereEqualTo("userID", userID);
+
+        disLikeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                nope = true;
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "not in here");
+            }
+        });
+
+        CollectionReference currentUser2Db = db.collection("Users").document(currentUser).collection("Chat");
+        Query likeQuery = currentUserDb.whereEqualTo("userID", userID);
+
+        likeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                nope = true;
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "not in here");
+            }
+        });
+
+        Log.i(TAG, "nope is here" + nope);
+
+        return nope;
+    }
+
+
+
     public void goToMatch(View view) {
         Intent intent = new Intent(SwipeActivity.this, MatchActivity.class);
         startActivity(intent);
         return;
     }
+
 
     public void ClickMenu(View view) {
         MainActivity.openDrawer(drawerLayout);
