@@ -57,14 +57,13 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     private void getUserMatchId(){
-        CollectionReference collectionReference = db.collection("Users").document(cusrrentUserID).collection("Yeah");
+        CollectionReference collectionReference = db.collection("Users").document(cusrrentUserID).collection("Chat");
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    MatchObject matchObject = documentSnapshot.toObject(MatchObject.class);
 
-                    String userId = matchObject.getUserId();
+                    String userId = documentSnapshot.getString("chatWithUser");
                     getuserData(userId);
                 }
             }
@@ -81,11 +80,10 @@ public class MatchActivity extends AppCompatActivity {
         userDB.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Upload tagerObject = documentSnapshot.toObject(Upload.class);
 
-                String tagerID = tagerObject.getUserID();
-                String tagerName = tagerObject.getOwnerName();
-                String tagerPicture = tagerObject.getmImageUrl();
+                String tagerID = documentSnapshot.getString("userID");
+                String tagerName = documentSnapshot.getString("ownerName");
+                String tagerPicture = documentSnapshot.getString("mImageUrl");
 
                 MatchObject tager = new MatchObject(tagerID, tagerName, tagerPicture);
 
