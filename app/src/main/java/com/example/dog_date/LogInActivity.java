@@ -66,7 +66,8 @@ public class LogInActivity extends AppCompatActivity {
                                 return;
                             } else {
                                 Toast.makeText(LogInActivity.this, "Logged In!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LogInActivity.this, SwipeActivity.class);
+                                Intent intent = new Intent(LogInActivity.this, Preference.class);
+                               // Intent intent = new Intent(LogInActivity.this, SwipeActivity.class);
                                 startActivity(intent);
                                 finish();
                             }

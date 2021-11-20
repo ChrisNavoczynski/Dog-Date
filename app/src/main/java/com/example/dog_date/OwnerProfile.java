@@ -30,7 +30,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -249,7 +248,7 @@ public class OwnerProfile extends AppCompatActivity{
             return;
         }
 
-        Intent intent = new Intent(OwnerProfile.this,SwipeActivity.class);
+        Intent intent = new Intent(OwnerProfile.this,Preference.class);
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
     }

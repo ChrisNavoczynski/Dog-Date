@@ -1,0 +1,282 @@
+Index: app/src/main/java/com/example/dog_date/Preference.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.dog_date;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.AutoCompleteTextView;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.RadioButton;\r\nimport android.widget.RadioGroup;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.lifecycle.Observer;\r\nimport androidx.lifecycle.ViewModelProvider;\r\n\r\nimport com.example.dog_date.entity.dogPreferences;\r\nimport com.example.dog_date.viewmodels.DogPreferencesViewModel;\r\n\r\nimport java.util.List;\r\n\r\npublic class Preference extends AppCompatActivity {\r\n\r\n    String[] breeds = {\"Affenpinscher\", \"Afghan Hound\", \"Aidi\", \"Airedale Terrier\", \"Akbash Dog\", \"Alano Español\", \"Alaskan Klee Kai\", \"Alaskan Malamute\", \"Alpine Dachsbracke\", \"Alpine Mastiff\", \"Alpine Spaniel\", \"American Bulldog\", \"American Cocker Spaniel\", \"American Eskimo Dog\", \"American Foxhound\", \"American Hairless Terrier\", \"American Pit Bull Terrier\", \"American Staffordshire Terrier\", \"American Water Spaniel\", \"Anglo-Français de Petite Vénerie\", \"Appenzeller Sennenhund\", \"Ariege Pointer\", \"Ariegeois\", \"Armant\", \"Armenian Gampr dog\", \"Artois Hound\", \"Australian Cattle Dog\", \"Australian Kelpie\", \"Australian Shepherd\", \"Australian Silky Terrier\", \"Australian Stumpy Tail Cattle Dog\", \"Australian Terrier\", \"Azawakh\", \"Bakharwal Dog\", \"Barbet\", \"Basenji\", \"Basque Shepherd Dog\", \"Basset Artésien Normand\", \"Basset Bleu de Gascogne\", \"Basset Fauve de Bretagne\", \"Basset Hound\", \"Bavarian Mountain Hound\", \"Beagle\", \"Beagle-Harrier\", \"Bearded Collie\", \"Beauceron\", \"Bedlington Terrier\", \"Belgian Shepherd Dog (Groenendael)\", \"Belgian Shepherd Dog (Laekenois)\", \"Belgian Shepherd Dog (Malinois)\", \"Bergamasco Shepherd\", \"Berger Blanc Suisse\", \"Berger Picard\", \"Berner Laufhund\", \"Bernese Mountain Dog\", \"Billy\", \"Black and Tan Coonhound\", \"Black and Tan Virginia Foxhound\", \"Black Norwegian Elkhound\", \"Black Russian Terrier\", \"Bloodhound\", \"Blue Lacy\", \"Blue Paul Terrier\", \"Boerboel\", \"Bohemian Shepherd\", \"Bolognese\", \"Border Collie\", \"Border Terrier\", \"Borzoi\", \"Boston Terrier\", \"Bouvier des Ardennes\", \"Bouvier des Flandres\", \"Boxer\", \"Boykin Spaniel\", \"Bracco Italiano\", \"Braque d'Auvergne\", \"Braque du Bourbonnais\", \"Braque du Puy\", \"Braque Francais\", \"Braque Saint-Germain\", \"Brazilian Terrier\", \"Briard\", \"Briquet Griffon Vendéen\", \"Brittany\", \"Broholmer\", \"Bruno Jura Hound\", \"Bucovina Shepherd Dog\", \"Bull and Terrier\", \"Bull Terrier (Miniature)\", \"Bull Terrier\", \"Bulldog\", \"Bullenbeisser\", \"Bullmastiff\", \"Bully Kutta\", \"Burgos Pointer\", \"Cairn Terrier\", \"Canaan Dog\", \"Canadian Eskimo Dog\", \"Cane Corso\", \"Cardigan Welsh Corgi\", \"Carolina Dog\", \"Carpathian Shepherd Dog\", \"Catahoula Cur\", \"Catalan Sheepdog\", \"Caucasian Shepherd Dog\", \"Cavalier King Charles Spaniel\", \"Central Asian Shepherd Dog\", \"Cesky Fousek\", \"Cesky Terrier\", \"Chesapeake Bay Retriever\", \"Chien Français Blanc et Noir\", \"Chien Français Blanc et Orange\", \"Chien Français Tricolore\", \"Chien-gris\", \"Chihuahua\", \"Chilean Fox Terrier\", \"Chinese Chongqing Dog\", \"Chinese Crested Dog\", \"Chinese Imperial Dog\", \"Chinook\", \"Chippiparai\", \"Chow Chow\", \"Cierny Sery\", \"Cimarrón Uruguayo\", \"Cirneco dell'Etna\", \"Clumber Spaniel\", \"Combai\", \"Cordoba Fighting Dog\", \"Coton de Tulear\", \"Cretan Hound\", \"Croatian Sheepdog\", \"Cumberland Sheepdog\", \"Curly Coated Retriever\", \"Cursinu\", \"Cão da Serra de Aires\", \"Cão de Castro Laboreiro\", \"Cão Fila de São Miguel\", \"Dachshund\", \"Dalmatian\", \"Dandie Dinmont Terrier\", \"Danish Swedish Farmdog\", \"Deutsche Bracke\", \"Doberman Pinscher\", \"Dogo Argentino\", \"Dogo Cubano\", \"Dogue de Bordeaux\", \"Drentse Patrijshond\", \"Drever\", \"Dunker\", \"Dutch Shepherd Dog\", \"Dutch Smoushond\", \"East Siberian Laika\", \"East-European Shepherd\", \"Elo\", \"English Cocker Spaniel\", \"English Foxhound\", \"English Mastiff\", \"English Setter\", \"English Shepherd\", \"English Springer Spaniel\", \"English Toy Terrier (Black &amp; Tan)\", \"English Water Spaniel\", \"English White Terrier\", \"Entlebucher Mountain Dog\", \"Estonian Hound\", \"Estrela Mountain Dog\", \"Eurasier\", \"Field Spaniel\", \"Fila Brasileiro\", \"Finnish Hound\", \"Finnish Lapphund\", \"Finnish Spitz\", \"Flat-Coated Retriever\", \"Formosan Mountain Dog\", \"Fox Terrier (Smooth)\", \"French Bulldog\", \"French Spaniel\", \"Galgo Español\", \"Gascon Saintongeois\", \"German Longhaired Pointer\", \"German Pinscher\", \"German Shepherd\", \"German Shorthaired Pointer\", \"German Spaniel\", \"German Spitz\", \"German Wirehaired Pointer\", \"Giant Schnauzer\", \"Glen of Imaal Terrier\", \"Golden Retriever\", \"Gordon Setter\", \"Gran Mastín de Borínquen\", \"Grand Anglo-Français Blanc et Noir\", \"Grand Anglo-Français Blanc et Orange\", \"Grand Anglo-Français Tricolore\", \"Grand Basset Griffon Vendéen\", \"Grand Bleu de Gascogne\", \"Grand Griffon Vendéen\", \"Great Dane\", \"Great Pyrenees\", \"Greater Swiss Mountain Dog\", \"Greek Harehound\", \"Greenland Dog\", \"Greyhound\", \"Griffon Bleu de Gascogne\", \"Griffon Bruxellois\", \"Griffon Fauve de Bretagne\", \"Griffon Nivernais\", \"Hamiltonstövare\", \"Hanover Hound\", \"Hare Indian Dog\", \"Harrier\", \"Havanese\", \"Hawaiian Poi Dog\", \"Himalayan Sheepdog\", \"Hokkaido\", \"Hovawart\", \"Huntaway\", \"Hygenhund\", \"Ibizan Hound\", \"Icelandic Sheepdog\", \"Indian pariah dog\", \"Indian Spitz\", \"Irish Red and White Setter\", \"Irish Setter\", \"Irish Terrier\", \"Irish Water Spaniel\", \"Irish Wolfhound\", \"Istrian Coarse-haired Hound\", \"Istrian Shorthaired Hound\", \"Italian Greyhound\", \"Jack Russell Terrier\", \"Jagdterrier\", \"Jämthund\", \"Kai Ken\", \"Kaikadi\", \"Kanni\", \"Karelian Bear Dog\", \"Karst Shepherd\", \"Keeshond\", \"Kerry Beagle\", \"Kerry Blue Terrier\", \"King Charles Spaniel\", \"King Shepherd\", \"Kintamani\", \"Kishu\", \"Komondor\", \"Kooikerhondje\", \"Koolie\", \"Korean Jindo Dog\", \"Kromfohrländer\", \"Kumaon Mastiff\", \"Kurī\", \"Kuvasz\", \"Kyi-Leo\", \"Labrador Husky\", \"Labrador Retriever\", \"Lagotto Romagnolo\", \"Lakeland Terrier\", \"Lancashire Heeler\", \"Landseer\", \"Lapponian Herder\", \"Large Münsterländer\", \"Leonberger\", \"Lhasa Apso\", \"Lithuanian Hound\", \"Longhaired Whippet\", \"Löwchen\", \"Mahratta Greyhound\", \"Maltese\", \"Manchester Terrier\", \"Maremma Sheepdog\", \"McNab\", \"Mexican Hairless Dog\", \"Miniature American Shepherd\", \"Miniature Australian Shepherd\", \"Miniature Fox Terrier\", \"Miniature Pinscher\", \"Miniature Schnauzer\", \"Miniature Shar Pei\", \"Molossus\", \"Montenegrin Mountain Hound\", \"Moscow Watchdog\", \"Moscow Water Dog\", \"Mountain Cur\", \"Mucuchies\", \"Mudhol Hound\", \"Mudi\", \"Neapolitan Mastiff\", \"New Zealand Heading Dog\", \"Newfoundland\", \"Norfolk Spaniel\", \"Norfolk Terrier\", \"Norrbottenspets\", \"North Country Beagle\", \"Northern Inuit Dog\", \"Norwegian Buhund\", \"Norwegian Elkhound\", \"Norwegian Lundehund\", \"Norwich Terrier\", \"Old Croatian Sighthound\", \"Old Danish Pointer\", \"Old English Sheepdog\", \"Old English Terrier\", \"Old German Shepherd Dog\", \"Olde English Bulldogge\", \"Otterhound\", \"Pachon Navarro\", \"Paisley Terrier\", \"Pandikona\", \"Papillon\", \"Parson Russell Terrier\", \"Patterdale Terrier\", \"Pekingese\", \"Pembroke Welsh Corgi\", \"Perro de Presa Canario\", \"Perro de Presa Mallorquin\", \"Peruvian Hairless Dog\", \"Petit Basset Griffon Vendéen\", \"Petit Bleu de Gascogne\", \"Phalène\", \"Pharaoh Hound\", \"Phu Quoc ridgeback dog\", \"Picardy Spaniel\", \"Plott Hound\", \"Podenco Canario\", \"Pointer (dog breed)\", \"Polish Greyhound\", \"Polish Hound\", \"Polish Hunting Dog\", \"Polish Lowland Sheepdog\", \"Polish Tatra Sheepdog\", \"Pomeranian\", \"Pont-Audemer Spaniel\", \"Poodle\", \"Porcelaine\", \"Portuguese Podengo\", \"Portuguese Pointer\", \"Portuguese Water Dog\", \"Posavac Hound\", \"Pražský Krysařík\", \"Pudelpointer\", \"Pug\", \"Puli\", \"Pumi\", \"Pungsan Dog\", \"Pyrenean Mastiff\", \"Pyrenean Shepherd\", \"Rafeiro do Alentejo\", \"Rajapalayam\", \"Rampur Greyhound\", \"Rastreador Brasileiro\", \"Rat Terrier\", \"Ratonero Bodeguero Andaluz\", \"Redbone Coonhound\", \"Rhodesian Ridgeback\", \"Rottweiler\", \"Rough Collie\", \"Russell Terrier\", \"Russian Spaniel\", \"Russian tracker\", \"Russo-European Laika\", \"Sabueso Español\", \"Saint-Usuge Spaniel\", \"Sakhalin Husky\", \"Saluki\", \"Samoyed\", \"Sapsali\", \"Schapendoes\", \"Schillerstövare\", \"Schipperke\", \"Schweizer Laufhund\", \"Schweizerischer Niederlaufhund\", \"Scotch Collie\", \"Scottish Deerhound\", \"Scottish Terrier\", \"Sealyham Terrier\", \"Segugio Italiano\", \"Seppala Siberian Sleddog\", \"Serbian Hound\", \"Serbian Tricolour Hound\", \"Shar Pei\", \"Shetland Sheepdog\", \"Shiba Inu\", \"Shih Tzu\", \"Shikoku\", \"Shiloh Shepherd Dog\", \"Siberian Husky\", \"Silken Windhound\", \"Sinhala Hound\", \"Skye Terrier\", \"Sloughi\", \"Slovak Cuvac\", \"Slovakian Rough-haired Pointer\", \"Small Greek Domestic Dog\", \"Small Münsterländer\", \"Smooth Collie\", \"South Russian Ovcharka\", \"Southern Hound\", \"Spanish Mastiff\", \"Spanish Water Dog\", \"Spinone Italiano\", \"Sporting Lucas Terrier\", \"St. Bernard\", \"St. John's water dog\", \"Stabyhoun\", \"Staffordshire Bull Terrier\", \"Standard Schnauzer\", \"Stephens Cur\", \"Styrian Coarse-haired Hound\", \"Sussex Spaniel\", \"Swedish Lapphund\", \"Swedish Vallhund\", \"Tahltan Bear Dog\", \"Taigan\", \"Talbot\", \"Tamaskan Dog\", \"Teddy Roosevelt Terrier\", \"Telomian\", \"Tenterfield Terrier\", \"Thai Bangkaew Dog\", \"Thai Ridgeback\", \"Tibetan Mastiff\", \"Tibetan Spaniel\", \"Tibetan Terrier\", \"Tornjak\", \"Tosa\", \"Toy Bulldog\", \"Toy Fox Terrier\", \"Toy Manchester Terrier\", \"Toy Trawler Spaniel\", \"Transylvanian Hound\", \"Treeing Cur\", \"Treeing Walker Coonhound\", \"Trigg Hound\", \"Tweed Water Spaniel\", \"Turnspit Dog\", \"Tyrolean Hound\", \"Vizsla\", \"Volpino Italiano\", \"Weimaraner\", \"Welsh Sheepdog\", \"Welsh Springer Spaniel\", \"Welsh Terrier\", \"West Highland White Terrier\", \"West Siberian Laika\", \"Westphalian Dachsbracke\", \"Wetterhoun\", \"Whippet\", \"White Shepherd\", \"Wire Fox Terrier\", \"Wirehaired Pointing Griffon\", \"Wirehaired Vizsla\", \"Yorkshire Terrier\"};\r\n    AutoCompleteTextView dogBreedTextView;\r\n    String breedP, dogMaxAgeP,dogMinAgeP, genderDogP, dogSizeP;\r\n    EditText ownerMaxAge, ownerMinAge;\r\n    RadioGroup genderGroup, sizeGroup;\r\n    RadioButton genderButton, sizeButton;\r\n    int genderRadioId, sizeRadioId;\r\n    Button nextBut;\r\n\r\n    private DogPreferencesViewModel DPViewModel;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.preference);\r\n\r\n        genderGroup = findViewById(R.id.genderGroup);\r\n        sizeGroup = findViewById(R.id.sizeGroup);\r\n        dogBreedTextView = (AutoCompleteTextView) findViewById(R.id.dog_breed_text_id);\r\n        breedP = dogBreedTextView.getText().toString();\r\n        nextBut = findViewById(R.id.nextButton);\r\n\r\n        ArrayAdapter<String> adapter = new ArrayAdapter<String>\r\n                (this,android.R.layout.select_dialog_item,breeds);\r\n        AutoCompleteTextView actv =  (AutoCompleteTextView)findViewById(R.id.dog_breed_text_id);\r\n        actv.setThreshold(1);\r\n        actv.setAdapter(adapter);\r\n\r\n        DPViewModel = new ViewModelProvider(this).get(DogPreferencesViewModel.class);\r\n\r\n        final Observer<List<dogPreferences>> getDogPreferencesObserver = dogPreferences -> {\r\n            if(dogPreferences == null || dogPreferences.size() <= 0){\r\n                return;\r\n            }\r\n\r\n            dogPreferences dogP = dogPreferences.get(dogPreferences.size()-1);\r\n\r\n            if (dogP == null){\r\n                return;\r\n            }\r\n\r\n            //breedP.setAdapter(dogP.getBreedP());\r\n            genderGroup.setChecked(set.getGenderGroup());\r\n\r\n\r\n\r\n        };\r\n    }\r\n\r\n    public void checkButton(View v){\r\n        genderRadioId = genderGroup.getCheckedRadioButtonId();\r\n        genderButton = findViewById(genderRadioId);\r\n        genderDogP = genderButton.getText().toString();\r\n    }\r\n\r\n    public void checkButton2(View v){\r\n        sizeRadioId = sizeGroup.getCheckedRadioButtonId();\r\n        sizeButton = findViewById(sizeRadioId);\r\n        dogSizeP = sizeButton.getText().toString();\r\n    }\r\n\r\n    public void gotoP2(View v){\r\n        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.Preference_owner.class);\r\n        startActivity(intent2);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/dog_date/Preference.java b/app/src/main/java/com/example/dog_date/Preference.java
+--- a/app/src/main/java/com/example/dog_date/Preference.java	
++++ b/app/src/main/java/com/example/dog_date/Preference.java	
+@@ -11,14 +11,9 @@
+ import android.widget.RadioGroup;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+-import androidx.lifecycle.Observer;
+-import androidx.lifecycle.ViewModelProvider;
+ 
+-import com.example.dog_date.entity.dogPreferences;
+ import com.example.dog_date.viewmodels.DogPreferencesViewModel;
+ 
+-import java.util.List;
+-
+ public class Preference extends AppCompatActivity {
+ 
+     String[] breeds = {"Affenpinscher", "Afghan Hound", "Aidi", "Airedale Terrier", "Akbash Dog", "Alano Español", "Alaskan Klee Kai", "Alaskan Malamute", "Alpine Dachsbracke", "Alpine Mastiff", "Alpine Spaniel", "American Bulldog", "American Cocker Spaniel", "American Eskimo Dog", "American Foxhound", "American Hairless Terrier", "American Pit Bull Terrier", "American Staffordshire Terrier", "American Water Spaniel", "Anglo-Français de Petite Vénerie", "Appenzeller Sennenhund", "Ariege Pointer", "Ariegeois", "Armant", "Armenian Gampr dog", "Artois Hound", "Australian Cattle Dog", "Australian Kelpie", "Australian Shepherd", "Australian Silky Terrier", "Australian Stumpy Tail Cattle Dog", "Australian Terrier", "Azawakh", "Bakharwal Dog", "Barbet", "Basenji", "Basque Shepherd Dog", "Basset Artésien Normand", "Basset Bleu de Gascogne", "Basset Fauve de Bretagne", "Basset Hound", "Bavarian Mountain Hound", "Beagle", "Beagle-Harrier", "Bearded Collie", "Beauceron", "Bedlington Terrier", "Belgian Shepherd Dog (Groenendael)", "Belgian Shepherd Dog (Laekenois)", "Belgian Shepherd Dog (Malinois)", "Bergamasco Shepherd", "Berger Blanc Suisse", "Berger Picard", "Berner Laufhund", "Bernese Mountain Dog", "Billy", "Black and Tan Coonhound", "Black and Tan Virginia Foxhound", "Black Norwegian Elkhound", "Black Russian Terrier", "Bloodhound", "Blue Lacy", "Blue Paul Terrier", "Boerboel", "Bohemian Shepherd", "Bolognese", "Border Collie", "Border Terrier", "Borzoi", "Boston Terrier", "Bouvier des Ardennes", "Bouvier des Flandres", "Boxer", "Boykin Spaniel", "Bracco Italiano", "Braque d'Auvergne", "Braque du Bourbonnais", "Braque du Puy", "Braque Francais", "Braque Saint-Germain", "Brazilian Terrier", "Briard", "Briquet Griffon Vendéen", "Brittany", "Broholmer", "Bruno Jura Hound", "Bucovina Shepherd Dog", "Bull and Terrier", "Bull Terrier (Miniature)", "Bull Terrier", "Bulldog", "Bullenbeisser", "Bullmastiff", "Bully Kutta", "Burgos Pointer", "Cairn Terrier", "Canaan Dog", "Canadian Eskimo Dog", "Cane Corso", "Cardigan Welsh Corgi", "Carolina Dog", "Carpathian Shepherd Dog", "Catahoula Cur", "Catalan Sheepdog", "Caucasian Shepherd Dog", "Cavalier King Charles Spaniel", "Central Asian Shepherd Dog", "Cesky Fousek", "Cesky Terrier", "Chesapeake Bay Retriever", "Chien Français Blanc et Noir", "Chien Français Blanc et Orange", "Chien Français Tricolore", "Chien-gris", "Chihuahua", "Chilean Fox Terrier", "Chinese Chongqing Dog", "Chinese Crested Dog", "Chinese Imperial Dog", "Chinook", "Chippiparai", "Chow Chow", "Cierny Sery", "Cimarrón Uruguayo", "Cirneco dell'Etna", "Clumber Spaniel", "Combai", "Cordoba Fighting Dog", "Coton de Tulear", "Cretan Hound", "Croatian Sheepdog", "Cumberland Sheepdog", "Curly Coated Retriever", "Cursinu", "Cão da Serra de Aires", "Cão de Castro Laboreiro", "Cão Fila de São Miguel", "Dachshund", "Dalmatian", "Dandie Dinmont Terrier", "Danish Swedish Farmdog", "Deutsche Bracke", "Doberman Pinscher", "Dogo Argentino", "Dogo Cubano", "Dogue de Bordeaux", "Drentse Patrijshond", "Drever", "Dunker", "Dutch Shepherd Dog", "Dutch Smoushond", "East Siberian Laika", "East-European Shepherd", "Elo", "English Cocker Spaniel", "English Foxhound", "English Mastiff", "English Setter", "English Shepherd", "English Springer Spaniel", "English Toy Terrier (Black &amp; Tan)", "English Water Spaniel", "English White Terrier", "Entlebucher Mountain Dog", "Estonian Hound", "Estrela Mountain Dog", "Eurasier", "Field Spaniel", "Fila Brasileiro", "Finnish Hound", "Finnish Lapphund", "Finnish Spitz", "Flat-Coated Retriever", "Formosan Mountain Dog", "Fox Terrier (Smooth)", "French Bulldog", "French Spaniel", "Galgo Español", "Gascon Saintongeois", "German Longhaired Pointer", "German Pinscher", "German Shepherd", "German Shorthaired Pointer", "German Spaniel", "German Spitz", "German Wirehaired Pointer", "Giant Schnauzer", "Glen of Imaal Terrier", "Golden Retriever", "Gordon Setter", "Gran Mastín de Borínquen", "Grand Anglo-Français Blanc et Noir", "Grand Anglo-Français Blanc et Orange", "Grand Anglo-Français Tricolore", "Grand Basset Griffon Vendéen", "Grand Bleu de Gascogne", "Grand Griffon Vendéen", "Great Dane", "Great Pyrenees", "Greater Swiss Mountain Dog", "Greek Harehound", "Greenland Dog", "Greyhound", "Griffon Bleu de Gascogne", "Griffon Bruxellois", "Griffon Fauve de Bretagne", "Griffon Nivernais", "Hamiltonstövare", "Hanover Hound", "Hare Indian Dog", "Harrier", "Havanese", "Hawaiian Poi Dog", "Himalayan Sheepdog", "Hokkaido", "Hovawart", "Huntaway", "Hygenhund", "Ibizan Hound", "Icelandic Sheepdog", "Indian pariah dog", "Indian Spitz", "Irish Red and White Setter", "Irish Setter", "Irish Terrier", "Irish Water Spaniel", "Irish Wolfhound", "Istrian Coarse-haired Hound", "Istrian Shorthaired Hound", "Italian Greyhound", "Jack Russell Terrier", "Jagdterrier", "Jämthund", "Kai Ken", "Kaikadi", "Kanni", "Karelian Bear Dog", "Karst Shepherd", "Keeshond", "Kerry Beagle", "Kerry Blue Terrier", "King Charles Spaniel", "King Shepherd", "Kintamani", "Kishu", "Komondor", "Kooikerhondje", "Koolie", "Korean Jindo Dog", "Kromfohrländer", "Kumaon Mastiff", "Kurī", "Kuvasz", "Kyi-Leo", "Labrador Husky", "Labrador Retriever", "Lagotto Romagnolo", "Lakeland Terrier", "Lancashire Heeler", "Landseer", "Lapponian Herder", "Large Münsterländer", "Leonberger", "Lhasa Apso", "Lithuanian Hound", "Longhaired Whippet", "Löwchen", "Mahratta Greyhound", "Maltese", "Manchester Terrier", "Maremma Sheepdog", "McNab", "Mexican Hairless Dog", "Miniature American Shepherd", "Miniature Australian Shepherd", "Miniature Fox Terrier", "Miniature Pinscher", "Miniature Schnauzer", "Miniature Shar Pei", "Molossus", "Montenegrin Mountain Hound", "Moscow Watchdog", "Moscow Water Dog", "Mountain Cur", "Mucuchies", "Mudhol Hound", "Mudi", "Neapolitan Mastiff", "New Zealand Heading Dog", "Newfoundland", "Norfolk Spaniel", "Norfolk Terrier", "Norrbottenspets", "North Country Beagle", "Northern Inuit Dog", "Norwegian Buhund", "Norwegian Elkhound", "Norwegian Lundehund", "Norwich Terrier", "Old Croatian Sighthound", "Old Danish Pointer", "Old English Sheepdog", "Old English Terrier", "Old German Shepherd Dog", "Olde English Bulldogge", "Otterhound", "Pachon Navarro", "Paisley Terrier", "Pandikona", "Papillon", "Parson Russell Terrier", "Patterdale Terrier", "Pekingese", "Pembroke Welsh Corgi", "Perro de Presa Canario", "Perro de Presa Mallorquin", "Peruvian Hairless Dog", "Petit Basset Griffon Vendéen", "Petit Bleu de Gascogne", "Phalène", "Pharaoh Hound", "Phu Quoc ridgeback dog", "Picardy Spaniel", "Plott Hound", "Podenco Canario", "Pointer (dog breed)", "Polish Greyhound", "Polish Hound", "Polish Hunting Dog", "Polish Lowland Sheepdog", "Polish Tatra Sheepdog", "Pomeranian", "Pont-Audemer Spaniel", "Poodle", "Porcelaine", "Portuguese Podengo", "Portuguese Pointer", "Portuguese Water Dog", "Posavac Hound", "Pražský Krysařík", "Pudelpointer", "Pug", "Puli", "Pumi", "Pungsan Dog", "Pyrenean Mastiff", "Pyrenean Shepherd", "Rafeiro do Alentejo", "Rajapalayam", "Rampur Greyhound", "Rastreador Brasileiro", "Rat Terrier", "Ratonero Bodeguero Andaluz", "Redbone Coonhound", "Rhodesian Ridgeback", "Rottweiler", "Rough Collie", "Russell Terrier", "Russian Spaniel", "Russian tracker", "Russo-European Laika", "Sabueso Español", "Saint-Usuge Spaniel", "Sakhalin Husky", "Saluki", "Samoyed", "Sapsali", "Schapendoes", "Schillerstövare", "Schipperke", "Schweizer Laufhund", "Schweizerischer Niederlaufhund", "Scotch Collie", "Scottish Deerhound", "Scottish Terrier", "Sealyham Terrier", "Segugio Italiano", "Seppala Siberian Sleddog", "Serbian Hound", "Serbian Tricolour Hound", "Shar Pei", "Shetland Sheepdog", "Shiba Inu", "Shih Tzu", "Shikoku", "Shiloh Shepherd Dog", "Siberian Husky", "Silken Windhound", "Sinhala Hound", "Skye Terrier", "Sloughi", "Slovak Cuvac", "Slovakian Rough-haired Pointer", "Small Greek Domestic Dog", "Small Münsterländer", "Smooth Collie", "South Russian Ovcharka", "Southern Hound", "Spanish Mastiff", "Spanish Water Dog", "Spinone Italiano", "Sporting Lucas Terrier", "St. Bernard", "St. John's water dog", "Stabyhoun", "Staffordshire Bull Terrier", "Standard Schnauzer", "Stephens Cur", "Styrian Coarse-haired Hound", "Sussex Spaniel", "Swedish Lapphund", "Swedish Vallhund", "Tahltan Bear Dog", "Taigan", "Talbot", "Tamaskan Dog", "Teddy Roosevelt Terrier", "Telomian", "Tenterfield Terrier", "Thai Bangkaew Dog", "Thai Ridgeback", "Tibetan Mastiff", "Tibetan Spaniel", "Tibetan Terrier", "Tornjak", "Tosa", "Toy Bulldog", "Toy Fox Terrier", "Toy Manchester Terrier", "Toy Trawler Spaniel", "Transylvanian Hound", "Treeing Cur", "Treeing Walker Coonhound", "Trigg Hound", "Tweed Water Spaniel", "Turnspit Dog", "Tyrolean Hound", "Vizsla", "Volpino Italiano", "Weimaraner", "Welsh Sheepdog", "Welsh Springer Spaniel", "Welsh Terrier", "West Highland White Terrier", "West Siberian Laika", "Westphalian Dachsbracke", "Wetterhoun", "Whippet", "White Shepherd", "Wire Fox Terrier", "Wirehaired Pointing Griffon", "Wirehaired Vizsla", "Yorkshire Terrier"};
+@@ -49,25 +44,25 @@
+         actv.setThreshold(1);
+         actv.setAdapter(adapter);
+ 
+-        DPViewModel = new ViewModelProvider(this).get(DogPreferencesViewModel.class);
+-
+-        final Observer<List<dogPreferences>> getDogPreferencesObserver = dogPreferences -> {
+-            if(dogPreferences == null || dogPreferences.size() <= 0){
+-                return;
+-            }
+-
+-            dogPreferences dogP = dogPreferences.get(dogPreferences.size()-1);
+-
+-            if (dogP == null){
+-                return;
+-            }
+-
+-            //breedP.setAdapter(dogP.getBreedP());
+-            genderGroup.setChecked(set.getGenderGroup());
+-
+-
+-
+-        };
++//        DPViewModel = new ViewModelProvider(this).get(DogPreferencesViewModel.class);
++//
++//        final Observer<List<dogPreferences>> getDogPreferencesObserver = dogPreferences -> {
++//            if(dogPreferences == null || dogPreferences.size() <= 0){
++//                return;
++//            }
++//
++//            dogPreferences dogP = dogPreferences.get(dogPreferences.size()-1);
++//
++//            if (dogP == null){
++//                return;
++//            }
++//
++//            //breedP.setAdapter(dogP.getBreedP());
++//            genderGroup.setChecked(set.getGenderGroup());
++//
++//
++//
++//        };
+     }
+ 
+     public void checkButton(View v){
+Index: app/src/main/java/com/example/dog_date/model/dogPreferences.java
+===================================================================
+diff --git a/app/src/main/java/com/example/dog_date/model/dogPreferences.java b/app/src/main/java/com/example/dog_date/model/dogPreferences.java
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/dog_date/model/dogPreferences.java	
+@@ -0,0 +1,141 @@
++package com.example.dog_date.model;
++
++import android.os.Parcel;
++import android.os.Parcelable;
++
++import com.google.firebase.database.Exclude;
++import com.google.firebase.database.IgnoreExtraProperties;
++
++import java.util.HashMap;
++import java.util.Map;
++
++@IgnoreExtraProperties
++public class dogPreferences implements Parcelable {
++    public String uid;
++    public String title;
++    public boolean done;
++
++    public dogPreferences() {
++        // Default constructor required for calls to DataSnapshot.getValue(User.class)
++    }
++
++    public dogPreferences(String title, boolean done) {
++        this.title = title;
++        this.done = done;
++    }
++
++    public dogPreferences(Parcel in) {
++        title = in.readString();
++        done = in.readByte() != 0;
++    }
++
++    public static final Creator<dogPreferences> CREATOR = new Creator<dogPreferences>() {
++        @Override
++        public dogPreferences createFromParcel(Parcel in) {
++            return new dogPreferences(in);
++        }
++
++        @Override
++        public dogPreferences[] newArray(int size) {
++            return new dogPreferences[size];
++        }
++    };
++
++    @Exclude
++    public Map<String, Object> toMap() {
++        HashMap<String, Object> result = new HashMap<>();
++        result.put("uid", uid);
++        result.put("title", title);
++        result.put("done", done);
++
++        return result;
++    }
++
++    @Override
++    public int describeContents() {
++        return 0;
++    }
++
++    @Override
++    public void writeToParcel(Parcel dest, int flags) {
++        dest.writeString(title);
++        dest.writeByte((byte) (done ? 1 : 0));
++    }
++}
++
++//package com.example.dog_date.entity;
++//
++//import androidx.annotation.NonNull;
++//import androidx.room.ColumnInfo;
++//import androidx.room.PrimaryKey;
++//
++//public class dogPreferences {
++//    @PrimaryKey(autoGenerate = true)
++//    private int dogPreferenceID;
++//
++//    @ColumnInfo(name = "breedP")
++//    private String breedP;
++//
++//    @ColumnInfo(name = "genderGroup")
++//    private String genderGroup;
++//
++//    @ColumnInfo(name = "sizeGroup")
++//    private String sizeGroup;
++//
++//    @ColumnInfo(name = "dogMinAgeP")
++//    private int dogMinAgeP;
++//
++//    @ColumnInfo(name = "dogMaxAgeP")
++//    private int dogMaxAgeP;
++//
++//    @NonNull
++//    public int getDogPreferenceID() {
++//        return dogPreferenceID;
++//    }
++//
++//    public void setDogPreferenceID(int dogPreferenceID) {
++//        this.dogPreferenceID = dogPreferenceID;
++//    }
++//
++//    public String getBreedP() {
++//        return breedP;
++//    }
++//
++//    public void setBreedP(String breedP) {
++//        this.breedP = breedP;
++//    }
++//
++//    public String getGenderGroup() {
++//        return genderGroup;
++//    }
++//
++//    public void setGenderGroup(String genderGroup) {
++//        this.genderGroup = genderGroup;
++//    }
++//
++//    public String getSizeGroup() {
++//        return sizeGroup;
++//    }
++//
++//    public void setSizeGroup(String sizeGroup) {
++//        this.sizeGroup = sizeGroup;
++//    }
++//
++//    public int getDogMinAgeP() {
++//        return dogMinAgeP;
++//    }
++//
++//    public void setDogMinAgeP(int dogMinAgeP) {
++//        this.dogMinAgeP = dogMinAgeP;
++//    }
++//
++//    public int getDogMaxAgeP() {
++//        return dogMaxAgeP;
++//    }
++//
++//    public void setDogMaxAgeP(int ageMax) {
++//        this.dogMaxAgeP = dogMaxAgeP;
++//    }
++//
++//
++//}
+Index: app/src/main/java/com/example/dog_date/datamodel/FirebaseDogPreferencesModel.java
+===================================================================
+diff --git a/app/src/main/java/com/example/dog_date/datamodel/FirebaseDogPreferencesModel.java b/app/src/main/java/com/example/dog_date/datamodel/FirebaseDogPreferencesModel.java
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/dog_date/datamodel/FirebaseDogPreferencesModel.java	
+@@ -0,0 +1,56 @@
++package com.example.dog_date.datamodel;
++
++import com.example.dog_date.model.dogPreferences;
++import com.google.firebase.firestore.CollectionReference;
++import com.google.firebase.firestore.DocumentReference;
++import com.google.firebase.firestore.FirebaseFirestore;
++import com.google.firebase.firestore.FirebaseFirestoreException;
++import com.google.firebase.firestore.ListenerRegistration;
++import com.google.firebase.firestore.QuerySnapshot;
++
++import java.util.ArrayList;
++import java.util.HashMap;
++import java.util.List;
++import java.util.Map;
++import java.util.function.Consumer;
++
++public class FirebaseDogPreferencesModel {
++
++    private FirebaseFirestore db;
++    private List<ListenerRegistration> listeners;
++
++    public FirebaseDogPreferencesModel() {
++        db = FirebaseFirestore.getInstance();
++        listeners = new ArrayList<>();
++    }
++
++    public void addFirebaseDogPreferencesModel(FirebaseDogPreferencesModel item) {
++        CollectionReference todoItemsRef = db.collection("todoItems");
++        todoItemsRef.add(item);
++    }
++
++    public void getFirebaseDogPreferencesModel(Consumer<QuerySnapshot> dataChangedCallback, Consumer<FirebaseFirestoreException> dataErrorCallback) {
++        ListenerRegistration listener = db.collection("todoItems")
++                .addSnapshotListener((queryDocumentSnapshots, e) -> {
++                    if (e != null) {
++                        dataErrorCallback.accept(e);
++                    }
++
++                    dataChangedCallback.accept(queryDocumentSnapshots);
++                });
++        listeners.add(listener);
++    }
++
++    public void updateFirebaseDogPreferencesModel(FirebaseDogPreferencesModel item) {
++        DocumentReference todoItemRef = db.collection("todoItems").document(item.uid);
++        Map<String, Object> data = new HashMap<>();
++        data.put("title", item.title);
++        data.put("done", item.done);
++        todoItemRef.update(data);
++    }
++
++    public void clear() {
++        // Clear all the listeners onPause
++        listeners.forEach(ListenerRegistration::remove);
++    }
++}
+\ No newline at end of file
