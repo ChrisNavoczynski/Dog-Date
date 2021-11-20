@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bronze">#E56717</color>
     <color name="gold">#FCC404</color>
+    <color name="error">#B71C1C</color>
 
 </resources>

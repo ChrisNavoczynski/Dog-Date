@@ -2,7 +2,7 @@ package com.example.dog_date;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,51 +10,89 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.dog_date.databinding.ActivityLogInBinding;
+import com.example.dog_date.utilities.Constants;
+import com.example.dog_date.utilities.PreferenceManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LogInActivity extends AppCompatActivity {
 
-
+    private ActivityLogInBinding binding;
+    private PreferenceManager preferenceManager;
     private EditText email;
     private EditText password;
 
     DrawerLayout drawerLayout;
-
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     FirebaseFirestore fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
-
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
+            Intent intent = new Intent(getApplicationContext(), CurrentUserActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        binding = ActivityLogInBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setListeners();
         email = (findViewById(R.id.email));
         password = (findViewById(R.id.password));
-
         fb = FirebaseFirestore.getInstance();
         drawerLayout = findViewById(R.id.drawer_layout);
-
-        mAuth = FirebaseAuth.getInstance();
     }
 
+    private void setListeners() {
+        binding.textSignUp.setOnClickListener(v ->
+                startActivity(new Intent(getApplicationContext(), SignUpActivity.class)));
+        binding.bLogIn.setOnClickListener(v -> {
+            if (isValidLogInDetails()) {
+                logIn();
+            }
+        });
+    }
 
-    public void LogIn(View view) {
-
+    public void logIn() {
         final String mEmail = email.getText().toString();
         final String mPassword = password.getText().toString();
 
-        if (email.getText().toString().isEmpty()) {
-            email.setError("Please Enter Email");
-            return;
-        } else if (password.getText().toString().equals("")) {
-            password.setError("Please Enter Password");
-            return;
+        loading(true);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        mAuth.signInWithEmailAndPassword(mEmail, mPassword);
+        database.collection(Constants.KEY_COLLECTION_USERS)
+                .whereEqualTo(Constants.KEY_EMAIL, binding.email.getText().toString())
+                .whereEqualTo(Constants.KEY_PASSWORD, binding.password.getText().toString())
+                .get()
+                .addOnCompleteListener(task -> {
+                    showToast("Logged In!");
+                   if(task.isSuccessful() && task.getResult() != null
+                            && task.getResult().getDocuments().size() > 0) {
+                       DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                       preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                       preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
+                       preferenceManager.putString(Constants.KEY_OWNER_NAME, documentSnapshot.getString(Constants.KEY_OWNER_NAME));
+                       preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
+                       Intent intent = new Intent(getApplicationContext(), CurrentUserActivity.class);
+                       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                       startActivity(intent);
+                   } else {
+                       loading(false);
+                       showToast("Log In Failed: Email or Password is incorrect");
+                   }
+                });
+    }
+
+    private void loading(Boolean isLoading) {
+        if (isLoading) {
+            binding.bLogIn.setVisibility(View.INVISIBLE);
+            binding.progressBar.setVisibility(View.VISIBLE);
         } else {
+            binding.progressBar.setVisibility(View.INVISIBLE);
+            binding.bLogIn.setVisibility(View.INVISIBLE);
 
             mAuth.signInWithEmailAndPassword(mEmail, mPassword)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -73,9 +111,27 @@ public class LogInActivity extends AppCompatActivity {
                             }
                         }
                     });
+
         }
+    }
 
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
 
+    private Boolean isValidLogInDetails() {
+        if (binding.email.getText().toString().trim().isEmpty()) {
+            email.setError("Please Enter Email");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.email.getText().toString()).matches()) {
+            email.setError("Please enter valid email");
+            return false;
+        } else if (binding.password.getText().toString().trim().isEmpty()) {
+            password.setError("Please Enter Password");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void ClickMenu(View view) {
@@ -96,6 +152,10 @@ public class LogInActivity extends AppCompatActivity {
 
     public void ClickOwnerProfile(View view) {
         MainActivity.redirectActivity(this, OwnerProfile.class);
+    }
+
+    public void ClickChatMessaging (View view) {
+        MainActivity.redirectActivity(this, CurrentUserActivity.class);
     }
 
     public void ClickLogout(View view) {

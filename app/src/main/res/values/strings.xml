@@ -101,5 +101,16 @@
     <string name="password">Password</string>
     <string name="log_in_email">Email</string>
     <string name="profile_picture">Profile Picture</string>
+    <string name="signup_create_new_account">SignUp - Create New Account</string>
+    <string name="already_have_account_log_in">Already have account? Log In</string>
+    <string name="select_user">Select User</string>
+    <string name="select_match">Select Match</string>
+    <string name="add">Add</string>
+    <string name="logout_chat">Logout Chat</string>
+    <string name="messages">Messages</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="create_new_profile">Create New Profile</string>
+    <string name="app_uname">app_uName</string>
+    <string name="type_your_message">Type your message</string>
     >>>>>>> 7b7f3158dc9d2c608bfb3b336db69d4dc1464229
 </resources>

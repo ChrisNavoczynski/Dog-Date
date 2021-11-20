@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.dog_date.utilities.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -159,7 +160,6 @@ public class OwnerProfile extends AppCompatActivity{
         }
     }
 
-
     // this is the function for the select images from the phone
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
@@ -252,6 +252,7 @@ public class OwnerProfile extends AppCompatActivity{
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
     }
+
     public void ClickMenu(View view) {
         MainActivity.openDrawer(drawerLayout);
     }
@@ -270,6 +271,10 @@ public class OwnerProfile extends AppCompatActivity{
 
     public void ClickOwnerProfile (View view) {
         recreate();
+    }
+
+    public void ClickChatMessaging (View view) {
+        MainActivity.redirectActivity(this, CurrentUserActivity.class);
     }
 
     public void ClickLogout (View view) {

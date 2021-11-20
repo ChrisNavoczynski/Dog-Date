@@ -15,10 +15,10 @@
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
-    <include
-        layout="@layout/main_toolbar"/>
+        <include
+            layout="@layout/main_toolbar"/>
 
-        <Button
+        <TextView
             android:id="@+id/appMatch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,12 +31,12 @@
             android:textStyle="bold"/>
 
 
-    <com.lorentzos.flingswipe.SwipeFlingAdapterView
-        android:id="@+id/frame"
-        android:background="@drawable/dd_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:rotation_degrees="15.5" />
+        <com.lorentzos.flingswipe.SwipeFlingAdapterView
+            android:id="@+id/frame"
+            android:background="@drawable/dd_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rotation_degrees="15.5" />
 
 
     </LinearLayout>

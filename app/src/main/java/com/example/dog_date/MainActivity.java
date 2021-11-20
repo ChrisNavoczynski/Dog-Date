@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         redirectActivity(this,OwnerProfile.class);
     }
 
+    public void ClickChatMessaging (View view) {
+        redirectActivity(this, CurrentUserActivity.class);
+    }
+
     public void ClickLogout (View view) {
         logout(this);
     }
