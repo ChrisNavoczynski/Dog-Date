@@ -25,12 +25,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.dog_date.utilities.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -160,7 +160,6 @@ public class OwnerProfile extends AppCompatActivity{
         }
     }
 
-
     // this is the function for the select images from the phone
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
@@ -249,10 +248,11 @@ public class OwnerProfile extends AppCompatActivity{
             return;
         }
 
-        Intent intent = new Intent(OwnerProfile.this,DogProfilePage.class);
+        Intent intent = new Intent(OwnerProfile.this,Preference.class);
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
     }
+
     public void ClickMenu(View view) {
         MainActivity.openDrawer(drawerLayout);
     }
@@ -271,6 +271,10 @@ public class OwnerProfile extends AppCompatActivity{
 
     public void ClickOwnerProfile (View view) {
         recreate();
+    }
+
+    public void ClickChatMessaging (View view) {
+        MainActivity.redirectActivity(this, CurrentUserActivity.class);
     }
 
     public void ClickLogout (View view) {

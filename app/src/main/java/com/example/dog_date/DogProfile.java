@@ -133,6 +133,10 @@ public class DogProfile extends AppCompatActivity {
         MainActivity.redirectActivity(this,OwnerProfile.class);
     }
 
+    public void ClickChatMessaging (View view) {
+        MainActivity.redirectActivity(this, CurrentUserActivity.class);
+    }
+
     public void ClickLogout (View view) {
         MainActivity.logout(this);
     }
