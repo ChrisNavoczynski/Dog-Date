@@ -1,4 +1,4 @@
-package com.example.dog_date.DataModels;
+package com.example.dog_date.datamodel;
 
 import android.util.Log;
 
@@ -29,11 +29,6 @@ public class DogProfileModel {
         listeners = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getCurrentUser().getUid();
-//        if (mAuth.getCurrentUser() != null) {
-//            userID = mAuth.getCurrentUser().getUid();
-//            Log.i("userID", userID);
-//        }
-//        Log.i("userID", "no UserID");
     }
 
     public void getProfileInformation(Consumer<DocumentSnapshot> dataChangedCallBack, Consumer<FirebaseFirestoreException> dataErrorCallback) {
