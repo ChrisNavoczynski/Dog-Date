@@ -69,15 +69,6 @@ public class Preference_owner extends AppCompatActivity {
             Toast.makeText(Preference_owner.this, "Enter Preferred Min Age", Toast.LENGTH_LONG).show();
             return;
         }
-//        if(breedP.trim().isEmpty()){
-//            dogBreedTextView.setError("Enter Preferred Breed");
-//            //Toast.makeText(Preference.this, "Enter Preferred Breed", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.Preference_owner.class);
-
-//        com.example.dog_date.models.PreferencesItems preferencesItems = new com.example.dog_date.models.PreferencesItems(UserId, genderDogP.trim(), dogSizeP.trim(), breedP.trim(), dogMaxAgeP.getText().toString(), dogMinAgep.getText().toString());
-//        vm.addPreferences(preferencesItems);
 
         Intent intent2 = new Intent(com.example.dog_date.Preference_owner.this,com.example.dog_date.DogProfilePage.class);
         startActivity(intent2);
