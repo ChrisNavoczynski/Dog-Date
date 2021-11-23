@@ -110,7 +110,7 @@ public class Preference extends AppCompatActivity {
         PreferencesItems preferencesItems = new PreferencesItems(UserId, genderDogP.trim(), dogSizeP.trim(), breedP.trim(), dogMaxAgeP.getText().toString(), dogMinAgep.getText().toString());
         vm.addPreferences(preferencesItems);
 
-        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.DogProfilePage.class);
+        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.Preference_owner.class);
         startActivity(intent2);
     }
 

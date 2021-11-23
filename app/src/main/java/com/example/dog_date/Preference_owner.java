@@ -1,11 +1,15 @@
 package com.example.dog_date;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -14,8 +18,14 @@ public class Preference_owner extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     RadioGroup genderGroup;
+    RadioButton genderButton;
     EditText ownerMaxAge, ownerMinAge;
     Spinner spinner;
+    Button b_save;
+
+    String ownerGenderP;
+
+    int genderRadioId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,7 @@ public class Preference_owner extends AppCompatActivity {
         genderGroup = findViewById(R.id.genderGroup);
         ownerMaxAge = findViewById(R.id.ownerMaxAge);
         ownerMinAge = findViewById(R.id.ownerMinAge);
+        b_save = findViewById(R.id.save);
 
         spinner = findViewById(R.id.spinner1);
 
@@ -35,6 +46,41 @@ public class Preference_owner extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);
 
+    }
+
+    public void checkButton(View v){
+        genderRadioId = genderGroup.getCheckedRadioButtonId();
+        genderButton = findViewById(genderRadioId);
+        ownerGenderP = genderButton.getText().toString();
+    }
+
+    public void gotoP2(View v){
+
+
+        if((genderGroup.getCheckedRadioButtonId() == -1)){
+            Toast.makeText(Preference_owner.this, "Select Preferred Gender", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(ownerMaxAge.getText().toString().isEmpty()){
+            Toast.makeText(Preference_owner.this, "Enter Preferred Max Age", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(ownerMinAge.getText().toString().isEmpty()){
+            Toast.makeText(Preference_owner.this, "Enter Preferred Min Age", Toast.LENGTH_LONG).show();
+            return;
+        }
+//        if(breedP.trim().isEmpty()){
+//            dogBreedTextView.setError("Enter Preferred Breed");
+//            //Toast.makeText(Preference.this, "Enter Preferred Breed", Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.Preference_owner.class);
+
+//        com.example.dog_date.models.PreferencesItems preferencesItems = new com.example.dog_date.models.PreferencesItems(UserId, genderDogP.trim(), dogSizeP.trim(), breedP.trim(), dogMaxAgeP.getText().toString(), dogMinAgep.getText().toString());
+//        vm.addPreferences(preferencesItems);
+
+        Intent intent2 = new Intent(com.example.dog_date.Preference_owner.this,com.example.dog_date.DogProfilePage.class);
+        startActivity(intent2);
     }
 
     public void ClickMenu(View view) {
