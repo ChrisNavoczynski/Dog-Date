@@ -41,10 +41,10 @@ public class OwnerProfileModel {
     public void updateProfileById(Upload profile) {
         DocumentReference profileRef = fb.collection("Users").document(profile.getUserID());
         Map<String, Object> data = new HashMap<>();
-        data.put("dogAge", profile.getDogAge());
-        data.put("dogBio", profile.getDogBio());
-        data.put("dogBreed", profile.getDogBreed());
-        data.put("dogName", profile.getDogName());
+        data.put("ownerAge", profile.getOwnerAge());
+        data.put("ownerStates", profile.getOwnerStates());
+        data.put("ownerGender", profile.getOwnerGender());
+        data.put("ownerName", profile.getOwnerName());
         profileRef.update(data);
     }
 
