@@ -1,3 +1,4 @@
+
 package com.example.dog_date.models;
 
 import com.google.firebase.firestore.DocumentSnapshot;
