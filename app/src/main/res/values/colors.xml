@@ -10,5 +10,8 @@
     <color name="bronze">#E56717</color>
     <color name="gold">#FCC404</color>
     <color name="error">#B71C1C</color>
+    <color name="textReceive">#FC944B</color>
+    <color name="textSend">#fcee6f</color>
+    <color name="online">#A1DB67</color>
 
 </resources>

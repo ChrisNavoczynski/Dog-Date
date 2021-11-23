@@ -1,21 +1,34 @@
 package com.example.dog_date;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dog_date.adapters.ChatAdapter;
 import com.example.dog_date.databinding.ActivityChatBinding;
 import com.example.dog_date.models.ChatMessage;
 import com.example.dog_date.models.User;
+import com.example.dog_date.network.ApiClient;
+import com.example.dog_date.network.ApiService;
 import com.example.dog_date.utilities.Constants;
 import com.example.dog_date.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,8 +38,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-public class ChatActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ChatActivity extends BaseActivity {
 
     private ActivityChatBinding binding;
     private User receiverUser;
@@ -34,6 +52,8 @@ public class ChatActivity extends AppCompatActivity {
     private ChatAdapter chatAdapter;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
+    private String conversationId = null;
+    private Boolean isReceiverAvailable = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceStance) {
@@ -64,7 +84,101 @@ public class ChatActivity extends AppCompatActivity {
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
         db.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+        if (conversationId != null) {
+            updateConversation(binding.inputMessage.getText().toString());
+        } else {
+            HashMap<String, Object> conversation = new HashMap<>();
+            conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+            conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_OWNER_NAME));
+            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
+            conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.uName);
+            conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
+            conversation.put(Constants.KEY_TIMESTAMP, new Date());
+            addConversation(conversation);
+        }
+        if(!isReceiverAvailable) {
+            try {
+                JSONArray tokens = new JSONArray();
+                tokens.put(receiverUser.token);
+
+                JSONObject data = new JSONObject();
+                data.put(Constants.KEY_USER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+                data.put(Constants.KEY_OWNER_NAME, preferenceManager.getString(Constants.KEY_OWNER_NAME));
+                data.put(Constants.KEY_FCM_TOKEN, preferenceManager.getString(Constants.KEY_FCM_TOKEN));
+                data.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
+
+                JSONObject body = new JSONObject();
+                body.put(Constants.REMOTE_MSG_DATA, data);
+                body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
+
+                sendNotifications(body.toString());
+            } catch (Exception exception) {
+                showToast(exception.getMessage());
+            }
+        }
         binding.inputMessage.setText(null);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void sendNotifications(String messageBody) {
+        ApiClient.getClient().create(ApiService.class).sendMessage(
+                Constants.getRemoteMsgHeaders(),
+                messageBody
+        ).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        if (response.body() != null) {
+                            JSONObject responseJson = new JSONObject(response.body());
+                            JSONArray results = responseJson.getJSONArray("results");
+                            if(responseJson.getInt("failure") == 1) {
+                                JSONObject error = (JSONObject) results.get(0);
+                                showToast(error.getString("Oops, There's an Error"));
+                                return;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    showToast("Notification Sent Successfully");
+                } else {
+                    showToast("Oops, There's an Error" + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call,@NonNull Throwable throwable) {
+                showToast(throwable.getMessage());
+            }
+        });
+    }
+
+    private void listenAvailabilityOfReceiver() {
+        db.collection(Constants.KEY_COLLECTION_USERS).document(
+                receiverUser.id
+        ).addSnapshotListener(ChatActivity.this, (value, error) -> {
+            if(error != null) {
+                return;
+            }
+            if(value != null) {
+                if(value.getLong(Constants.KEY_AVAILABILITY) != null) {
+                    int availability = Objects.requireNonNull(
+                            value.getLong(Constants.KEY_AVAILABILITY)
+                    ).intValue();
+                    isReceiverAvailable = availability == 1;
+                }
+                receiverUser.token = value.getString(Constants.KEY_FCM_TOKEN);
+            }
+            if(isReceiverAvailable) {
+                binding.textAvailability.setVisibility(View.VISIBLE);
+            } else {
+                binding.textAvailability.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void listenMessages() {
@@ -77,7 +191,6 @@ public class ChatActivity extends AppCompatActivity {
                 .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
                 .addSnapshotListener(eventListener);
     }
-
 
     private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
         if (error != null) {
@@ -106,6 +219,9 @@ public class ChatActivity extends AppCompatActivity {
             binding.chatRecyclerView.setVisibility(View.VISIBLE);
         }
         binding.progressBar.setVisibility(View.GONE);
+        if (conversationId == null) {
+            checkForConversation();
+        }
     };
 
 /*    private Bitmap getBitmapFromEncodedString(String encodedImage) {
@@ -125,5 +241,54 @@ public class ChatActivity extends AppCompatActivity {
 
     private String getReadableDateTime(Date date) {
         return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
+    }
+
+    private void addConversation(HashMap<String, Object> conversation) {
+        db.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .add(conversation)
+                .addOnSuccessListener(documentReference -> conversationId = documentReference.getId());
+    }
+
+    private void updateConversation(String message) {
+        DocumentReference documentReference =
+                db.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(conversationId);
+        documentReference.update(
+                Constants.KEY_LAST_MESSAGE, message,
+                Constants.KEY_TIMESTAMP, new Date()
+        );
+    }
+
+    private void checkForConversation() {
+        if(chatMessages.size() != 0) {
+            checkForConversationRemotely(
+                    preferenceManager.getString(Constants.KEY_USER_ID),
+                    receiverUser.id
+            );
+            checkForConversationRemotely(
+                    receiverUser.id,
+                    preferenceManager.getString(Constants.KEY_USER_ID)
+            );
+        }
+    }
+
+    private void checkForConversationRemotely(String senderId, String receiverId) {
+        db.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .whereEqualTo(Constants.KEY_SENDER_ID, senderId)
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverId)
+                .get()
+                .addOnCompleteListener(conversationOnCompleteListener);
+    }
+
+    private final OnCompleteListener<QuerySnapshot> conversationOnCompleteListener = task -> {
+      if(task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
+          DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+          conversationId = documentSnapshot.getId();
+      }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listenAvailabilityOfReceiver();
     }
 }
