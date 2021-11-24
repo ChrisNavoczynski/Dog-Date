@@ -9,13 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.dog_date.R;
-import com.example.dog_date.Upload;
+import com.example.dog_date.utilities.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,9 +22,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class MatchActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -57,7 +54,7 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     private void getUserMatchId(){
-        CollectionReference collectionReference = db.collection("Users").document(cusrrentUserID).collection("Chat");
+        CollectionReference collectionReference = db.collection("Users").document(cusrrentUserID).collection(Constants.KEY_COLLECTION_CHAT);
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -102,6 +99,5 @@ public class MatchActivity extends AppCompatActivity {
     private List<MatchObject> getDataSetMatches() {
         return resultsMatches;
     }
-
 
 }
