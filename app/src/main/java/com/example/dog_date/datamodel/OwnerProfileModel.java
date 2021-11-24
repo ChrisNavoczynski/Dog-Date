@@ -45,6 +45,7 @@ public class OwnerProfileModel {
         data.put("ownerStates", profile.getOwnerStates());
         data.put("ownerGender", profile.getOwnerGender());
         data.put("ownerName", profile.getOwnerName());
+        data.put("ownerBio", profile.getOwnerBio());
         profileRef.update(data);
     }
 
