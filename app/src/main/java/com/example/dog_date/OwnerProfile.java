@@ -2,10 +2,19 @@ package com.example.dog_date;
 
 import static android.content.ContentValues.TAG;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -23,9 +32,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.utilities.Constants;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,13 +53,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-public class OwnerProfile extends AppCompatActivity{
+public class OwnerProfile extends AppCompatActivity {
 
     private Uri imageUri;
 
     ImageView uploadImage;
+
     EditText ownerName, ownerAge, ownerBioEditText;
     Button uploadButton,saveButton;
+
     RadioGroup radioGroup;
     RadioButton radioButton;
     DrawerLayout drawerLayout;
@@ -53,13 +71,18 @@ public class OwnerProfile extends AppCompatActivity{
     String dogAge;
     String dogBio;
 
+
+    double ownerLat, ownerLong;
     String ownername, ownerage, ownergender, ownerStates, ownerBio, userId;
+
     Spinner mySpinner;
+    FusedLocationProviderClient fusedLocationProviderClient;
     private StorageReference storageReference;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private StorageTask uploadTask;
     int radioId;
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +108,10 @@ public class OwnerProfile extends AppCompatActivity{
             dogBio = b.getString("dogBio");
         }
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(
+                OwnerProfile.this
+        );
+
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
         db = FirebaseFirestore.getInstance();
@@ -93,6 +120,41 @@ public class OwnerProfile extends AppCompatActivity{
 
         // upload button is not for upload but is select picture from the phone
         uploadButton.setOnClickListener(v -> mGetContent.launch("image/*"));
+
+        findViewById(R.id.locationBut).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(OwnerProfile.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(OwnerProfile.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    getCurrentLocation();
+                }else{
+                    ActivityCompat.requestPermissions(OwnerProfile.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                }
+            }
+        });
+
+        // location button which ask for permission for location service and keeping running in the back.
+        /*findViewById(R.id.locationBut).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(
+                            OwnerProfile.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            REQUEST_CODE_LOCATION_PERMISSION);
+                } else {
+                    startLocationService();
+                }
+            }
+        });
+
+        findViewById(R.id.stopLocationBut).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopLocationService();
+            }
+        });*/
 
         /*
          save button gonna go to next activity and upload info to FireStore
@@ -106,6 +168,45 @@ public class OwnerProfile extends AppCompatActivity{
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.states));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getCurrentLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+
+                    if (location != null){
+                        ownerLat = location.getLatitude();
+                        ownerLong = location.getLongitude();
+                    }else{
+                        LocationRequest locationRequest = new LocationRequest()
+                                .setInterval(10000)
+                                .setFastestInterval(1000)
+                                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                .setNumUpdates(1);
+
+                        LocationCallback locationCallback = new LocationCallback() {
+                            @Override
+                            public void onLocationResult(LocationResult locationResult) {
+                                Location location1 = locationResult.getLastLocation();
+                                ownerLat = locationResult.getLastLocation().getLatitude();
+                                ownerLong = locationResult.getLastLocation().getLongitude();
+                                Log.i(TAG, "here is the location " + ownerLat + ", " + ownerLong);
+                            }
+                        };
+                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+                    }
+                }
+            });
+        }else{
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
     }
 
     // save input if user rotate the phone
@@ -131,30 +232,30 @@ public class OwnerProfile extends AppCompatActivity{
     }
 
     // check owner name input is not empty
-    public boolean validOwnerName(){
+    public boolean validOwnerName() {
         ownername = ownerName.getEditableText().toString().trim();
-        if (ownername.isEmpty()){
+        if (ownername.isEmpty()) {
             ownerName.setError("enter your user name pls");
             return false;
-        }else if(ownername.length()>15){
+        } else if (ownername.length() > 15) {
             ownerName.setError("username too long");
             return false;
-        }else{
+        } else {
             ownerName.setError(null);
-            return  true;
+            return true;
         }
     }
 
     // check the owner age over 18
-    public boolean validAge(){
+    public boolean validAge() {
         int ownerage = Integer.parseInt(ownerAge.getText().toString());
         String check = ownerAge.getEditableText().toString().trim();
         if (ownerage < 18) {
             ownerAge.setError("you are under 18, so you can't sign up");
-            return  false;
+            return false;
         } else if (check.isEmpty()) {
             ownerAge.setError("enter your birthday");
-            return  false;
+            return false;
         } else {
             ownerAge.setError(null);
             return true;
@@ -166,7 +267,7 @@ public class OwnerProfile extends AppCompatActivity{
             new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
-                    if (result !=null){
+                    if (result != null) {
                         uploadImage.setImageURI(result);
                         imageUri = result;
                     }
@@ -174,24 +275,35 @@ public class OwnerProfile extends AppCompatActivity{
             });
 
 
-    private String getFileExtension(Uri uri){
+    private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mine = MimeTypeMap.getSingleton();
         return mine.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    public void checkButton(View v){
+    public void checkButton(View v) {
         radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
         ownergender = radioButton.getText().toString();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100 && grantResults.length > 0 && (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
+            getCurrentLocation();
+        }else {
+            Toast.makeText(this, "Permission denied!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     // upload function, check all the input and go to next activity
-    private void uploadPic(){
+    private void uploadPic() {
 
         ownerStates = mySpinner.getSelectedItem().toString();
 
-        if(imageUri != null){
+        if (imageUri != null) {
             StorageReference fileReference = storageReference.child(ownerName.getText().toString() + "ProfilePic1"
                     + "." + getFileExtension(imageUri));
 
@@ -216,7 +328,9 @@ public class OwnerProfile extends AppCompatActivity{
                                                     dogName,
                                                     dogBreed,
                                                     dogAge,
-                                                    dogBio
+                                                    dogBio,
+                                                    ownerLat,
+                                                    ownerLong
                                             );
                                     db.collection("Users").document(userId)
                                             .set(upload)
@@ -246,11 +360,11 @@ public class OwnerProfile extends AppCompatActivity{
         }
         boolean isAgeValid = validAge();
         boolean isNameValid = validOwnerName();
-        if (!isAgeValid | !isNameValid | ownergender == null | uploadImage == null){
+        if (!isAgeValid | !isNameValid | ownergender == null | uploadImage == null) {
             return;
         }
 
-        Intent intent = new Intent(OwnerProfile.this,Preference.class);
+        Intent intent = new Intent(OwnerProfile.this, Preference.class);
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
         startActivity(intent);
     }
@@ -267,19 +381,19 @@ public class OwnerProfile extends AppCompatActivity{
         MainActivity.redirectActivity(this, SwipeActivity.class);
     }
 
-    public void ClickDogProfile (View view) {
+    public void ClickDogProfile(View view) {
         MainActivity.redirectActivity(this, DogProfilePage.class);
     }
 
-    public void ClickOwnerProfile (View view) {
+    public void ClickOwnerProfile(View view) {
         recreate();
     }
 
-    public void ClickChatMessaging (View view) {
+    public void ClickChatMessaging(View view) {
         MainActivity.redirectActivity(this, CurrentUserActivity.class);
     }
 
-    public void ClickLogout (View view) {
+    public void ClickLogout(View view) {
         MainActivity.logout(this);
     }
 
