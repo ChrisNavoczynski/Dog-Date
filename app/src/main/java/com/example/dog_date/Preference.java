@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.models.PreferencesItems;
+import com.example.dog_date.models.FirebasePreferenceViewModel;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

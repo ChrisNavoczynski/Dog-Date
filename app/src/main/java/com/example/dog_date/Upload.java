@@ -5,6 +5,7 @@ public class Upload {
     private String ownerName;
     private String ownerGender;
     private String ownerAge;
+    private String ownerBio;
     private String mImageUrl;
     private String ownerStates;
     private Double latitude;
@@ -19,6 +20,7 @@ public class Upload {
         // empty constructor needed
     }
 
+
     public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String dogName, String dogBreed, String dogAge, String dogBio, Double latitude, Double longitude){
         this.UserID = UserID;
         this.ownerName = ownerName;
@@ -26,6 +28,7 @@ public class Upload {
         this.ownerAge = ownerAge;
         this.ownerGender = ownerGender;
         this.ownerStates = ownerStates;
+        this.ownerBio = ownerBio;
 
         this.dogName = dogName;
         this.dogBreed = dogBreed;
@@ -83,6 +86,10 @@ public class Upload {
     public void setOwnerStates(String ownerStates) {
         this.ownerStates = ownerStates;
     }
+
+    public String getOwnerBio() { return ownerBio; }
+
+    public void setOwnerBio(String ownerBio) { this.ownerBio = ownerBio; }
 
     public String getDogName() { return dogName; }
 
