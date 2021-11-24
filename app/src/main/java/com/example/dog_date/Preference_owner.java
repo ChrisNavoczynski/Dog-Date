@@ -14,6 +14,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.dog_date.Models.OwnerPreferenceItems;
+import com.example.dog_date.ViewModels.OwnerPreferenceViewModel;
+
 public class Preference_owner extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
@@ -23,7 +26,9 @@ public class Preference_owner extends AppCompatActivity {
     Spinner spinner;
     Button b_save;
 
-    String ownerGenderP;
+    String ownerGenderP, UserId;
+
+    private OwnerPreferenceViewModel vm;
 
     int genderRadioId;
 
@@ -31,6 +36,8 @@ public class Preference_owner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preference_owner);
+
+        vm = new OwnerPreferenceViewModel();
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -54,7 +61,7 @@ public class Preference_owner extends AppCompatActivity {
         ownerGenderP = genderButton.getText().toString();
     }
 
-    public void gotoP2(View v){
+    public void goToProfile(View v){
 
 
         if((genderGroup.getCheckedRadioButtonId() == -1)){
@@ -69,6 +76,9 @@ public class Preference_owner extends AppCompatActivity {
             Toast.makeText(Preference_owner.this, "Enter Preferred Min Age", Toast.LENGTH_LONG).show();
             return;
         }
+
+        OwnerPreferenceItems ownerPreferenceItems = new OwnerPreferenceItems(UserId, ownerGenderP.trim(), ownerMaxAge.toString(), ownerMinAge.toString());
+        vm.addOwnerPreferences(ownerPreferenceItems);
 
         Intent intent2 = new Intent(com.example.dog_date.Preference_owner.this,com.example.dog_date.DogProfilePage.class);
         startActivity(intent2);

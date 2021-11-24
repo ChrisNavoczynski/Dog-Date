@@ -1,32 +1,32 @@
 package com.example.dog_date.ViewModels;
 
+import com.example.dog_date.Models.OwnerPreferenceItems;
 import com.example.dog_date.datamodel.FirebasePreferenceModel;
-import com.example.dog_date.Models.PreferencesItems;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public class FirebasePreferenceViewModel {
+public class OwnerPreferenceViewModel {
 
     private FirebasePreferenceModel preferenceModel;
 
-    public FirebasePreferenceViewModel(){
+    public OwnerPreferenceViewModel(){
         preferenceModel = new FirebasePreferenceModel();
     }
 
-    public void addPreferences(PreferencesItems item){
-        preferenceModel.addPreferences(item);
+    public void addOwnerPreferences(OwnerPreferenceItems o){
+        preferenceModel.addOwnerPreferences(o);
     }
 
-    public void getPreferences(Consumer<ArrayList<PreferencesItems>> responseCallback) {
+    public void getOwnerPreferences(Consumer<ArrayList<OwnerPreferenceItems>> responseCallback) {
         preferenceModel.getPreferences(
                 (QuerySnapshot querySnapshot) -> {
                     if (querySnapshot != null) {
-                        ArrayList<PreferencesItems> todoItems = new ArrayList<>();
+                        ArrayList<OwnerPreferenceItems> todoItems = new ArrayList<>();
                         for (DocumentSnapshot todoSnapshot : querySnapshot.getDocuments()) {
-                            PreferencesItems item = todoSnapshot.toObject(PreferencesItems.class);
+                            OwnerPreferenceItems item = todoSnapshot.toObject(OwnerPreferenceItems.class);
                             assert item != null;
                             item.UserID = todoSnapshot.getId();
                             todoItems.add(item);
@@ -34,15 +34,16 @@ public class FirebasePreferenceViewModel {
                         responseCallback.accept(todoItems);
                     }
                 },
-                (databaseError -> System.out.println("Error reading Preferences: " + databaseError))
+                (databaseError -> System.out.println("Error reading Owner Preferences: " + databaseError))
         );
     }
 
-    public void updatePreferencesByID(PreferencesItems item) {
-        preferenceModel.updatePreferencesByID(item);
+    public void updateOwnerPreferencesByID(OwnerPreferenceItems o) {
+        preferenceModel.updateOwnerPreferencesByID(o);
     }
 
     public void clear() {
         preferenceModel.clear();
     }
 }
+
