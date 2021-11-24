@@ -60,7 +60,7 @@ public class ClickProfile extends AppCompatActivity {
             ownerAge = b.getString("ownerAge");
             ownerGender = b.getString("ownerGender");
             ownerStates = b.getString("ownerStates");
-            ownerImage = b.getString("oownerImage");
+            ownerImage = b.getString("ownerImage");
             userLat = b.getDouble("ownerLat");
             userLong = b.getDouble("ownerLong");
         }
