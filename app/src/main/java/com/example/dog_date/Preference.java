@@ -14,10 +14,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.dog_date.models.PreferencesItems;
-import com.example.dog_date.models.FirebasePreferenceViewModel;
 
-
+import com.example.dog_date.Models.PreferencesItems;
+import com.example.dog_date.viewmodels.FirebasePreferenceViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.dog_date.ViewModels.FirebasePreferenceViewModel;
@@ -109,10 +108,11 @@ public class Preference extends AppCompatActivity {
 //        }
 //        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.Preference_owner.class);
 
+
         PreferencesItems preferencesItems = new PreferencesItems(UserId, genderDogP.trim(), dogSizeP.trim(), breedP.trim(), dogMaxAgeP.getText().toString(), dogMinAgep.getText().toString());
         vm.addPreferences(preferencesItems);
 
-        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.SwipeActivity.class);
+        Intent intent2 = new Intent(com.example.dog_date.Preference.this,com.example.dog_date.Preference_owner.class);
         startActivity(intent2);
     }
 

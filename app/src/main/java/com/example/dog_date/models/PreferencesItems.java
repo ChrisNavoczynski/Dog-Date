@@ -1,4 +1,4 @@
-package com.example.dog_date.models;
+package com.example.dog_date.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,12 +17,15 @@ public class PreferencesItems implements Parcelable {
     public String breedP;
     public String dogMaxAgeP;
     public String dogMinAgep;
+    public String ownerGenderP;
+    public String ownerMaxAge;
+    public String ownerMinAge;
 
-    public PreferencesItems() {
+    public PreferencesItems(String userId, String trim, String s, String trim1, String toString, String string) {
         // Default constructor
     }
 
-    public PreferencesItems(String UserID, String genderDogP, String dogSizeP, String breedP, String dogMaxAgeP, String dogMinAgep) {
+    public PreferencesItems(String UserID, String genderDogP, String dogSizeP, String breedP, String dogMaxAgeP, String dogMinAgep, String ownerGenderP, String ownerMaxAge, String ownerMinAge) {
         this.UserID = UserID;
         this.genderDogP = genderDogP;
         this.dogSizeP = dogSizeP;
@@ -60,7 +63,6 @@ public class PreferencesItems implements Parcelable {
         result.put("dogSizeP", dogSizeP);
         result.put("dogBreedP", breedP);
         result.put("dogMaxAgeP", dogMaxAgeP);
-        result.put("dogMinAgeP", dogMinAgep);
 
         return result;
     }

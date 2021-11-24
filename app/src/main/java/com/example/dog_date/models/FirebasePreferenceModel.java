@@ -1,6 +1,7 @@
 package com.example.dog_date.models;
 
-import com.example.dog_date.models.PreferencesItems;
+import com.example.dog_date.Models.PreferencesItems;
+import com.example.dog_date.Models.OwnerPreferenceItems;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,7 +30,24 @@ public class FirebasePreferenceModel {
         preferenceItemRef.add(item);
     }
 
+    public void addOwnerPreferences(OwnerPreferenceItems o){
+        CollectionReference preferenceItemRef = db.collection("Preferences");
+        preferenceItemRef.add(o);
+    }
+
     public void getPreferences(Consumer<QuerySnapshot> dataChangedCallback, Consumer<FirebaseFirestoreException> dataErrorCallback) {
+        ListenerRegistration listener = db.collection("Preferences")
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+                    if (e != null) {
+                        dataErrorCallback.accept(e);
+                    }
+
+                    dataChangedCallback.accept(queryDocumentSnapshots);
+                });
+        listeners.add(listener);
+    }
+
+    public void getOwnerPreferences(Consumer<QuerySnapshot> dataChangedCallback, Consumer<FirebaseFirestoreException> dataErrorCallback) {
         ListenerRegistration listener = db.collection("Preferences")
                 .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     if (e != null) {
@@ -50,6 +68,14 @@ public class FirebasePreferenceModel {
         data.put("dogMaxAgeP", item.dogMaxAgeP);
         data.put("dogMinAgeP", item.dogMinAgep);
         preferenceItemRef.update(data);
+    }
+
+    public void updateOwnerPreferencesByID(OwnerPreferenceItems o) {
+        DocumentReference preferenceItemRef = db.collection("Preferences").document(o.UserID);
+        Map<String, Object> data = new HashMap<>();
+        data.put("ownerGenderP", o.ownerGenderP);
+        data.put("ownerMaxAge", o.ownerMaxAge);
+        data.put("ownerMinAge", o.ownerMinAge);
     }
 
     public void clear() {

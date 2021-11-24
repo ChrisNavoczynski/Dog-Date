@@ -66,7 +66,8 @@
                 android:text="preference gender:"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                />
 
             <RadioGroup
                 android:layout_width="wrap_content"
@@ -78,16 +79,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Male"
-                    android:onClick="checkButton"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp"
+                    android:onClick="checkButton"/>
 
                 <RadioButton
                     android:id="@+id/Female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Female"
-                    android:onClick="checkButton"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp"
+                    android:onClick="checkButton"/>
             </RadioGroup>
 
         </LinearLayout>
@@ -116,8 +117,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/small"
-                    android:onClick="checkButton2"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:onClick="checkButton2"/>
 
                 <RadioButton
                     android:id="@+id/dog_size_medium_id"
@@ -125,8 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/medium"
-                    android:onClick="checkButton2"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:onClick="checkButton2"/>
 
                 <RadioButton
                     android:id="@+id/dog_size_large_id"
@@ -134,8 +135,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/large"
-                    android:onClick="checkButton2"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:onClick="checkButton2"/>
             </RadioGroup>
         </LinearLayout>
 
