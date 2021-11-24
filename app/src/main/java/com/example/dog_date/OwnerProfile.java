@@ -42,7 +42,7 @@ public class OwnerProfile extends AppCompatActivity{
     private Uri imageUri;
 
     ImageView uploadImage;
-    EditText ownerName, ownerAge;
+    EditText ownerName, ownerAge, ownerBioEditText;
     Button uploadButton,saveButton;
     RadioGroup radioGroup;
     RadioButton radioButton;
@@ -53,7 +53,7 @@ public class OwnerProfile extends AppCompatActivity{
     String dogAge;
     String dogBio;
 
-    String ownername, ownerage, ownergender, ownerStates, userId;
+    String ownername, ownerage, ownergender, ownerStates, ownerBio, userId;
     Spinner mySpinner;
     private StorageReference storageReference;
     private FirebaseFirestore db;
@@ -72,6 +72,7 @@ public class OwnerProfile extends AppCompatActivity{
         ownerAge = findViewById(R.id.ownerAge);
         radioGroup = findViewById(R.id.genderGroup);
         ownerName = findViewById(R.id.ownerName);
+        ownerBioEditText = findViewById(R.id.owner_bio_edit_text);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         Intent intent = getIntent();
@@ -211,6 +212,7 @@ public class OwnerProfile extends AppCompatActivity{
                                                     ownerAge.getText().toString().trim(),
                                                     downloadUri.toString(),
                                                     ownerStates.trim(),
+                                                    ownerBioEditText.getText().toString().trim(),
                                                     dogName,
                                                     dogBreed,
                                                     dogAge,

@@ -29,6 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="350dp"
             android:paddingTop="30dp"
+            android:paddingStart="65dp"
+            android:paddingEnd="50dp"
             android:contentDescription="@string/profile_picture" />
 
         <TextView

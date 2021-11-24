@@ -1,4 +1,4 @@
-package com.example.dog_date.datamodel;
+package com.example.dog_date.models;
 
 import com.example.dog_date.Models.PreferencesItems;
 import com.example.dog_date.Models.OwnerPreferenceItems;

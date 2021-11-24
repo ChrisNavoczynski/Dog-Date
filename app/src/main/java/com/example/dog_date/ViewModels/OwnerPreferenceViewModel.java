@@ -1,7 +1,6 @@
-package com.example.dog_date.ViewModels;
+package com.example.dog_date.viewmodels;
 
 import com.example.dog_date.Models.OwnerPreferenceItems;
-import com.example.dog_date.datamodel.FirebasePreferenceModel;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -10,10 +9,10 @@ import java.util.function.Consumer;
 
 public class OwnerPreferenceViewModel {
 
-    private FirebasePreferenceModel preferenceModel;
+    private com.example.dog_date.models.FirebasePreferenceModel preferenceModel;
 
     public OwnerPreferenceViewModel(){
-        preferenceModel = new FirebasePreferenceModel();
+        preferenceModel = new com.example.dog_date.models.FirebasePreferenceModel();
     }
 
     public void addOwnerPreferences(OwnerPreferenceItems o){

@@ -112,5 +112,10 @@
     <string name="create_new_profile">Create New Profile</string>
     <string name="app_uname">app_uName</string>
     <string name="type_your_message">Type your message</string>
+    <string name="user_image">User Image</string>
+    <string name="current_messages">Current Messages</string>
+    <string name="currently_online">Currently Online</string>
+    <string name="bio_text">Introduce yourself!:</string>
+    <string name="bio_hint">Write a small introduction!</string>
     >>>>>>> 7b7f3158dc9d2c608bfb3b336db69d4dc1464229
 </resources>

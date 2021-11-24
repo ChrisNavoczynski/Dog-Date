@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dog_date.CurrentUserActivity;
 import com.example.dog_date.R;
 import com.example.dog_date.ChatActivity;
 
@@ -27,7 +28,7 @@ public class MatchViewHolders extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(view.getContext(), ChatActivity.class);
+        Intent intent = new Intent(view.getContext(), CurrentUserActivity.class);
         Bundle b = new Bundle();
         b.putString("matchId", mMatchId.getText().toString());
         intent.putExtras(b);
