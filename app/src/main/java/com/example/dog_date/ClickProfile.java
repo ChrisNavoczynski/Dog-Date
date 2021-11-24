@@ -85,24 +85,18 @@ public class ClickProfile extends AppCompatActivity {
     }
 
     public Double getDistance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        return (dist);
+        Double R = 6371.00; // Radius of the earth in km
+        Double dLat = deg2rad(lat2-lat1);  // deg2rad below
+        Double dLon = deg2rad(lon2-lon1);
+        Double a =
+                Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        Double d = R * c; // Distance in km
+        return d;
     }
 
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
+    public Double deg2rad(Double deg) {
+        return deg * (Math.PI/180);
     }
 
     public void ClickMenu(View view) {
