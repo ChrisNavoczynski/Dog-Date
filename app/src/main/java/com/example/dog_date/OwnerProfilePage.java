@@ -17,6 +17,7 @@ public class OwnerProfilePage extends AppCompatActivity {
     TextView ownerNameAgeTextView;
     TextView ownerGenderTextView;
     TextView ownerStatesTextView;
+    TextView ownerBioTextView;
 
     DrawerLayout drawerLayout;
 
@@ -24,6 +25,7 @@ public class OwnerProfilePage extends AppCompatActivity {
     String ownerGender;
     String ownerAge;
     String ownerStates;
+    String ownerBio;
 
     private OwnerProfileViewModel viewModel;
 
@@ -32,13 +34,14 @@ public class OwnerProfilePage extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dog_profile_page);
+        setContentView(R.layout.owner_profile_page);
 
         viewModel = new OwnerProfileViewModel();
         profilePictureImageView = findViewById(R.id.profile_picture);
-        ownerNameAgeTextView = findViewById(R.id.dog_name_and_age_profile);
-        ownerGenderTextView = findViewById(R.id.dog_breed_profile);
-        ownerStatesTextView = findViewById(R.id.dog_bio_profile);
+        ownerNameAgeTextView = findViewById(R.id.owner_name_and_age_profile);
+        ownerGenderTextView = findViewById(R.id.owner_gender_profile);
+        ownerStatesTextView = findViewById(R.id.owner_states_profile);
+        ownerBioTextView = findViewById(R.id.owner_bio_profile);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         viewModel.getProfileInfo(
@@ -47,6 +50,7 @@ public class OwnerProfilePage extends AppCompatActivity {
                     ownerStates = profileInfo.getOwnerStates();
                     ownerGender = profileInfo.getOwnerGender();
                     ownerName = profileInfo.getOwnerName();
+                    ownerBio = profileInfo.getOwnerBio();
                     imageUri = profileInfo.getmImageUrl();
 
                     String ownerNameAndAge = ownerName + ", " + ownerAge;
@@ -55,6 +59,7 @@ public class OwnerProfilePage extends AppCompatActivity {
                     ownerNameAgeTextView.setText(ownerNameAndAge);
                     ownerGenderTextView.setText(ownerGender);
                     ownerStatesTextView.setText(ownerStates);
+                    ownerBioTextView.setText(ownerBio);
                 }
         );
     }

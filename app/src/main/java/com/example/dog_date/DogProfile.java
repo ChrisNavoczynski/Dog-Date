@@ -37,7 +37,7 @@ public class DogProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.bar_DogProfile);
-        setContentView(R.layout.doggy_profile);
+        setContentView(R.layout.dog_profile);
 
         drawerLayout = findViewById(R.id.drawer_layout);
 

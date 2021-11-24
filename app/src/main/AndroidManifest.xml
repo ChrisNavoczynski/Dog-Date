@@ -36,6 +36,7 @@
         <activity android:name=".ChatActivity" />
         <activity android:name=".UsersActivity"/>
         <activity android:name=".OwnerProfile" />
+        <activity android:name=".OwnerProfilePage"/>
         <activity android:name=".Login_SignupActivity"/>
         <activity android:name=".DogProfile" />
         <activity android:name=".DogProfilePage"/>

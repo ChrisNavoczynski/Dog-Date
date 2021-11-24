@@ -54,6 +54,14 @@
                 android:id="@+id/owner_states_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:paddingStart="20dp"
+                android:paddingBottom="15dp"/>
+
+            <TextView
+                android:id="@+id/owner_bio_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:paddingTop="15dp"
                 android:paddingStart="30dp"
