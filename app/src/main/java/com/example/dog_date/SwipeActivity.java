@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.Match.MatchActivity;
+import com.example.dog_date.utilities.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -200,7 +201,7 @@ public class SwipeActivity extends AppCompatActivity {
         chatID.put("chatWithUser", userID);
         chatID.put("key", key);
         DocumentReference currentUserDB = db.collection("Users").document(currentUser);
-        currentUserDB.collection("Chat")
+        currentUserDB.collection(Constants.KEY_COLLECTION_CHAT)
                 .add(chatID)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -212,7 +213,7 @@ public class SwipeActivity extends AppCompatActivity {
         DocumentReference userDB = db.collection("Users").document(userID);
         chat2ID.put("chatWithUser", currentUser);
         chat2ID.put("key", key);
-        userDB.collection("Chat")
+        userDB.collection(Constants.KEY_COLLECTION_CHAT)
                 .add(chat2ID)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -239,7 +240,7 @@ public class SwipeActivity extends AppCompatActivity {
             }
         });
 
-        CollectionReference currentUser2Db = db.collection("Users").document(currentUser).collection("Chat");
+        CollectionReference currentUser2Db = db.collection("Users").document(currentUser).collection(Constants.KEY_COLLECTION_CHAT);
         Query likeQuery = currentUserDb.whereEqualTo("userID", userID);
 
         likeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
