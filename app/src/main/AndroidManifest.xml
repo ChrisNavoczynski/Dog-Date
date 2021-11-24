@@ -43,6 +43,7 @@
         <activity android:name=".DogProfile" />
         <activity android:name=".DogProfilePage"/>
         <activity android:name=".LogInActivity"/>
+        <activity android:name=".ClickProfile"/>
 
         <service
             android:name=".firebase.ChatService"

@@ -1,4 +1,4 @@
-package com.example.dog_date.ViewModels;
+package com.example.dog_date.viewmodels;
 
 import com.example.dog_date.Upload;
 import com.example.dog_date.datamodel.OwnerProfileModel;

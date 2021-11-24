@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.dog_date.ViewModels.OwnerProfileViewModel;
+import com.example.dog_date.viewmodels.OwnerProfileViewModel;
 import com.squareup.picasso.Picasso;
 
 public class OwnerProfilePage extends AppCompatActivity {
@@ -36,9 +36,9 @@ public class OwnerProfilePage extends AppCompatActivity {
 
         viewModel = new OwnerProfileViewModel();
         profilePictureImageView = findViewById(R.id.profile_picture);
-        ownerNameAgeTextView = findViewById(R.id.dog_name_and_age_profile);
-        ownerGenderTextView = findViewById(R.id.dog_breed_profile);
-        ownerStatesTextView = findViewById(R.id.dog_bio_profile);
+        ownerNameAgeTextView = findViewById(R.id.owner_name_and_age_profile);
+        ownerGenderTextView = findViewById(R.id.owner_gender_profile);
+        ownerStatesTextView = findViewById(R.id.owner_states_profile);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         viewModel.getProfileInfo(
