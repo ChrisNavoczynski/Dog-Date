@@ -148,7 +148,6 @@ public class OwnerProfile extends AppCompatActivity {
                 }
             }
         });
-
         findViewById(R.id.stopLocationBut).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

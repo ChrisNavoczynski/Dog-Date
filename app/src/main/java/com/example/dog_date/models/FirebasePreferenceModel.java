@@ -1,7 +1,7 @@
 package com.example.dog_date.models;
 
 import com.example.dog_date.Models.PreferencesItems;
-import com.example.dog_date.Models.OwnerPreferenceItems;
+import com.example.dog_date.models.OwnerPreferenceItems;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;

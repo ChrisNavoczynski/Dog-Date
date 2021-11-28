@@ -1,4 +1,4 @@
-package com.example.dog_date.datamodel;
+package com.example.dog_date.models;
 
 import com.example.dog_date.Upload;
 import com.google.firebase.auth.FirebaseAuth;

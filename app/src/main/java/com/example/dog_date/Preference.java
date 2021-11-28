@@ -19,7 +19,6 @@ import com.example.dog_date.Models.PreferencesItems;
 import com.example.dog_date.viewmodels.FirebasePreferenceViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.example.dog_date.ViewModels.FirebasePreferenceViewModel;
 public class Preference extends AppCompatActivity {
 
     FirebasePreferenceViewModel vm;

@@ -1,4 +1,4 @@
-package com.example.dog_date.viewmodels;
+package com.example.dog_date.ViewModels;
 
 import com.example.dog_date.Models.PreferencesItems;
 import com.google.firebase.firestore.DocumentSnapshot;

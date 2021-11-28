@@ -16,7 +16,7 @@ public class Upload {
     private String dogAge;
     private String dogBio;
 
-    public Upload(){
+    public Upload(String trim, String s, String trim1, String s1, String toString, String trim2, String s2, String dogName, String dogBreed, String dogAge, String dogBio, double ownerLat, double ownerLong){
         // empty constructor needed
     }
 
