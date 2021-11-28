@@ -4,8 +4,10 @@ import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
 
@@ -25,6 +27,12 @@ public class SignUpActivityTest {
             = new ActivityScenarioRule<>(SignUpActivity.class);
 
     @Test
+    public void hasTextOnScreen() {
+        onView(withId(R.id.appTitle))
+                .check(matches(withText(R.string.create_new_profile)));
+    }
+
+/*    @Test
     public void usernameFieldRequired(){
         onView(withId(R.id.username)).perform(typeText(""));
         closeSoftKeyboard();
@@ -59,5 +67,5 @@ public class SignUpActivityTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.b_signUp)).perform(click());
         onView(allOf(withId(R.id.imageProfile), hasErrorText("Profile Image Required")));
-    }
+    }*/
 }
