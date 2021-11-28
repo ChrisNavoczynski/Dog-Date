@@ -43,7 +43,7 @@ public class MatchActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(false);
         mMatchesLayoutManager = new LinearLayoutManager(MatchActivity.this);
         mRecyclerView.setLayoutManager(mMatchesLayoutManager);
         mMatchAdapter = new MatchAdapter(getDataSetMatches(), MatchActivity.this);
