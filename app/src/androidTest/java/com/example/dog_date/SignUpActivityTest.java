@@ -34,7 +34,7 @@ public class SignUpActivityTest {
         Espresso.closeSoftKeyboard();
         closeSoftKeyboard();
         onView(withId(R.id.b_signUp)).perform(click());
-        onView(allOf(withId(R.id.username), hasErrorText("Please Enter Username")));
+        onView(allOf(withId(R.id.imageProfile), hasErrorText("Profile Image Required")));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class SignUpActivityTest {
         onView(withId(R.id.email)).perform(typeText("email"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.b_signUp)).perform(click());
-        onView(allOf(withId(R.id.password), hasErrorText("Please Enter Valid Email")));
+        onView(allOf(withId(R.id.imageProfile), hasErrorText("Profile Image Required")));
     }
 
     @Test
@@ -58,5 +58,6 @@ public class SignUpActivityTest {
         onView(withId(R.id.email)).perform(typeText("email@gmail.com"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.b_signUp)).perform(click());
+        onView(allOf(withId(R.id.imageProfile), hasErrorText("Profile Image Required")));
     }
 }
