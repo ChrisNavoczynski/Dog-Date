@@ -1,6 +1,6 @@
 package com.example.dog_date.models;
 
-import com.example.dog_date.Models.PreferencesItems;
+import com.example.dog_date.models.FirebasePreferenceModel;
 import com.example.dog_date.models.OwnerPreferenceItems;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -25,7 +25,7 @@ public class FirebasePreferenceModel {
         listeners = new ArrayList<>();
     }
 
-    public void addPreferences(PreferencesItems item){
+    public void addPreferences(com.example.dog_date.models.PreferencesItems item){
         CollectionReference preferenceItemRef = db.collection("Preferences");
         preferenceItemRef.add(item);
     }
