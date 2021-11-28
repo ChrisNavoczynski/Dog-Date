@@ -23,11 +23,11 @@ public class OwnerProfileTest {
     public ActivityScenarioRule<OwnerProfile> activityTestRule
             = new ActivityScenarioRule<>(OwnerProfile.class);
 
-    @Test
+/*    @Test
     public void hasTextOnScreen() {
         onView(withId(R.id.profileOwner))
                 .check(matches(withText("Your Profile")));
-    }
+    }*/
 
     @Test
     public void openDrawer() {
