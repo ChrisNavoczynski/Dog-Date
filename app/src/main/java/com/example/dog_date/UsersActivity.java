@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.dog_date.adapters.UsersAdapter;
 import com.example.dog_date.databinding.ActivityUsersBinding;
 import com.example.dog_date.listeners.UserListener;

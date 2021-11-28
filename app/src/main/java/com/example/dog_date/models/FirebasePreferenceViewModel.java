@@ -3,7 +3,6 @@ package com.example.dog_date.models;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
