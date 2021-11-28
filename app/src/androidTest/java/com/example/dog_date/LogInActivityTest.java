@@ -40,9 +40,9 @@ public class LogInActivityTest {
         closeSoftKeyboard();
         onView(withId(R.id.b_logIn)).perform(click());
         onView(allOf(withId(R.id.username), hasErrorText("Please Enter Username")));
-    }*/
+    }
 
-/*    @Test
+    @Test
     public void passwordFieldRequired(){
         onView(withId(R.id.username)).perform(typeText("someUser"));
         closeSoftKeyboard();
@@ -50,18 +50,18 @@ public class LogInActivityTest {
         closeSoftKeyboard();
         onView(withId(R.id.b_logIn)).perform(click());
         onView(allOf(withId(R.id.password), hasErrorText("Please Enter Password")));
-    }*/
+    }
 
-/*    @Test
+    @Test
     public void openDrawer() {
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT)))
                 .perform(DrawerActions.open());
     }*/
 
-/*    @Test
+    @Test
     public void hasTextOnScreen() {
         onView(withId(R.id.appTitle))
-                .check(matches(withText(R.string.dog_date)));
-    }*/
+                .check(matches(withText(R.string.welcome_back)));
+    }
 }

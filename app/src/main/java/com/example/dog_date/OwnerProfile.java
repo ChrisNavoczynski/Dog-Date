@@ -58,19 +58,15 @@ public class OwnerProfile extends AppCompatActivity {
     private Uri imageUri;
 
     ImageView uploadImage;
-
     EditText ownerName, ownerAge, ownerBioEditText;
     Button uploadButton,saveButton;
-
     RadioGroup radioGroup;
     RadioButton radioButton;
     DrawerLayout drawerLayout;
-
     String dogName;
     String dogBreed;
     String dogAge;
     String dogBio;
-
 
     double ownerLat, ownerLong;
     String ownername, ownerage, ownergender, ownerStates, ownerBio, userId;

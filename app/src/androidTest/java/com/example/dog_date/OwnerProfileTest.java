@@ -23,16 +23,16 @@ public class OwnerProfileTest {
     public ActivityScenarioRule<OwnerProfile> activityTestRule
             = new ActivityScenarioRule<>(OwnerProfile.class);
 
-/*    @Test
+    @Test
     public void hasTextOnScreen() {
         onView(withId(R.id.profileOwner))
-                .check(matches(withText("Your Profile")));
-    }*/
+                .check(matches(withText(R.string.your_profile)));
+    }
 
-    @Test
+/*    @Test
     public void openDrawer() {
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT)))
                 .perform(DrawerActions.open());
-    }
+    }*/
 }

@@ -118,5 +118,6 @@
     <string name="currently_online">Currently Online</string>
     <string name="bio_text">Introduce yourself!:</string>
     <string name="bio_hint">Write a small introduction!</string>
+    <string name="your_profile">Your Profile</string>
     >>>>>>> 7b7f3158dc9d2c608bfb3b336db69d4dc1464229
 </resources>
