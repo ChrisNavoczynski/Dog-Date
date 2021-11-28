@@ -62,7 +62,7 @@
             android:textSize="@dimen/sp_20"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:onClick="LogIn"/>
+            android:onClick="logIn"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -75,11 +75,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:ems="10"
             android:textSize="@dimen/sp_20"
             android:text="Log In"
-            android:onClick="LogIn"/>
+            android:onClick="logIn"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

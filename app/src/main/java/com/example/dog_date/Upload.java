@@ -5,8 +5,11 @@ public class Upload {
     private String ownerName;
     private String ownerGender;
     private String ownerAge;
+    private String ownerBio;
     private String mImageUrl;
     private String ownerStates;
+    private Double latitude;
+    private Double longitude;
 
     private String dogName;
     private String dogBreed;
@@ -17,18 +20,23 @@ public class Upload {
         // empty constructor needed
     }
 
-    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String dogName, String dogBreed, String dogAge, String dogBio){
+
+    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String dogName, String dogBreed, String dogAge, String dogBio, Double latitude, Double longitude){
         this.UserID = UserID;
         this.ownerName = ownerName;
         this.mImageUrl = mImageUrl;
         this.ownerAge = ownerAge;
         this.ownerGender = ownerGender;
         this.ownerStates = ownerStates;
+        this.ownerBio = ownerBio;
 
         this.dogName = dogName;
         this.dogBreed = dogBreed;
         this.dogAge = dogAge;
         this.dogBio = dogBio;
+
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getUserID() {
@@ -79,6 +87,10 @@ public class Upload {
         this.ownerStates = ownerStates;
     }
 
+    public String getOwnerBio() { return ownerBio; }
+
+    public void setOwnerBio(String ownerBio) { this.ownerBio = ownerBio; }
+
     public String getDogName() { return dogName; }
 
     public void setDogName(String dogName) { this.dogName = dogName; }
@@ -94,4 +106,20 @@ public class Upload {
     public String getDogBio() { return dogBio; }
 
     public void setDogBio(String dogBio) { this.dogBio = dogBio; }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 }

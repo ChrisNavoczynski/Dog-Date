@@ -44,7 +44,8 @@ public class SwipeActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    String ownername, ownerage, ownergender, ownerStates, currentUser, currentUserState;
+    String ownername, ownerage, ownergender, ownerStates, currentUser, currentUserState, ownerImage;
+    double ownerLat, ownerLong;
     ListView listView;
     List<Upload> rowItem;
 
@@ -61,10 +62,9 @@ public class SwipeActivity extends AppCompatActivity {
 
         getMatch();
 
-        arrayAdapter = new arrayAdapter(this, R.layout.item, rowItem );
+        arrayAdapter = new arrayAdapter(this, R.layout.item, rowItem);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
-
 
 
         flingContainer.setAdapter(arrayAdapter);
@@ -91,7 +91,7 @@ public class SwipeActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(SwipeActivity.this, "Nope",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SwipeActivity.this, "Nope", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
@@ -110,7 +110,7 @@ public class SwipeActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(SwipeActivity.this, "you like this person",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SwipeActivity.this, "you like this person", Toast.LENGTH_SHORT).show();
                             }
                         });
                 isMatch(userID);
@@ -136,7 +136,25 @@ public class SwipeActivity extends AppCompatActivity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                Toast.makeText(SwipeActivity.this, "Click",Toast.LENGTH_SHORT).show();
+                Upload user = (Upload) dataObject;
+                ownername = user.getOwnerName();
+                ownerage = user.getOwnerAge();
+                ownergender = user.getOwnerGender();
+                ownerImage = user.getmImageUrl();
+                ownerLat = user.getLatitude();
+                ownerLong = user.getLongitude();
+                ownerStates = user.getOwnerStates();
+
+                Toast.makeText(SwipeActivity.this, "Click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SwipeActivity.this, ClickProfile.class);
+                intent.putExtra("ownerName", ownername);
+                intent.putExtra("ownerAge", ownerage);
+                intent.putExtra("ownerGender", ownergender);
+                intent.putExtra("ownerStates", ownerStates);
+                intent.putExtra("ownerImage", ownerImage);
+                intent.putExtra("ownerLat", ownerLat);
+                intent.putExtra("ownerLong", ownerLong);
+                startActivity(intent);
             }
         });
 
@@ -150,14 +168,14 @@ public class SwipeActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ownerStates = documentSnapshot.getString("ownerStates");
 
-                CollectionReference  collectionReference = db.collection("Users");
+                CollectionReference collectionReference = db.collection("Users");
 
                 Query userQuery = collectionReference.whereEqualTo("ownerStates", ownerStates);
 
                 userQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             Upload user = documentSnapshot.toObject(Upload.class);
 
                             String userID = user.getUserID();
@@ -175,14 +193,14 @@ public class SwipeActivity extends AppCompatActivity {
         });
     }
 
-    private void isMatch(String userID){
-        CollectionReference  collectionReference = db.collection("Users").document(userID).collection("Yeah");
+    private void isMatch(String userID) {
+        CollectionReference collectionReference = db.collection("Users").document(userID).collection("Yeah");
         Query likeQuery = collectionReference.whereEqualTo("userID", currentUser);
 
         likeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     String uID = documentSnapshot.getId();
                     addToMatch(uID, userID);
                     Log.i(TAG, "New Match!!!");
@@ -196,7 +214,7 @@ public class SwipeActivity extends AppCompatActivity {
         });
     }
 
-    private void addToMatch(String key, String userID){
+    private void addToMatch(String key, String userID) {
         Map<String, Object> chatID = new HashMap<>();
         chatID.put("chatWithUser", userID);
         chatID.put("key", key);
@@ -223,7 +241,7 @@ public class SwipeActivity extends AppCompatActivity {
                 });
     }
 
-    private boolean checkNope(String userID){
+    private boolean checkNope(String userID) {
 
         CollectionReference currentUserDb = db.collection("Users").document(currentUser).collection("Nope");
         Query disLikeQuery = currentUserDb.whereEqualTo("userID", userID);
@@ -261,7 +279,6 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
 
-
     public void goToMatch(View view) {
         Intent intent = new Intent(SwipeActivity.this, MatchActivity.class);
         startActivity(intent);
@@ -281,19 +298,19 @@ public class SwipeActivity extends AppCompatActivity {
         recreate();
     }
 
-    public void ClickDogProfile (View view) {
+    public void ClickDogProfile(View view) {
         MainActivity.redirectActivity(this, DogProfilePage.class);
     }
 
-    public void ClickOwnerProfile (View view) {
-        MainActivity.redirectActivity(this,MatchActivity.class);
+    public void ClickOwnerProfile(View view) {
+        MainActivity.redirectActivity(this, MatchActivity.class);
     }
 
-    public void ClickChatMessaging (View view) {
+    public void ClickChatMessaging(View view) {
         MainActivity.redirectActivity(this, CurrentUserActivity.class);
     }
 
-    public void ClickLogout (View view) {
+    public void ClickLogout(View view) {
         MainActivity.logout(this);
     }
 

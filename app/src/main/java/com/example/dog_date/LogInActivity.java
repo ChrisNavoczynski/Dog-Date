@@ -147,4 +147,35 @@ public class LogInActivity extends AppCompatActivity {
         super.onPause();
         MainActivity.closeDrawer(drawerLayout);
     }
+
+    public void logIn(View view) {
+        final String mEmail = email.getText().toString();
+        final String mPassword = password.getText().toString();
+
+        loading(true);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        mAuth.signInWithEmailAndPassword(mEmail, mPassword);
+        database.collection(Constants.KEY_COLLECTION_USERS)
+                .whereEqualTo(Constants.KEY_EMAIL, binding.email.getText().toString())
+                .whereEqualTo(Constants.KEY_PASSWORD, binding.password.getText().toString())
+                .get()
+                .addOnCompleteListener(task -> {
+                    showToast("Logged In!");
+                    if(task.isSuccessful() && task.getResult() != null
+                            && task.getResult().getDocuments().size() > 0) {
+                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                        preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
+                        preferenceManager.putString(Constants.KEY_OWNER_NAME, documentSnapshot.getString(Constants.KEY_OWNER_NAME));
+                        preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
+                        Intent intent = new Intent(getApplicationContext(), SwipeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    } else {
+                        loading(false);
+                        showToast("Log In Failed: Email or Password is incorrect");
+                    }
+                });
+    }
 }
