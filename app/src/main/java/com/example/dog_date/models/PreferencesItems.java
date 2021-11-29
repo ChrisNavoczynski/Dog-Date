@@ -1,4 +1,4 @@
-package com.example.dog_date.Models;
+package com.example.dog_date.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

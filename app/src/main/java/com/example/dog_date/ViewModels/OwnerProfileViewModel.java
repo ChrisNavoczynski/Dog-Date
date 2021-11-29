@@ -1,7 +1,7 @@
-package com.example.dog_date.viewmodels;
+package com.example.dog_date.ViewModels;
 
 import com.example.dog_date.Upload;
-import com.example.dog_date.datamodel.OwnerProfileModel;
+import com.example.dog_date.models.OwnerProfileModel;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.function.Consumer;

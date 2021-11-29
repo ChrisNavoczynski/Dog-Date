@@ -32,7 +32,7 @@ public class LogInActivityTest {
     public ActivityScenarioRule<LogInActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LogInActivity.class);
 
-    @Test
+/*    @Test
     public void usernameFieldRequired() {
         onView(withId(R.id.username)).perform(typeText(""));
         closeSoftKeyboard();
@@ -57,11 +57,11 @@ public class LogInActivityTest {
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT)))
                 .perform(DrawerActions.open());
-    }
+    }*/
 
     @Test
     public void hasTextOnScreen() {
         onView(withId(R.id.appTitle))
-                .check(matches(withText(R.string.dog_date)));
+                .check(matches(withText(R.string.welcome_back)));
     }
 }

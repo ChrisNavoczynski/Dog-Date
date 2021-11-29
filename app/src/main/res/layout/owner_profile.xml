@@ -27,7 +27,7 @@
                 android:id="@+id/profileOwner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Your Profile"
+                android:text="@string/your_profile"
                 android:textSize="30dp"
                 android:textColor="@color/bronze"
                 android:fontFamily="@font/coiny"

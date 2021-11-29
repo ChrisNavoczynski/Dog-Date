@@ -58,7 +58,6 @@ public class LogInActivity extends AppCompatActivity {
     public void logIn() {
         final String mEmail = email.getText().toString();
         final String mPassword = password.getText().toString();
-
         loading(true);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore database = FirebaseFirestore.getInstance();

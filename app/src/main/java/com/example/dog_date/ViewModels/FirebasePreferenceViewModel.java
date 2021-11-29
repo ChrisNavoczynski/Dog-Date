@@ -1,9 +1,8 @@
-package com.example.dog_date.viewmodels;
+package com.example.dog_date.ViewModels;
 
-import com.example.dog_date.Models.PreferencesItems;
+import com.example.dog_date.models.PreferencesItems;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.function.Consumer;
 

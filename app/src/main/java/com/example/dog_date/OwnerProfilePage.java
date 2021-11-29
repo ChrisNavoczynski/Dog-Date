@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.dog_date.viewmodels.OwnerProfileViewModel;
+import com.example.dog_date.ViewModels.OwnerProfileViewModel;
 import com.squareup.picasso.Picasso;
 
 public class OwnerProfilePage extends AppCompatActivity {

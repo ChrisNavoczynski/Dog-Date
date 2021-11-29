@@ -15,7 +15,7 @@ import com.example.dog_date.MainActivity;
 import com.example.dog_date.R;
 import com.example.dog_date.SwipeActivity;
 import com.example.dog_date.Upload;
-import com.example.dog_date.viewmodels.OwnerProfileViewModel;
+import com.example.dog_date.ViewModels.OwnerProfileViewModel;
 import com.squareup.picasso.Picasso;
 
 public class ClickProfile extends AppCompatActivity {

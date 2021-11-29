@@ -1,6 +1,6 @@
-package com.example.dog_date.viewmodels;
+package com.example.dog_date.ViewModels;
 
-import com.example.dog_date.Models.OwnerPreferenceItems;
+import com.example.dog_date.models.OwnerPreferenceItems;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 

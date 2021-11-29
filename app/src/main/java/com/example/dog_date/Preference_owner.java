@@ -14,8 +14,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.dog_date.Models.OwnerPreferenceItems;
-import com.example.dog_date.viewmodels.OwnerPreferenceViewModel;
+import com.example.dog_date.models.OwnerPreferenceItems;
+import com.example.dog_date.ViewModels.OwnerPreferenceViewModel;
 
 public class Preference_owner extends AppCompatActivity {
 
