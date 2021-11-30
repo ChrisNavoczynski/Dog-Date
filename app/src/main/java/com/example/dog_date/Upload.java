@@ -16,12 +16,12 @@ public class Upload {
     private String dogAge;
     private String dogBio;
 
-    public Upload(String trim, String s, String trim1, String s1, String toString, String trim2, String s2, String dogName, String dogBreed, String dogAge, String dogBio, double ownerLat, double ownerLong){
+    public Upload(){
         // empty constructor needed
     }
 
 
-    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String dogName, String dogBreed, String dogAge, String dogBio, Double latitude, Double longitude){
+    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String ownerBio, String dogName, String dogBreed, String dogAge, String dogBio, Double latitude, Double longitude){
         this.UserID = UserID;
         this.ownerName = ownerName;
         this.mImageUrl = mImageUrl;
