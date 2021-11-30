@@ -21,7 +21,7 @@ public class Upload {
     }
 
 
-    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String dogName, String dogBreed, String dogAge, String dogBio, Double latitude, Double longitude){
+    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String ownerBio,  String dogName, String dogBreed, String dogAge, String dogBio, Double latitude, Double longitude){
         this.UserID = UserID;
         this.ownerName = ownerName;
         this.mImageUrl = mImageUrl;
