@@ -1,6 +1,7 @@
 package com.example.dog_date;
 
 import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -14,11 +15,15 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.contrib.DrawerMatchers.isClosed;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
 import android.view.Gravity;
+
+import com.example.dog_date.utilities.Constants;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
@@ -41,6 +46,17 @@ public class MainActivityTest {
     public void buttonPress() {
         closeSoftKeyboard();
         onView(withId(R.id.beginButton)).check(matches(ViewMatchers.withText(R.string.lets_begin_btn)));
+    }
+
+    @Test
+    public void canGoToLoginSignUpActivity() {
+        try {
+            Intents.init();
+            onView(withId(R.id.beginButton)).perform(click());
+            intended(hasComponent(Login_SignupActivity.class.getName()));
+        } finally {
+            Intents.release();
+        }
     }
 
     @Test
