@@ -2,14 +2,18 @@ package com.example.dog_date;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.DrawerMatchers.isClosed;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import android.view.Gravity;
 
 import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -27,7 +31,6 @@ public class LogIn_SignUpTest {
 
     @Test
     public void hasTextOnScreen() {
-
         onView(withId(R.id.appTitle))
                 .check(matches(withText(R.string.dog_date)));
     }
@@ -40,14 +43,24 @@ public class LogIn_SignUpTest {
     }
 
     @Test
-    public void buttonPressLogin() {
-        closeSoftKeyboard();
-        onView(withId(R.id.b_logIn)).check(matches(ViewMatchers.withText(R.string.log_in)));
+    public void canGoToLogInActivity() {
+        try {
+            Intents.init();
+            onView(withId(R.id.b_logIn)).perform(click());
+            intended(hasComponent(LogInActivity.class.getName()));
+        } finally {
+            Intents.release();
+        }
     }
 
     @Test
-    public void buttonPressSignUp() {
-        closeSoftKeyboard();
-        onView(withId(R.id.b_signUp)).check(matches(ViewMatchers.withText(R.string.sign_up)));
+    public void canGoToSignUpActivity() {
+        try {
+            Intents.init();
+            onView(withId(R.id.b_signUp)).perform(click());
+            intended(hasComponent(SignUpActivity.class.getName()));
+        } finally {
+            Intents.release();
+        }
     }
 }
