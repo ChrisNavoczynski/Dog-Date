@@ -2,8 +2,18 @@ package com.example.dog_date;
 
 import static android.content.ContentValues.TAG;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -11,12 +21,21 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.Match.MatchActivity;
 import com.example.dog_date.utilities.Constants;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import android.location.LocationManager;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -41,11 +60,14 @@ public class SwipeActivity extends AppCompatActivity {
     boolean nope = false;
 
     private FirebaseAuth mAuth;
+    LocationManager locationManager;
+    Location userLoc;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String ownername, ownerage, ownergender, ownerStates, currentUser, currentUserState, ownerImage;
-    double ownerLat, ownerLong;
+    double ownerLat, ownerLong,currentLat, currentLong, currentMax;
     ListView listView;
     List<Upload> rowItem;
 
@@ -55,10 +77,18 @@ public class SwipeActivity extends AppCompatActivity {
         setContentView(R.layout.swipe_activity);
 
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(
+                SwipeActivity.this
+        );
+
         drawerLayout = findViewById(R.id.drawer_layout);
         rowItem = new ArrayList<Upload>();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        userLoc = new Location(getProviderName());
+        gpsUpdates();
 
         getMatch();
 
@@ -160,6 +190,107 @@ public class SwipeActivity extends AppCompatActivity {
 
     }
 
+    public void gpsUpdates() {
+        if (ActivityCompat.checkSelfPermission(SwipeActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(SwipeActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+            locationManager.requestLocationUpdates(getProviderName(), 5000, 50, locationListener);
+        }
+
+    }
+
+    String getProviderName() {
+
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE); // Choose your accuracy requirement.
+
+        // Provide your criteria and flag enabledOnly that tells
+        // LocationManager only to return active providers.
+        return locationManager.getBestProvider(criteria, true);
+    }
+
+    private final LocationListener locationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            userLoc.setLatitude(location.getLatitude());
+            userLoc.setLongitude(location.getLongitude());
+            Log.i(TAG, "here is not the right path " + userLoc.getLatitude() + " and " + userLoc.getLongitude());
+            DocumentReference profileRef = db.collection("Users").document(currentUser);
+            Map<String, Object> data = new HashMap<>();
+            data.put("latitude",userLoc.getLatitude());
+            data.put("longitude",userLoc.getLongitude());
+            profileRef.update(data);
+            getMatch();
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {}
+
+        @Override
+        public void onProviderEnabled(String s) {}
+
+        @Override
+        public void onProviderDisabled(String s) {}
+    };
+    /*private void gpsUpdate() {
+        if (ActivityCompat.checkSelfPermission(SwipeActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(SwipeActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            Log.i(TAG, "here is the right path ");
+            getCurrentLocation();
+        }else{
+            Log.i(TAG, "here is not the right path ");
+            ActivityCompat.requestPermissions(SwipeActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getCurrentLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+
+                    if (location != null){
+                        ownerLat = location.getLatitude();
+                        ownerLong = location.getLongitude();
+                        DocumentReference profileRef = db.collection("Users").document(currentUser);
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("latitude", ownerLat);
+                        data.put("longitude", ownerLong);
+                        profileRef.update(data);
+                    }else{
+                        LocationRequest locationRequest = new LocationRequest()
+                                .setInterval(1000)
+                                .setFastestInterval(100)
+                                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                .setNumUpdates(1);
+
+                        LocationCallback locationCallback = new LocationCallback() {
+                            @Override
+                            public void onLocationResult(LocationResult locationResult) {
+                                Location location1 = locationResult.getLastLocation();
+                                ownerLat = locationResult.getLastLocation().getLatitude();
+                                ownerLong = locationResult.getLastLocation().getLongitude();
+                                DocumentReference profileRef = db.collection("Users").document(currentUser);
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("latitude", ownerLat);
+                                data.put("longitude", ownerLong);
+                                profileRef.update(data);
+                                Log.i(TAG, "here is the location " + ownerLat + ", " + ownerLong);
+                            }
+                        };
+                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+                    }
+                }
+            });
+        }else{
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
+    }*/
+
     private void getMatch() {
 
         DocumentReference currentUserDB = db.collection("Users").document(currentUser);
@@ -167,6 +298,9 @@ public class SwipeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ownerStates = documentSnapshot.getString("ownerStates");
+                currentLat = documentSnapshot.getDouble("latitude");
+                currentLong = documentSnapshot.getDouble("longitude");
+                currentMax = documentSnapshot.getDouble("maxRange");
 
                 CollectionReference collectionReference = db.collection("Users");
 
@@ -177,12 +311,14 @@ public class SwipeActivity extends AppCompatActivity {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             Upload user = documentSnapshot.toObject(Upload.class);
+                            float[] dist = new float[1];
+                            Location.distanceBetween(currentLat, currentLong, user.getLatitude(),user.getLongitude(),dist);
 
                             String userID = user.getUserID();
 
                             Log.i(TAG, "nope in here what is that now " + nope);
 
-                            if (!userID.equals(currentUser) && !checkNope(userID)) {
+                            if (!userID.equals(currentUser) && currentMax > dist[0]) {
                                 rowItem.add(user);
                                 arrayAdapter.notifyDataSetChanged();
                             }

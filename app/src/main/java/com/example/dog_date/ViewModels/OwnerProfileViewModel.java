@@ -25,5 +25,7 @@ public class OwnerProfileViewModel {
 
     public void updateProfile(Upload profile) { model.updateProfileById(profile); }
 
+    public void updateRange(Upload profile){ model.updateRange(profile); }
+
     public void clear() { model.clear(); }
 }

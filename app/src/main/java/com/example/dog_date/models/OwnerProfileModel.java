@@ -49,6 +49,13 @@ public class OwnerProfileModel {
         profileRef.update(data);
     }
 
+    public void updateRange(Upload profile) {
+        DocumentReference profileRef = fb.collection("Users").document(profile.getUserID());
+        Map<String, Object> data = new HashMap<>();
+        data.put("MaxRange", profile.getMaxRange());
+        profileRef.update(data);
+    }
+
     public void clear() {
         listeners.forEach(ListenerRegistration::remove);
     }

@@ -10,6 +10,7 @@ public class Upload {
     private String ownerStates;
     private Double latitude;
     private Double longitude;
+    private Double MaxRange;
 
     private String dogName;
     private String dogBreed;
@@ -21,7 +22,9 @@ public class Upload {
     }
 
 
-    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl, String ownerStates, String ownerBio, String dogName, String dogBreed, String dogAge, String dogBio, Double latitude, Double longitude){
+    public Upload(String UserID, String ownerName, String ownerGender, String ownerAge, String mImageUrl,
+                  String ownerStates, String ownerBio, String dogName, String dogBreed, String dogAge,
+                  String dogBio, Double latitude, Double longitude, Double MaxRange){
         this.UserID = UserID;
         this.ownerName = ownerName;
         this.mImageUrl = mImageUrl;
@@ -37,6 +40,7 @@ public class Upload {
 
         this.latitude = latitude;
         this.longitude = longitude;
+        this.MaxRange = MaxRange;
     }
 
     public String getUserID() {
@@ -121,5 +125,13 @@ public class Upload {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Double getMaxRange() {
+        return MaxRange;
+    }
+
+    public void setMaxRange(Double maxRange) {
+        MaxRange = maxRange;
     }
 }
