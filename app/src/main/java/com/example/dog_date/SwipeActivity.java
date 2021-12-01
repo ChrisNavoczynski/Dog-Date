@@ -318,7 +318,7 @@ public class SwipeActivity extends AppCompatActivity {
 
                             Log.i(TAG, "nope in here what is that now " + nope);
 
-                            if (!userID.equals(currentUser) && currentMax > dist[0]) {
+                            if (!userID.equals(currentUser) && currentMax > dist[0]*0.000621371192) {
                                 rowItem.add(user);
                                 arrayAdapter.notifyDataSetChanged();
                             }
