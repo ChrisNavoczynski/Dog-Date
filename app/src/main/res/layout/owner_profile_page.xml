@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/dd_background"
     android:id="@+id/drawer_layout"
-    tools:context=".DogProfilePage">
+    tools:context=".OwnerProfilePage">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -66,6 +66,40 @@
                 android:paddingTop="15dp"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/OwnerRange"
+                    android:text="Max search range:"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <EditText
+                    android:id="@+id/ownerSetRange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="unit in miles"
+                    android:inputType="number"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/updateRange"
+                android:text="save"
+                android:onClick="updataMaxRange"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="145dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

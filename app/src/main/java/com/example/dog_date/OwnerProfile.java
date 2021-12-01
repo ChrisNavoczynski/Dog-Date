@@ -68,7 +68,7 @@ public class OwnerProfile extends AppCompatActivity {
     String dogAge;
     String dogBio;
 
-    double ownerLat, ownerLong;
+    double ownerLat, ownerLong, MaxRange;
     String ownername, ownerage, ownergender, ownerStates, ownerBio, userId;
 
     Spinner mySpinner;
@@ -93,6 +93,7 @@ public class OwnerProfile extends AppCompatActivity {
         ownerName = findViewById(R.id.ownerName);
         ownerBioEditText = findViewById(R.id.owner_bio_edit_text);
         drawerLayout = findViewById(R.id.drawer_layout);
+        MaxRange = 100;// set default range in miles
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
@@ -325,7 +326,8 @@ public class OwnerProfile extends AppCompatActivity {
                                                     dogAge,
                                                     dogBio,
                                                     ownerLat,
-                                                    ownerLong
+                                                    ownerLong,
+                                                    MaxRange
                                             );
                                     db.collection("Users").document(userId)
                                             .set(upload)

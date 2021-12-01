@@ -1,7 +1,11 @@
 package com.example.dog_date;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,11 +73,14 @@ public class ClickProfile extends AppCompatActivity {
                 (Upload profileInfo) -> {
                     currentUserLat = profileInfo.getLatitude();
                     currentUserlong = profileInfo.getLongitude();
+                    float[] dist = new float[1];
 
-                    distance = String.valueOf(getDistance(currentUserLat,currentUserlong, userLat, userLong));
+                    Log.i(TAG, "here is ulat " + userLat + "here is ulong " + userLong + "here is curlat " + currentUserLat + "here is curlong " + currentUserlong);
+                    Location.distanceBetween(currentUserLat, currentUserlong, userLat, userLong,dist);
+                    double dis = dist[0] * 0.000621371192;
 
                     String ownerNameAndAge = ownerName + ", " + ownerAge;
-                    String distanceInMiles = distance + "miles";
+                    String distanceInMiles = dis + " miles";
 
                     Picasso.get().load(ownerImage).resize(300 , 320).centerCrop().into(profilePictureImageView);
                     ownerNameAgeTextView.setText(ownerNameAndAge);
@@ -90,6 +97,7 @@ public class ClickProfile extends AppCompatActivity {
         dist = Math.acos(dist);
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
+
         return (dist);
     }
 
