@@ -2,7 +2,6 @@ package com.example.dog_date.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.EditText;
 
 import com.google.firebase.database.Exclude;
 
@@ -11,29 +10,44 @@ import java.util.Map;
 
 public class OwnerPreferenceItems implements Parcelable {
 
-    public String UserID;
     public String ownerGenderP;
     public String ownerMaxAge;
     public String ownerMinAge;
+    public String UserID;
+    public String genderDogP;
+    public String dogSizeP;
+    public String breedP;
+    public String dogMaxAgeP;
+    public String dogMinAgep;
 
-    public OwnerPreferenceItems(String userId, String ownerGenderP, EditText ownerMaxAge, EditText ownerMinAge) {
+    public OwnerPreferenceItems() {
         //constructor
     }
 
-    public OwnerPreferenceItems(String UserID, String ownerGenderP, String ownerMaxAge, String ownerMinAge) {
-        this.UserID = UserID;
+    public OwnerPreferenceItems(String ownerGenderP, String ownerMaxAge, String ownerMinAge, String UserID, String genderDogP, String dogSizeP, String breedP, String dogMaxAgeP, String dogMinAgep) {
         this.ownerGenderP = ownerGenderP;
         this.ownerMaxAge = ownerMaxAge;
         this.ownerMinAge = ownerMinAge;
+        this.UserID = UserID;
+        this.genderDogP = genderDogP;
+        this.dogSizeP = dogSizeP;
+        this.breedP = breedP;
+        this.dogMaxAgeP = dogMaxAgeP;
+        this.dogMinAgep = dogMinAgep;
 
     }
 
 
     protected OwnerPreferenceItems(Parcel in) {
-        UserID = in.readString();
         ownerGenderP = in.readString();
         ownerMaxAge = in.readString();
         ownerMinAge = in.readString();
+        UserID = in.readString();
+        genderDogP = in.readString();
+        dogSizeP = in.readString();
+        breedP = in.readString();
+        dogMaxAgeP = in.readString();
+        dogMinAgep = in.readString();
     }
 
     public static final Creator<OwnerPreferenceItems> CREATOR = new Creator<OwnerPreferenceItems>() {
@@ -57,6 +71,10 @@ public class OwnerPreferenceItems implements Parcelable {
         result.put("ownerGenderP", ownerGenderP);
         result.put("ownerMaxAge", ownerMaxAge);
         result.put("ownerMinAge", ownerMinAge);
+        result.put("dogGenderP", genderDogP);
+        result.put("dogSizeP", dogSizeP);
+        result.put("dogBreedP", breedP);
+        result.put("dogMaxAgeP", dogMaxAgeP);
 
         return result;
     }
@@ -68,9 +86,14 @@ public class OwnerPreferenceItems implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(UserID);
         dest.writeString(ownerGenderP);
         dest.writeString(ownerMaxAge);
         dest.writeString(ownerMinAge);
+        dest.writeString(UserID);
+        dest.writeString(genderDogP);
+        dest.writeString(dogSizeP);
+        dest.writeString(breedP);
+        dest.writeString(dogMaxAgeP);
+        dest.writeString(dogMinAgep);
     }
 }

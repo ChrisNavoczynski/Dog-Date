@@ -21,15 +21,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class CurrentUserActivity extends BaseActivity implements ConversationListener {
 
