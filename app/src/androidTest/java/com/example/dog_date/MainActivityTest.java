@@ -68,14 +68,4 @@ public class MainActivityTest {
         onView(withText("Dog Profile")).perform(click());
         onView(withId(R.id.dog_profile_title)).check(matches(withText("Create your dog's profile")));
     }
-
-/*    @Test
-    public void openOwnerProfileDrawer() {
-        onView(withId(R.id.drawer_layout))
-                .check(matches(isClosed(Gravity.LEFT)))
-                .perform(DrawerActions.open());
-
-        onView(withText("Owner Profile")).perform(click());
-        onView(withId(R.id.profileOwner)).check(matches(withText("Your Profile")));
-    }*/
 }
