@@ -183,9 +183,4 @@ public class CurrentUserActivity extends BaseActivity implements ConversationLis
         MainActivity.logout(this);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MainActivity.closeDrawer(drawerLayout);
-    }
 }
