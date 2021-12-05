@@ -16,6 +16,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.models.OwnerPreferenceItems;
 import com.example.dog_date.ViewModels.OwnerPreferenceViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Preference_owner extends AppCompatActivity {
 
@@ -26,7 +28,10 @@ public class Preference_owner extends AppCompatActivity {
     Spinner spinner;
     Button b_save;
 
-    String ownerGenderP, UserId;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
+    String userId, ownerGenderP, breedP, dogSizeP, dogMaxAgeP, dogMinAgep, genderDogP;
 
     private OwnerPreferenceViewModel vm;
 
@@ -41,10 +46,25 @@ public class Preference_owner extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
+        db = FirebaseFirestore.getInstance();
+
         genderGroup = findViewById(R.id.genderGroup);
         ownerMaxAge = findViewById(R.id.ownerMaxAge);
         ownerMinAge = findViewById(R.id.ownerMinAge);
         b_save = findViewById(R.id.save);
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+
+        if (b.containsKey("breedP") && b.containsKey("dogMaxAgeP") && b.containsKey("dogMinAgep") && b.containsKey("dogSizeP") && b.containsKey("genderDogP")) {
+            breedP = b.getString("breedP");
+            dogMaxAgeP = b.getString("dogMaxAgeP");
+            dogMinAgep = b.getString("dogMinAgep");
+            dogSizeP = b.getString("dogSizeP");
+            genderDogP = b.getString("genderDogP");
+        }
 
         spinner = findViewById(R.id.spinner1);
 
@@ -63,7 +83,6 @@ public class Preference_owner extends AppCompatActivity {
 
     public void goToProfile(View v){
 
-
         if((genderGroup.getCheckedRadioButtonId() == -1)){
             Toast.makeText(Preference_owner.this, "Select Preferred Gender", Toast.LENGTH_LONG).show();
             return;
@@ -77,38 +96,11 @@ public class Preference_owner extends AppCompatActivity {
             return;
         }
 
-        OwnerPreferenceItems ownerPreferenceItems = new OwnerPreferenceItems(UserId, ownerGenderP.trim(), ownerMaxAge.toString(), ownerMinAge.toString());
+        OwnerPreferenceItems ownerPreferenceItems = new OwnerPreferenceItems(ownerGenderP.trim(), ownerMaxAge.getText().toString(), ownerMinAge.getText().toString(), userId, genderDogP.trim(), dogSizeP.trim(), breedP.trim(), dogMaxAgeP.toString(), dogMinAgep.toString());
         vm.addOwnerPreferences(ownerPreferenceItems);
 
         Intent intent2 = new Intent(com.example.dog_date.Preference_owner.this,com.example.dog_date.DogProfilePage.class);
         startActivity(intent2);
     }
 
-    public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
-    }
-
-    public void ClickLogo(View view) {
-        MainActivity.closeDrawer(drawerLayout);
-    }
-
-    public void ClickHome(View view) {
-        MainActivity.redirectActivity(this, SwipeActivity.class);
-    }
-
-    public void ClickDogProfile (View view) { MainActivity.redirectActivity(this, DogProfilePage.class); }
-
-    public void ClickOwnerProfile (View view) {
-        MainActivity.redirectActivity(this,OwnerProfile.class);
-    }
-
-    public void ClickLogout (View view) {
-        MainActivity.logout(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MainActivity.closeDrawer(drawerLayout);
-    }
 }
