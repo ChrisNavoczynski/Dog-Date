@@ -54,7 +54,6 @@ public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConve
         }
 
         void setData(ChatMessage chatMessage) {
-            //binding.imageProfile.setImageBitmap((getConversationImage(chatMessage.conversationImage)));
             binding.textUname.setText(chatMessage.conversationName);
             binding.textRecentMessage.setText(chatMessage.message);
             binding.getRoot().setOnClickListener(v -> {
@@ -66,9 +65,4 @@ public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConve
             });
         }
     }
-
-/*    private Bitmap getConversationImage(String encodedImage) {
-        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }*/
 }

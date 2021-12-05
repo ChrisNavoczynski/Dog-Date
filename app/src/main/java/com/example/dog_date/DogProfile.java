@@ -9,10 +9,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 
 public class DogProfile extends AppCompatActivity {
     String[] breeds = {
@@ -41,8 +39,8 @@ public class DogProfile extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.select_dialog_item,breeds);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>
+                (this, android.R.layout.select_dialog_item, breeds);
         //Gets the instance of AutoCompleteTextView
         AutoCompleteTextView actv =  (AutoCompleteTextView)findViewById(R.id.dog_breed_text_id);
         actv.setThreshold(1);//starts working from the first character

@@ -4,6 +4,10 @@ import com.example.dog_date.models.DogProfileModel;
 import com.example.dog_date.Upload;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import com.example.dog_date.models.DogProfileModel;
+import com.example.dog_date.Upload;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import java.util.function.Consumer;
 
 public class DogProfileViewModel {

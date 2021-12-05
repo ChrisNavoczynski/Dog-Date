@@ -7,10 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.dog_date.CurrentUserActivity;
 import com.example.dog_date.R;
-import com.example.dog_date.ChatActivity;
 
 public class MatchViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 

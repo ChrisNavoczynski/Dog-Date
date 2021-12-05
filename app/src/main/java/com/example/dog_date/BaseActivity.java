@@ -3,7 +3,6 @@ package com.example.dog_date;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.dog_date.utilities.Constants;
 import com.example.dog_date.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentReference;

@@ -15,9 +15,7 @@ import com.example.dog_date.ViewModels.OwnerProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.protobuf.StringValue;
 import com.squareup.picasso.Picasso;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,6 +99,10 @@ public class OwnerProfilePage extends AppCompatActivity {
     public void ClickDogProfile (View view) { MainActivity.redirectActivity(this,DogProfilePage.class); }
 
     public void ClickOwnerProfile (View view) { recreate(); }
+
+    public void ClickChatMessaging(View view) {
+        MainActivity.redirectActivity(this, CurrentUserActivity.class);
+    }
 
     public void ClickLogout (View view) {
         MainActivity.logout(this);

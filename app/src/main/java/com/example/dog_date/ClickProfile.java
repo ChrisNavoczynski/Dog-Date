@@ -14,11 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.dog_date.DogProfilePage;
-import com.example.dog_date.MainActivity;
-import com.example.dog_date.R;
-import com.example.dog_date.SwipeActivity;
-import com.example.dog_date.Upload;
 import com.example.dog_date.ViewModels.OwnerProfileViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -124,6 +119,8 @@ public class ClickProfile extends AppCompatActivity {
     public void ClickDogProfile (View view) { MainActivity.redirectActivity(this, DogProfilePage.class); }
 
     public void ClickOwnerProfile (View view) { recreate(); }
+
+    public void ClickChatMessaging (View view) { MainActivity.redirectActivity(this, CurrentUserActivity.class); }
 
     public void ClickLogout (View view) {
         MainActivity.logout(this);
