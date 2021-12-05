@@ -154,21 +154,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:textSize="20dp"
-                android:text="Max:"/>
-
-            <EditText
-                android:id="@+id/dogMaxAge"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:hint="Minimum Age"
-                android:inputType="number"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:textSize="20dp"
                 android:text="Min:"/>
@@ -178,8 +163,25 @@
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:hint="Maximum Age"
+                android:hint="Min Age"
                 android:inputType="number"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textSize="20dp"
+                android:text="Max:"/>
+
+            <EditText
+                android:id="@+id/dogMaxAge"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:hint="Max Age"
+                android:inputType="number"/>
+
+
 
         </LinearLayout>
 
