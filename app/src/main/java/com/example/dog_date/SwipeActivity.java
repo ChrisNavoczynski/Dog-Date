@@ -44,7 +44,6 @@ public class SwipeActivity extends AppCompatActivity {
     private Upload users_data[];
     private arrayAdapter arrayAdapter;
     private int i;
-    DrawerLayout drawerLayout;
     boolean nope = false;
 
     private FirebaseAuth mAuth;
@@ -69,7 +68,6 @@ public class SwipeActivity extends AppCompatActivity {
                 SwipeActivity.this
         );
 
-        drawerLayout = findViewById(R.id.drawer_layout);
         rowItem = new ArrayList<Upload>();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
@@ -402,45 +400,9 @@ public class SwipeActivity extends AppCompatActivity {
         return nope;
     }
 
-
     public void goToMatch(View view) {
         Intent intent = new Intent(SwipeActivity.this, MatchActivity.class);
         startActivity(intent);
         return;
-    }
-
-
-    public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
-    }
-
-    public void ClickLogo(View view) {
-        MainActivity.closeDrawer(drawerLayout);
-    }
-
-    public void ClickHome(View view) {
-        recreate();
-    }
-
-    public void ClickDogProfile(View view) {
-        MainActivity.redirectActivity(this, DogProfilePage.class);
-    }
-
-    public void ClickOwnerProfile(View view) {
-        MainActivity.redirectActivity(this, MatchActivity.class);
-    }
-
-    public void ClickChatMessaging(View view) {
-        MainActivity.redirectActivity(this, CurrentUserActivity.class);
-    }
-
-    public void ClickLogout(View view) {
-        MainActivity.logout(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MainActivity.closeDrawer(drawerLayout);
     }
 }
