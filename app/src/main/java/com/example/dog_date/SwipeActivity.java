@@ -44,7 +44,6 @@ public class SwipeActivity extends AppCompatActivity {
     private Upload users_data[];
     private arrayAdapter arrayAdapter;
     private int i;
-    DrawerLayout drawerLayout;
     boolean nope = false;
 
     private FirebaseAuth mAuth;
@@ -69,7 +68,6 @@ public class SwipeActivity extends AppCompatActivity {
                 SwipeActivity.this
         );
 
-        drawerLayout = findViewById(R.id.drawer_layout);
         rowItem = new ArrayList<Upload>();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
@@ -219,65 +217,6 @@ public class SwipeActivity extends AppCompatActivity {
         @Override
         public void onProviderDisabled(String s) {}
     };
-    /*private void gpsUpdate() {
-        if (ActivityCompat.checkSelfPermission(SwipeActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(SwipeActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            Log.i(TAG, "here is the right path ");
-            getCurrentLocation();
-        }else{
-            Log.i(TAG, "here is not the right path ");
-            ActivityCompat.requestPermissions(SwipeActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-                    Location location = task.getResult();
-
-                    if (location != null){
-                        ownerLat = location.getLatitude();
-                        ownerLong = location.getLongitude();
-                        DocumentReference profileRef = db.collection("Users").document(currentUser);
-                        Map<String, Object> data = new HashMap<>();
-                        data.put("latitude", ownerLat);
-                        data.put("longitude", ownerLong);
-                        profileRef.update(data);
-                    }else{
-                        LocationRequest locationRequest = new LocationRequest()
-                                .setInterval(1000)
-                                .setFastestInterval(100)
-                                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                .setNumUpdates(1);
-
-                        LocationCallback locationCallback = new LocationCallback() {
-                            @Override
-                            public void onLocationResult(LocationResult locationResult) {
-                                Location location1 = locationResult.getLastLocation();
-                                ownerLat = locationResult.getLastLocation().getLatitude();
-                                ownerLong = locationResult.getLastLocation().getLongitude();
-                                DocumentReference profileRef = db.collection("Users").document(currentUser);
-                                Map<String, Object> data = new HashMap<>();
-                                data.put("latitude", ownerLat);
-                                data.put("longitude", ownerLong);
-                                profileRef.update(data);
-                                Log.i(TAG, "here is the location " + ownerLat + ", " + ownerLong);
-                            }
-                        };
-                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
-                    }
-                }
-            });
-        }else{
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
-    }*/
 
     private void getMatch() {
 
@@ -306,7 +245,7 @@ public class SwipeActivity extends AppCompatActivity {
 
                             Log.i(TAG, "nope in here what is that now " + nope);
 
-                            if (!userID.equals(currentUser) && currentMax > dist[0]) {
+                            if (!userID.equals(currentUser) && currentMax > dist[0] * 0.000621371192) {
                                 rowItem.add(user);
                                 arrayAdapter.notifyDataSetChanged();
                             }
@@ -402,45 +341,9 @@ public class SwipeActivity extends AppCompatActivity {
         return nope;
     }
 
-
     public void goToMatch(View view) {
         Intent intent = new Intent(SwipeActivity.this, MatchActivity.class);
         startActivity(intent);
         return;
-    }
-
-
-    public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
-    }
-
-    public void ClickLogo(View view) {
-        MainActivity.closeDrawer(drawerLayout);
-    }
-
-    public void ClickHome(View view) {
-        recreate();
-    }
-
-    public void ClickDogProfile(View view) {
-        MainActivity.redirectActivity(this, DogProfilePage.class);
-    }
-
-    public void ClickOwnerProfile(View view) {
-        MainActivity.redirectActivity(this, MatchActivity.class);
-    }
-
-    public void ClickChatMessaging(View view) {
-        MainActivity.redirectActivity(this, CurrentUserActivity.class);
-    }
-
-    public void ClickLogout(View view) {
-        MainActivity.logout(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MainActivity.closeDrawer(drawerLayout);
     }
 }
