@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +32,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.utilities.Constants;

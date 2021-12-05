@@ -14,8 +14,6 @@
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/main_toolbar"/>
 
         <TextView
             android:id="@+id/appTitle"
@@ -40,16 +38,12 @@
             android:src="@drawable/home_img"
             app:shapeAppearanceOverlay="@style/Rounded" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"/>
-
-
         <Button
             android:id="@+id/b_logIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_30sdp"
             android:ems="10"
             android:textSize="@dimen/sp_20"
             android:text="@string/log_in" />
@@ -58,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
             android:ems="10"
             android:textSize="@dimen/sp_20"
             android:text="@string/sign_up" />

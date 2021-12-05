@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class arrayAdapter extends ArrayAdapter<Upload> {
-    Context context;
 
     public arrayAdapter(Context context, int resourceId, List<Upload> items){
         super(context, resourceId,items);

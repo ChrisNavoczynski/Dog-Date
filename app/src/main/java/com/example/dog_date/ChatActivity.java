@@ -1,15 +1,9 @@
 package com.example.dog_date;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.dog_date.adapters.ChatAdapter;
 import com.example.dog_date.databinding.ActivityChatBinding;
 import com.example.dog_date.models.ChatMessage;
@@ -25,11 +19,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -223,11 +214,6 @@ public class ChatActivity extends BaseActivity {
             checkForConversation();
         }
     };
-
-/*    private Bitmap getBitmapFromEncodedString(String encodedImage) {
-        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }*/
 
     private void loadReceiverDetails() {
         receiverUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);

@@ -1,29 +1,15 @@
 package com.example.dog_date;
 
-import static android.content.ContentValues.TAG;
-
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dog_date.ViewModels.DogProfileViewModel;
-
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class DogProfilePage extends AppCompatActivity {
     ImageView profilePictureImageView;

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.dog_date.adapters.RecentConversationsAdapter;
 import com.example.dog_date.databinding.ActivityCurrentUserBinding;
 import com.example.dog_date.listeners.ConversationListener;
@@ -21,15 +23,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class CurrentUserActivity extends BaseActivity implements ConversationListener {
 
@@ -38,6 +33,7 @@ public class CurrentUserActivity extends BaseActivity implements ConversationLis
     private List<ChatMessage> conversations;
     private RecentConversationsAdapter conversationsAdapter;
     private FirebaseFirestore db;
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +63,6 @@ public class CurrentUserActivity extends BaseActivity implements ConversationLis
 
     private void loadUserDetails() {
         binding.textUname.setText(preferenceManager.getString(Constants.KEY_OWNER_NAME));
-/*       byte[] bytes = Base64.decode(Constants.KEY_IMAGE, Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
-        binding.imageProfile.setImageBitmap(bitmap);*/
     }
 
     private void showToast(String message) {
@@ -98,11 +91,9 @@ public class CurrentUserActivity extends BaseActivity implements ConversationLis
                     chatMessage.senderId = senderId;
                     chatMessage.receiverId = receiverId;
                     if (preferenceManager.getString(Constants.KEY_USER_ID).equals(senderId)) {
-                        //chatMessage.conversationImage = documentChange.getDocument().getString(Constants.KEY_RECEIVER_IMAGE);
                         chatMessage.conversationName = documentChange.getDocument().getString(Constants.KEY_RECEIVER_NAME);
                         chatMessage.conversationId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
                     } else {
-                        //chatMessage.conversationImage = documentChange.getDocument().getString(Constants.KEY_SENDER_IMAGE);
                         chatMessage.conversationName = documentChange.getDocument().getString(Constants.KEY_SENDER_NAME);
                         chatMessage.conversationId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
                     }
@@ -168,5 +159,33 @@ public class CurrentUserActivity extends BaseActivity implements ConversationLis
         intent.putExtra(Constants.KEY_USER, user);
         preferenceManager.putString(Constants.KEY_RECEIVER_ID, user.id);
         startActivity(intent);
+    }
+
+    public void ClickMenu(View view) {
+        MainActivity.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo(View view) {
+        MainActivity.closeDrawer(drawerLayout);
+    }
+
+    public void ClickHome(View view) {
+        MainActivity.redirectActivity(this, SwipeActivity.class);
+    }
+
+    public void ClickDogProfile (View view) { MainActivity.redirectActivity(this,DogProfilePage.class); }
+
+    public void ClickOwnerProfile (View view) { MainActivity.redirectActivity(this, OwnerProfilePage.class); }
+
+    public void ClickChatMessaging(View view) { recreate(); }
+
+    public void ClickLogout (View view) {
+        MainActivity.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainActivity.closeDrawer(drawerLayout);
     }
 }

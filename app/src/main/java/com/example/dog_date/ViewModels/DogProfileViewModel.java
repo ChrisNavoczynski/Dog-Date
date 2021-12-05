@@ -1,11 +1,9 @@
 package com.example.dog_date.ViewModels;
 
-import android.util.Log;
+
 import com.example.dog_date.models.DogProfileModel;
 import com.example.dog_date.Upload;
 import com.google.firebase.firestore.DocumentSnapshot;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class DogProfileViewModel {
