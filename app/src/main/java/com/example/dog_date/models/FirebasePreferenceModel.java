@@ -1,7 +1,5 @@
 package com.example.dog_date.models;
 
-import com.example.dog_date.models.FirebasePreferenceModel;
-import com.example.dog_date.models.OwnerPreferenceItems;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,10 +23,6 @@ public class FirebasePreferenceModel {
         listeners = new ArrayList<>();
     }
 
-    public void addPreferences(com.example.dog_date.models.PreferencesItems item){
-        CollectionReference preferenceItemRef = db.collection("Preferences");
-        preferenceItemRef.add(item);
-    }
 
     public void addOwnerPreferences(OwnerPreferenceItems o){
         CollectionReference preferenceItemRef = db.collection("Preferences");
@@ -59,16 +53,6 @@ public class FirebasePreferenceModel {
         listeners.add(listener);
     }
 
-    public void updatePreferencesByID(PreferencesItems item) {
-        DocumentReference preferenceItemRef = db.collection("Preferences").document(item.UserID);
-        Map<String, Object> data = new HashMap<>();
-        data.put("dogGenderP", item.genderDogP);
-        data.put("dogSizeP", item.dogSizeP);
-        data.put("dogBreedP", item.breedP);
-        data.put("dogMaxAgeP", item.dogMaxAgeP);
-        data.put("dogMinAgeP", item.dogMinAgep);
-        preferenceItemRef.update(data);
-    }
 
     public void updateOwnerPreferencesByID(OwnerPreferenceItems o) {
         DocumentReference preferenceItemRef = db.collection("Preferences").document(o.UserID);
@@ -76,11 +60,17 @@ public class FirebasePreferenceModel {
         data.put("ownerGenderP", o.ownerGenderP);
         data.put("ownerMaxAge", o.ownerMaxAge);
         data.put("ownerMinAge", o.ownerMinAge);
+        data.put("dogGenderP", o.genderDogP);
+        data.put("dogSizeP", o.dogSizeP);
+        data.put("dogBreedP", o.breedP);
+        data.put("dogMaxAgeP", o.dogMaxAgeP);
+        data.put("dogMinAgeP", o.dogMinAgep);
     }
 
     public void clear() {
         // Clear all the listeners onPause
         listeners.forEach(ListenerRegistration::remove);
     }
+
 
 }
