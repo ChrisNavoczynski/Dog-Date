@@ -1,0 +1,39 @@
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+deleted file mode 100644
+--- a/.idea/deploymentTargetDropDown.xml	(revision 3e9b30a421b204f7933b4596d548c6df932c30ff)
++++ /dev/null	(revision 3e9b30a421b204f7933b4596d548c6df932c30ff)
+@@ -1,28 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="deploymentTargetDropDown">
+-    <targetSelectedWithDropDown>
+-      <Target>
+-        <type value="QUICK_BOOT_TARGET" />
+-        <deviceKey>
+-          <Key>
+-            <type value="VIRTUAL_DEVICE_PATH" />
+-            <value value="C:\Users\Chris Navoczynski\.android\avd\Pixel_3a_API_30_x86.avd" />
+-          </Key>
+-        </deviceKey>
+-      </Target>
+-    </targetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2021-12-05T05:51:03.605668300Z" />
+-    <targetsSelectedWithDialog>
+-      <Target>
+-        <type value="QUICK_BOOT_TARGET" />
+-        <deviceKey>
+-          <Key>
+-            <type value="VIRTUAL_DEVICE_PATH" />
+-            <value value="C:\Users\Chris Navoczynski\.android\avd\Pixel_4a_API_30.avd" />
+-          </Key>
+-        </deviceKey>
+-      </Target>
+-    </targetsSelectedWithDialog>
+-  </component>
+-</project>
+\ No newline at end of file
