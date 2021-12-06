@@ -37,4 +37,35 @@ public class LogInActivityTest {
         onView(withId(R.id.appTitle))
                 .check(matches(withText(R.string.welcome_back)));
     }
+    @Test
+    public void logIn() {
+        onView(withId(R.id.email)).perform(typeText("mock@gmail.com"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText("Asdfasdf1!"));
+        closeSoftKeyboard();
+    }
+
+    @Test
+    public void hasEmail() {
+        onView(withId(R.id.email)).perform(typeText(""));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText("Asdfasdf1!"));
+        closeSoftKeyboard();
+    }
+
+    @Test
+    public void hasPassword() {
+        onView(withId(R.id.email)).perform(typeText("mock@gmail.com"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText(""));
+        closeSoftKeyboard();
+    }
+
+    @Test
+    public void hasValidPassword() {
+        onView(withId(R.id.email)).perform(typeText("mock@gmail.com"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password)).perform(typeText("a"));
+        closeSoftKeyboard();
+    }
 }
