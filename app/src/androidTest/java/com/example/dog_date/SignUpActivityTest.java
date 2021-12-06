@@ -25,9 +25,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.LargeTest;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.test.espresso.Root;
@@ -48,7 +45,6 @@ import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class SignUpActivityTest {
 
     private FirebaseAuth firebaseAuth;

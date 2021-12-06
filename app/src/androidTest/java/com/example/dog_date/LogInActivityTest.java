@@ -51,6 +51,8 @@ public class LogInActivityTest {
         closeSoftKeyboard();
         onView(withId(R.id.password)).perform(typeText("Asdfasdf1!"));
         closeSoftKeyboard();
+        onView(withId(R.id.b_logIn)).perform(click());
+        onView(allOf(withId(R.id.username), hasErrorText("Please Enter Valid Email")));
     }
 
     @Test
@@ -59,6 +61,8 @@ public class LogInActivityTest {
         closeSoftKeyboard();
         onView(withId(R.id.password)).perform(typeText(""));
         closeSoftKeyboard();
+        onView(withId(R.id.b_logIn)).perform(click());
+        onView(allOf(withId(R.id.username), hasErrorText("Password must contain: At least 8 characters, 1 number, 1 special character, 1 Upper and lower case letters")));
     }
 
     @Test
