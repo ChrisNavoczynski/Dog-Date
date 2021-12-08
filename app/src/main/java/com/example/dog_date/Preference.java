@@ -31,8 +31,6 @@ public class Preference extends AppCompatActivity {
     Button nextBut;
     DrawerLayout drawerLayout;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +42,6 @@ public class Preference extends AppCompatActivity {
         nextBut = findViewById(R.id.nextButton);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        UserId = mAuth.getCurrentUser().getUid();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this,android.R.layout.select_dialog_item,breeds);

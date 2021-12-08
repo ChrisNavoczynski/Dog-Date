@@ -86,16 +86,6 @@ public class ClickProfile extends AppCompatActivity {
         );
     }
 
-    private double getDistance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-
-        return (dist);
-    }
-
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
@@ -130,5 +120,13 @@ public class ClickProfile extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         MainActivity.closeDrawer(drawerLayout);
+    }
+
+    public OwnerProfileViewModel getViewModel() {
+        return viewModel;
+    }
+
+    public void setViewModel(OwnerProfileViewModel vm) {
+        viewModel = vm;
     }
 }
