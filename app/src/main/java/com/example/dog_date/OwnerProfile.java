@@ -93,22 +93,12 @@ public class OwnerProfile extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         MaxRange = 100;// set default range in miles
 
-        Intent intent = getIntent();
-        Bundle b = intent.getExtras();
-
-        if (b.containsKey("dogName") && b.containsKey("dogBreed") && b.containsKey("dogAge") && b.containsKey("dogBio")) {
-            dogName = b.getString("dogName");
-            dogBreed = b.getString("dogBreed");
-            dogAge = b.getString("dogAge");
-            dogBio = b.getString("dogBio");
-        }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(
                 OwnerProfile.this
         );
 
         mAuth = FirebaseAuth.getInstance();
-        userId = mAuth.getCurrentUser().getUid();
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("profile");
 
@@ -127,28 +117,6 @@ public class OwnerProfile extends AppCompatActivity {
                 }
             }
         });
-
-        // location button which ask for permission for location service and keeping running in the back.
-        /*findViewById(R.id.locationBut).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(
-                            OwnerProfile.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            REQUEST_CODE_LOCATION_PERMISSION);
-                } else {
-                    startLocationService();
-                }
-            }
-        });
-        findViewById(R.id.stopLocationBut).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stopLocationService();
-            }
-        });*/
 
         /*
          save button gonna go to next activity and upload info to FireStore
@@ -295,6 +263,17 @@ public class OwnerProfile extends AppCompatActivity {
     // upload function, check all the input and go to next activity
     private void uploadPic() {
 
+        userId = mAuth.getCurrentUser().getUid();
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+
+        if (b.containsKey("dogName") && b.containsKey("dogBreed") && b.containsKey("dogAge") && b.containsKey("dogBio")) {
+            dogName = b.getString("dogName");
+            dogBreed = b.getString("dogBreed");
+            dogAge = b.getString("dogAge");
+            dogBio = b.getString("dogBio");
+        }
+
         ownerStates = mySpinner.getSelectedItem().toString();
 
         if (imageUri != null) {
@@ -359,9 +338,9 @@ public class OwnerProfile extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent(OwnerProfile.this, Preference.class);
+        Intent intent2 = new Intent(OwnerProfile.this, Preference.class);
         //intent.putExtra(Constants.KEY_OWNER_GENDER, ownergender);
-        startActivity(intent);
+        startActivity(intent2);
     }
 
     public void ClickMenu(View view) {

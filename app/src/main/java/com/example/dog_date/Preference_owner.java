@@ -47,24 +47,12 @@ public class Preference_owner extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
 
         mAuth = FirebaseAuth.getInstance();
-        userId = mAuth.getCurrentUser().getUid();
         db = FirebaseFirestore.getInstance();
 
         genderGroup = findViewById(R.id.genderGroup);
         ownerMaxAge = findViewById(R.id.ownerMaxAge);
         ownerMinAge = findViewById(R.id.ownerMinAge);
         b_save = findViewById(R.id.save);
-
-        Intent intent = getIntent();
-        Bundle b = intent.getExtras();
-
-        if (b.containsKey("breedP") && b.containsKey("dogMaxAgeP") && b.containsKey("dogMinAgep") && b.containsKey("dogSizeP") && b.containsKey("genderDogP")) {
-            breedP = b.getString("breedP");
-            dogMaxAgeP = b.getString("dogMaxAgeP");
-            dogMinAgep = b.getString("dogMinAgep");
-            dogSizeP = b.getString("dogSizeP");
-            genderDogP = b.getString("genderDogP");
-        }
 
         spinner = findViewById(R.id.spinner1);
 
@@ -82,6 +70,18 @@ public class Preference_owner extends AppCompatActivity {
     }
 
     public void goToProfile(View v){
+        userId = mAuth.getCurrentUser().getUid();
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+
+        if (b.containsKey("breedP") && b.containsKey("dogMaxAgeP") && b.containsKey("dogMinAgep") && b.containsKey("dogSizeP") && b.containsKey("genderDogP")) {
+            breedP = b.getString("breedP");
+            dogMaxAgeP = b.getString("dogMaxAgeP");
+            dogMinAgep = b.getString("dogMinAgep");
+            dogSizeP = b.getString("dogSizeP");
+            genderDogP = b.getString("genderDogP");
+        }
 
         if((genderGroup.getCheckedRadioButtonId() == -1)){
             Toast.makeText(Preference_owner.this, "Select Preferred Gender", Toast.LENGTH_LONG).show();

@@ -205,7 +205,6 @@ public class SwipeActivity extends AppCompatActivity {
             data.put("latitude",userLoc.getLatitude());
             data.put("longitude",userLoc.getLongitude());
             profileRef.update(data);
-            getMatch();
         }
 
         @Override
@@ -302,43 +301,6 @@ public class SwipeActivity extends AppCompatActivity {
                         Log.i(TAG, "add to chat 2");
                     }
                 });
-    }
-
-    private boolean checkNope(String userID) {
-
-        CollectionReference currentUserDb = db.collection("Users").document(currentUser).collection("Nope");
-        Query disLikeQuery = currentUserDb.whereEqualTo("userID", userID);
-
-        disLikeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                nope = true;
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.i(TAG, "not in here");
-            }
-        });
-
-        CollectionReference currentUser2Db = db.collection("Users").document(currentUser).collection(Constants.KEY_COLLECTION_CHAT);
-        Query likeQuery = currentUserDb.whereEqualTo("userID", userID);
-
-        likeQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                nope = true;
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.i(TAG, "not in here");
-            }
-        });
-
-        Log.i(TAG, "nope is here" + nope);
-
-        return nope;
     }
 
     public void goToMatch(View view) {
