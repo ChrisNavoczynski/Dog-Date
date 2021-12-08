@@ -44,26 +44,9 @@ import java.util.Map;
 @RunWith(AndroidJUnit4.class)
 public class OwnerProfileTest {
 
-    private FirebaseAuth mAuth;
-
-    private FirebaseUser firebaseUser;
-
     @Rule
     public ActivityScenarioRule<OwnerProfile> activityScenarioRule
             = new ActivityScenarioRule<OwnerProfile>(OwnerProfile.class);
-
-    @Test
-    public void checkRadio() {
-        onView(withId(R.id.Male))
-                .perform(click());
-
-        onView(withId(R.id.Male))
-                .check(matches(isChecked()));
-
-        onView(withId(R.id.Female))
-                .check(matches(isNotChecked()));
-    }
-
 
     @Test
     public void canEnterNameAndSignUp(){
